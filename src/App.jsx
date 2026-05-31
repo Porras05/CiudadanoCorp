@@ -325,7 +325,7 @@ export default function ETHOSFERA() {
               {CHARACTERS.map(char=>(
                 <div key={char.id} onClick={()=>{setPc({...char, fullName:'', jobTitle:'', company:''});setScreen('info');}} className="character-card" style={{padding:'2rem',cursor:'pointer',display:'flex',flexDirection:'column',alignItems:'center',gap:'1rem'}}>
                   <div style={{width:'100%',maxWidth:260,height:260,background:'linear-gradient(170deg,#0D2C1B,#0A361F,#163E1B)',border:'1px solid rgba(123,174,73,0.35)',borderRadius:16,display:'flex',alignItems:'center',justifyContent:'center',overflow:'hidden'}}>
-                    <div dangerouslySetInnerHTML={{__html:charSVG(char,150,170,true)}}/>
+                    <img src={char.avatar} alt={char.name} style={{width:'100%',height:'100%',objectFit:'cover'}} />
                   </div>
                   <div style={{textAlign:'center'}}>
                     <div style={{fontSize:'1.1rem',fontWeight:700,color:'#F4F6E7'}}>{char.name}</div>
@@ -344,7 +344,7 @@ export default function ETHOSFERA() {
           <div style={{display:'grid',gridTemplateColumns:'220px 1fr',gap:'3rem',maxWidth:780,width:'100%',alignItems:'start'}}>
             <div style={{display:'flex',flexDirection:'column',alignItems:'center',gap:'0.5rem',position:'sticky',top:'2rem'}}>
               <div style={{width:180,height:220,background:'linear-gradient(170deg,#0D1522,#101A0F,#1A1209)',border:'1px solid rgba(201,168,76,0.35)',borderRadius:10,display:'flex',alignItems:'center',justifyContent:'center',paddingBottom:0,overflow:'hidden',boxShadow:'0 16px 48px rgba(0,0,0,0.65)'}}>
-                <div dangerouslySetInnerHTML={{__html:charSVG(pc,110,145,true)}}/>
+                <img src={pc.avatar} alt={pc.name} style={{width:'100%',height:'100%',objectFit:'cover'}} />
               </div>
               <div style={{color:'#C9A84C',fontSize:'0.78rem',fontWeight:500,letterSpacing:1}}>{pc.name}</div>
             </div>
