@@ -203,9 +203,6 @@ export default function ETHOSFERA() {
   });
   const [adminMode, setAdminMode] = useState(false);
   const [adminAuth, setAdminAuth] = useState('');
-  const [modules, setModules] = useState(MODULES);
-  const [newModule, setNewModule] = useState({title:'',tag:'',description:'',scenarios:[]});
-  const [newScenario, setNewScenario] = useState({tag:'',title:'',body:'',context:'',options:[]});
   const [adminPassword] = useState('ethosfera2025'); // En producción usar variable de entorno
   const [dbSaved, setDbSaved] = useState(false);
   const [dbStatus, setDbStatus] = useState('idle');
