@@ -22,9 +22,23 @@ const CHARACTERS = [
   { id: 'char2', name: 'Masculino', skin: '#D4956A', hair: '#3B1F00', outfit: '#2E5F8A', hairstyle: 'short', expression: 'serious', avatar: '/images/hombre.png' },
 ];
 
-// Decreto 815 - Módulo único
-const MODULES = [
-  {id:0,icon:'📋',title:'Decreto 815 - Función Pública',tag:'Ética y Transparencia',desc:'Principios y valores en la administración pública.',scenarios:[
+// Función para cargar módulos desde localStorage
+function loadModulesFromStorage() {
+  try {
+    const saved = localStorage.getItem('ethosfera_modules');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      return parsed.length > 0 ? parsed : getDefaultModules();
+    }
+  } catch (e) {
+    console.error('Error loading modules:', e);
+  }
+  return getDefaultModules();
+}
+
+function getDefaultModules() {
+  return [
+    {id:0,icon:'📋',title:'Decreto 815 - Función Pública',tag:'Ética y Transparencia',desc:'Principios y valores en la administración pública.',scenarios:[
     {tag:'DILEMA 01',title:'La solicitud informal',body:'Un ciudadano acude a ti informalmente solicitando una gestión que debe hacer a través de canales formales. Dice que no entiende los procedimientos y que su necesidad es urgente.',context:'El procedimiento formal tarda 5 días hábiles. El ciudadano está frustrado. Saltarte los canales sería más rápido pero violaría el Decreto 815.',options:[
       {text:'Lo atiendes informalmente para agilizar. Al fin el resultado es lo que importa.',profile:'pragmatic',outcome:'El ciudadano queda satisfecho. Sin embargo, estableces un precedente de arbitrariedad.',consequence:'+Satisfacción inmediata · −Transparencia'},
       {text:'Le explicas claramente el procedimiento formal y lo acompañas en el proceso.',profile:'idealist',outcome:'El ciudadano entiende y sigue los canales. Aprende cómo funciona la administración.',consequence:'+Cumplimiento · +Educación al ciudadano'},
@@ -56,7 +70,18 @@ const MODULES = [
       {text:'Propones un criterio transparente de asignación de recursos que todos puedan ver.',profile:'systemic',outcome:'La decisión se toma con transparencia. Establece precedente para futuras asignaciones.',consequence:'+Transparencia sistémica · Debate inicial'},
     ]},
   ]},
-];
+  ];
+}
+
+function saveModulesToStorage(modules) {
+  try {
+    localStorage.setItem('ethosfera_modules', JSON.stringify(modules));
+    return true;
+  } catch (e) {
+    console.error('Error saving modules:', e);
+    return false;
+  }
+}
 
 const PROFILES = {
   pragmatic: { name: 'Pragmático', desc: 'Decisiones centradas en resultados y consecución de objetivos.', color: '#C9A84C' },
@@ -185,6 +210,130 @@ export default function ETHOSFERA() {
   const [dbSaved, setDbSaved] = useState(false);
   const [dbStatus, setDbStatus] = useState('idle');
   const [pdfLoading, setPdfLoading] = useState(false);
+  const [modules, setModules] = useState(() => loadModulesFromStorage());
+  const [showModuleForm, setShowModuleForm] = useState(false);
+  const [editingModuleIdx, setEditingModuleIdx] = useState(null);
+  const [currentScenarioIdx, setCurrentScenarioIdx] = useState(0);
+  const [formData, setFormData] = useState({
+    moduleIcon: '📋',
+    moduleTitle: '',
+    moduleTag: '',
+    moduleDesc: '',
+    scenarioTag: '',
+    scenarioTitle: '',
+    scenarioBody: '',
+    scenarioContext: '',
+    options: [
+      {text:'',profile:'pragmatic',outcome:'',consequence:''},
+      {text:'',profile:'idealist',outcome:'',consequence:''},
+      {text:'',profile:'relational',outcome:'',consequence:''},
+      {text:'',profile:'systemic',outcome:'',consequence:''},
+    ]
+  });
+
+  // Guardar módulos cuando cambian
+  const updateModules = (newModules) => {
+    setModules(newModules);
+    saveModulesToStorage(newModules);
+  };
+
+  const addModule = () => {
+    if (!formData.moduleTitle.trim() || !formData.scenarioTitle.trim()) {
+      alert('Por favor completa título del módulo y al menos un escenario');
+      return;
+    }
+
+    const newModule = {
+      id: modules.length,
+      icon: formData.moduleIcon,
+      title: formData.moduleTitle,
+      tag: formData.moduleTag,
+      desc: formData.moduleDesc,
+      scenarios: [{
+        tag: formData.scenarioTag,
+        title: formData.scenarioTitle,
+        body: formData.scenarioBody,
+        context: formData.scenarioContext,
+        options: formData.options.filter(opt => opt.text.trim())
+      }]
+    };
+
+    if (newModule.scenarios[0].options.length < 2) {
+      alert('Cada escenario debe tener al menos 2 opciones');
+      return;
+    }
+
+    const updated = [...modules, newModule];
+    updateModules(updated);
+    resetForm();
+    alert('Módulo agregado exitosamente');
+  };
+
+  const addScenarioToModule = (moduleIdx) => {
+    if (!formData.scenarioTitle.trim()) {
+      alert('Por favor completa el título del escenario');
+      return;
+    }
+
+    const newScenario = {
+      tag: formData.scenarioTag,
+      title: formData.scenarioTitle,
+      body: formData.scenarioBody,
+      context: formData.scenarioContext,
+      options: formData.options.filter(opt => opt.text.trim())
+    };
+
+    if (newScenario.options.length < 2) {
+      alert('Cada escenario debe tener al menos 2 opciones');
+      return;
+    }
+
+    const updated = [...modules];
+    updated[moduleIdx].scenarios.push(newScenario);
+    updateModules(updated);
+    resetForm();
+    setEditingModuleIdx(null);
+    alert('Escenario agregado exitosamente');
+  };
+
+  const resetForm = () => {
+    setFormData({
+      moduleIcon: '📋',
+      moduleTitle: '',
+      moduleTag: '',
+      moduleDesc: '',
+      scenarioTag: '',
+      scenarioTitle: '',
+      scenarioBody: '',
+      scenarioContext: '',
+      options: [
+        {text:'',profile:'pragmatic',outcome:'',consequence:''},
+        {text:'',profile:'idealist',outcome:'',consequence:''},
+        {text:'',profile:'relational',outcome:'',consequence:''},
+        {text:'',profile:'systemic',outcome:'',consequence:''},
+      ]
+    });
+    setShowModuleForm(false);
+  };
+
+  const deleteModule = (idx) => {
+    if (window.confirm('¿Eliminar este módulo y todos sus escenarios?')) {
+      const updated = modules.filter((_, i) => i !== idx).map((m, i) => ({...m, id: i}));
+      updateModules(updated);
+    }
+  };
+
+  const deleteScenario = (moduleIdx, scenarioIdx) => {
+    if (modules[moduleIdx].scenarios.length <= 1) {
+      alert('Cada módulo debe tener al menos un escenario');
+      return;
+    }
+    if (window.confirm('¿Eliminar este escenario?')) {
+      const updated = [...modules];
+      updated[moduleIdx].scenarios.splice(scenarioIdx, 1);
+      updateModules(updated);
+    }
+  };
 
   const startModule = (idx) => {
     const opts = shuffle(modules[idx].scenarios[0].options);
@@ -494,22 +643,135 @@ export default function ETHOSFERA() {
 
       {/* ── ADMIN PANEL ── */}
       {adminMode&&(
-        <div style={{position:'fixed',bottom:'1rem',right:'1rem',background:'#1A1A2E',border:'2px solid #C9A84C',borderRadius:8,padding:'1rem',maxWidth:400,maxHeight:'80vh',overflowY:'auto',zIndex:9999,boxShadow:'0 8px 32px rgba(0,0,0,0.8)'}}>
-          <h3 style={{color:'#C9A84C',marginBottom:'0.5rem',fontSize:'0.9rem'}}>PANEL ADMIN</h3>
+        <div style={{position:'fixed',bottom:'1rem',right:'1rem',background:'#1A1A2E',border:'2px solid #C9A84C',borderRadius:8,padding:'1.2rem',maxWidth:600,maxHeight:'90vh',overflowY:'auto',zIndex:9999,boxShadow:'0 8px 32px rgba(0,0,0,0.8)',fontFamily:'inherit'}}>
+          <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'1rem'}}>
+            <h3 style={{color:'#C9A84C',fontSize:'0.95rem',fontWeight:700,margin:0}}>PANEL ADMIN - GESTIÓN DE CONTENIDO</h3>
+            <button onClick={()=>setAdminMode(false)} style={{background:'none',border:'none',color:'#C9A84C',fontSize:'1.2rem',cursor:'pointer'}}>✕</button>
+          </div>
+
           {!adminAuth?(
             <div>
-              <input type="password" placeholder="Contraseña" value={adminAuth} onChange={(e)=>setAdminAuth(e.target.value)} style={{width:'100%',padding:'0.4rem',borderRadius:2,marginBottom:'0.5rem',fontSize:'0.8rem'}}/>
-              <button onClick={()=>{if(adminAuth===adminPassword){setAdminAuth('AUTH');alert('Autenticado');}else{alert('Contraseña incorrecta');}}} style={{background:'#C9A84C',color:'#0D0D14',padding:'0.3rem 0.8rem',fontSize:'0.75rem',border:'none',borderRadius:2,cursor:'pointer',width:'100%'}}>Ingresar</button>
+              <input type="password" placeholder="Contraseña admin" value={adminAuth} onChange={(e)=>setAdminAuth(e.target.value)} onKeyPress={(e)=>{if(e.key==='Enter'&&adminAuth===adminPassword){setAdminAuth('AUTH');alert('Autenticado');}}} style={{width:'100%',padding:'0.5rem',borderRadius:2,marginBottom:'0.5rem',fontSize:'0.8rem',background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.3)',color:'#F5F0E8',boxSizing:'border-box'}}/>
+              <button onClick={()=>{if(adminAuth===adminPassword){setAdminAuth('AUTH');alert('Autenticado');}else{alert('Contraseña incorrecta');}}} style={{background:'#C9A84C',color:'#0D0D14',padding:'0.4rem 0.8rem',fontSize:'0.75rem',border:'none',borderRadius:2,cursor:'pointer',width:'100%',fontWeight:600}}>Ingresar</button>
             </div>
           ):(
             <div>
-              <button onClick={()=>setAdminAuth('')} style={{background:'transparent',border:'1px solid #C9A84C',color:'#C9A84C',padding:'0.2rem 0.6rem',fontSize:'0.7rem',borderRadius:2,cursor:'pointer',width:'100%',marginBottom:'0.5rem'}}>Salir</button>
-              <div style={{fontSize:'0.75rem',color:'#F5F0E8',marginTop:'0.5rem'}}>
-                <p>Módulos activos: {modules.length}</p>
-                <p>Total escenarios: {modules.reduce((a,m)=>a+m.scenarios.length,0)}</p>
+              <div style={{display:'flex',gap:'0.5rem',marginBottom:'1rem'}}>
+                <button onClick={()=>setAdminAuth('')} style={{flex:1,background:'transparent',border:'1px solid #C9A84C',color:'#C9A84C',padding:'0.3rem 0.6rem',fontSize:'0.7rem',borderRadius:2,cursor:'pointer',fontWeight:600}}>Salir</button>
+                <button onClick={()=>{setShowModuleForm(!showModuleForm);setEditingModuleIdx(null);}} style={{flex:1,background:'#C9A84C',color:'#0D0D14',padding:'0.3rem 0.6rem',fontSize:'0.7rem',borderRadius:2,cursor:'pointer',fontWeight:600}}>+ Nuevo Módulo</button>
               </div>
-              {/* Aquí irían formularios para agregar módulos y escenarios */}
-              <p style={{fontSize:'0.7rem',color:'rgba(201,168,76,0.6)',marginTop:'1rem'}}>Sistema de administración de contenido disponible</p>
+
+              {/* ESTADÍSTICAS */}
+              <div style={{background:'rgba(201,168,76,0.1)',padding:'0.7rem',borderRadius:2,marginBottom:'1rem',fontSize:'0.75rem',color:'#F5F0E8'}}>
+                <p style={{margin:'0.2rem 0'}}>📊 Módulos activos: <strong>{modules.length}</strong></p>
+                <p style={{margin:'0.2rem 0'}}>🎯 Total escenarios: <strong>{modules.reduce((a,m)=>a+m.scenarios.length,0)}</strong></p>
+                <p style={{margin:'0.2rem 0'}}>💾 Almacenamiento: <strong>localStorage</strong></p>
+              </div>
+
+              {/* FORMULARIO - NUEVO MÓDULO */}
+              {showModuleForm&&!editingModuleIdx&&(
+                <div style={{background:'rgba(201,168,76,0.05)',border:'1px solid rgba(201,168,76,0.3)',borderRadius:4,padding:'0.8rem',marginBottom:'1rem'}}>
+                  <h4 style={{color:'#C9A84C',fontSize:'0.8rem',marginTop:0,marginBottom:'0.6rem'}}>Crear Nuevo Módulo</h4>
+                  <input type="text" placeholder="Emoji del módulo (ej: 📋)" maxLength="2" value={formData.moduleIcon} onChange={(e)=>setFormData({...formData,moduleIcon:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.5rem',fontSize:'0.75rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box'}}/>
+                  <input type="text" placeholder="Título del módulo" value={formData.moduleTitle} onChange={(e)=>setFormData({...formData,moduleTitle:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.5rem',fontSize:'0.75rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box'}}/>
+                  <input type="text" placeholder="Etiqueta (ej: Ética y Transparencia)" value={formData.moduleTag} onChange={(e)=>setFormData({...formData,moduleTag:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.5rem',fontSize:'0.75rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box'}}/>
+                  <textarea placeholder="Descripción del módulo" value={formData.moduleDesc} onChange={(e)=>setFormData({...formData,moduleDesc:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.8rem',fontSize:'0.75rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box',minHeight:'3rem',fontFamily:'inherit',resize:'vertical'}}/>
+                  
+                  <h5 style={{color:'#C9A84C',fontSize:'0.75rem',marginBottom:'0.5rem',marginTop:0}}>Primer Escenario (Obligatorio)</h5>
+                  <input type="text" placeholder="Etiqueta escenario (ej: DILEMA 01)" value={formData.scenarioTag} onChange={(e)=>setFormData({...formData,scenarioTag:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.4rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box'}}/>
+                  <input type="text" placeholder="Título del escenario/dilema" value={formData.scenarioTitle} onChange={(e)=>setFormData({...formData,scenarioTitle:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.4rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box'}}/>
+                  <textarea placeholder="Descripción del dilema" value={formData.scenarioBody} onChange={(e)=>setFormData({...formData,scenarioBody:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.4rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box',minHeight:'2.5rem',fontFamily:'inherit',resize:'vertical'}}/>
+                  <textarea placeholder="Contexto" value={formData.scenarioContext} onChange={(e)=>setFormData({...formData,scenarioContext:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.6rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box',minHeight:'2rem',fontFamily:'inherit',resize:'vertical'}}/>
+                  
+                  <h5 style={{color:'#C9A84C',fontSize:'0.75rem',marginBottom:'0.4rem',marginTop:0}}>4 Opciones de Respuesta</h5>
+                  <div style={{maxHeight:'15rem',overflowY:'auto',marginBottom:'0.6rem',paddingRight:'0.4rem'}}>
+                    {[0,1,2,3].map(i=>(
+                      <div key={i} style={{background:'rgba(20,20,30,0.5)',padding:'0.5rem',marginBottom:'0.4rem',borderRadius:2,border:'1px solid rgba(201,168,76,0.15)'}}>
+                        <select value={formData.options[i].profile} onChange={(e)=>setFormData({...formData,options:formData.options.map((o,idx)=>idx===i?{...o,profile:e.target.value}:o)})} style={{width:'100%',padding:'0.25rem',marginBottom:'0.3rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8'}}>
+                          <option value="pragmatic">Pragmático</option>
+                          <option value="idealist">Idealista</option>
+                          <option value="relational">Relacional</option>
+                          <option value="systemic">Sistémico</option>
+                        </select>
+                        <textarea placeholder="Opción de respuesta" value={formData.options[i].text} onChange={(e)=>setFormData({...formData,options:formData.options.map((o,idx)=>idx===i?{...o,text:e.target.value}:o)})} style={{width:'100%',padding:'0.3rem',marginBottom:'0.3rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box',minHeight:'1.8rem',fontFamily:'inherit',resize:'none'}}/>
+                        <textarea placeholder="Resultado/explicación" value={formData.options[i].outcome} onChange={(e)=>setFormData({...formData,options:formData.options.map((o,idx)=>idx===i?{...o,outcome:e.target.value}:o)})} style={{width:'100%',padding:'0.3rem',marginBottom:'0.3rem',fontSize:'0.65rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box',minHeight:'1.5rem',fontFamily:'inherit',resize:'none'}}/>
+                        <input type="text" placeholder="Consecuencias (ej: +Ética · -Eficiencia)" value={formData.options[i].consequence} onChange={(e)=>setFormData({...formData,options:formData.options.map((o,idx)=>idx===i?{...o,consequence:e.target.value}:o)})} style={{width:'100%',padding:'0.3rem',fontSize:'0.65rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box',fontFamily:'inherit'}}/>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <div style={{display:'flex',gap:'0.4rem'}}>
+                    <button onClick={addModule} style={{flex:1,background:'#7BAE49',color:'#F5F0E8',padding:'0.4rem',fontSize:'0.7rem',borderRadius:2,border:'none',cursor:'pointer',fontWeight:600}}>Crear Módulo</button>
+                    <button onClick={resetForm} style={{flex:1,background:'transparent',border:'1px solid rgba(201,168,76,0.5)',color:'rgba(201,168,76,0.8)',padding:'0.4rem',fontSize:'0.7rem',borderRadius:2,cursor:'pointer'}}>Cancelar</button>
+                  </div>
+                </div>
+              )}
+
+              {/* LISTA DE MÓDULOS EXISTENTES */}
+              <div style={{marginBottom:'0.5rem'}}>
+                <h4 style={{color:'#C9A84C',fontSize:'0.8rem',marginBottom:'0.6rem'}}>Módulos Existentes</h4>
+                <div style={{maxHeight:'25rem',overflowY:'auto'}}>
+                  {modules.map((mod, midx)=>(
+                    <div key={midx} style={{background:'rgba(201,168,76,0.08)',border:'1px solid rgba(201,168,76,0.2)',borderRadius:3,padding:'0.6rem',marginBottom:'0.6rem'}}>
+                      <div style={{display:'flex',justifyContent:'space-between',alignItems:'start',marginBottom:'0.5rem'}}>
+                        <div>
+                          <div style={{fontSize:'0.85rem',color:'#F5F0E8',fontWeight:600}}>{mod.icon} {mod.title}</div>
+                          <div style={{fontSize:'0.7rem',color:'rgba(245,240,232,0.6)',marginTop:'0.2rem'}}>{mod.tag}</div>
+                        </div>
+                        <div style={{display:'flex',gap:'0.3rem'}}>
+                          <button onClick={()=>{setEditingModuleIdx(midx);setCurrentScenarioIdx(0);setShowModuleForm(false);}} style={{background:'transparent',border:'1px solid rgba(201,168,76,0.4)',color:'#C9A84C',padding:'0.2rem 0.5rem',fontSize:'0.65rem',borderRadius:2,cursor:'pointer'}}>+Escenario</button>
+                          <button onClick={()=>deleteModule(midx)} style={{background:'transparent',border:'1px solid rgba(255,100,100,0.4)',color:'#ff6464',padding:'0.2rem 0.5rem',fontSize:'0.65rem',borderRadius:2,cursor:'pointer'}}>Eliminar</button>
+                        </div>
+                      </div>
+                      
+                      {/* Escenarios del módulo */}
+                      <div style={{fontSize:'0.7rem',color:'rgba(245,240,232,0.5)',marginBottom:'0.4rem'}}>
+                        {mod.scenarios.length} escenario{mod.scenarios.length!==1?'s':''}
+                      </div>
+                      {mod.scenarios.map((esc,sidx)=>(
+                        <div key={sidx} style={{background:'rgba(0,0,0,0.3)',padding:'0.4rem',borderRadius:2,marginBottom:'0.3rem',fontSize:'0.7rem'}}>
+                          <div style={{color:'#F5F0E8'}}>📝 {esc.tag}: {esc.title}</div>
+                          <div style={{color:'rgba(245,240,232,0.5)',fontSize:'0.65rem',marginTop:'0.15rem'}}>{esc.options.length} opciones</div>
+                          <button onClick={()=>deleteScenario(midx,sidx)} style={{background:'transparent',border:'none',color:'#ff8888',fontSize:'0.65rem',cursor:'pointer',marginTop:'0.3rem',padding:0}}>Eliminar escenario</button>
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* FORMULARIO - AGREGAR ESCENARIO */}
+              {editingModuleIdx!==null&&(
+                <div style={{background:'rgba(74,106,184,0.1)',border:'1px solid rgba(74,106,184,0.3)',borderRadius:4,padding:'0.8rem'}}>
+                  <h4 style={{color:'#4A6AB8',fontSize:'0.8rem',marginTop:0,marginBottom:'0.6rem'}}>Agregar Escenario a: {modules[editingModuleIdx].title}</h4>
+                  <input type="text" placeholder="Etiqueta escenario (ej: DILEMA 06)" value={formData.scenarioTag} onChange={(e)=>setFormData({...formData,scenarioTag:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.4rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(74,106,184,0.2)',color:'#F5F0E8',boxSizing:'border-box'}}/>
+                  <input type="text" placeholder="Título del dilema" value={formData.scenarioTitle} onChange={(e)=>setFormData({...formData,scenarioTitle:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.4rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(74,106,184,0.2)',color:'#F5F0E8',boxSizing:'border-box'}}/>
+                  <textarea placeholder="Descripción" value={formData.scenarioBody} onChange={(e)=>setFormData({...formData,scenarioBody:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.4rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(74,106,184,0.2)',color:'#F5F0E8',boxSizing:'border-box',minHeight:'2.5rem',fontFamily:'inherit',resize:'vertical'}}/>
+                  <textarea placeholder="Contexto" value={formData.scenarioContext} onChange={(e)=>setFormData({...formData,scenarioContext:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.6rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(74,106,184,0.2)',color:'#F5F0E8',boxSizing:'border-box',minHeight:'2rem',fontFamily:'inherit',resize:'vertical'}}/>
+                  
+                  <h5 style={{color:'#4A6AB8',fontSize:'0.75rem',marginBottom:'0.4rem',marginTop:0}}>4 Opciones</h5>
+                  <div style={{maxHeight:'12rem',overflowY:'auto',marginBottom:'0.6rem',paddingRight:'0.4rem'}}>
+                    {[0,1,2,3].map(i=>(
+                      <div key={i} style={{background:'rgba(20,20,30,0.5)',padding:'0.5rem',marginBottom:'0.4rem',borderRadius:2,border:'1px solid rgba(74,106,184,0.15)'}}>
+                        <select value={formData.options[i].profile} onChange={(e)=>setFormData({...formData,options:formData.options.map((o,idx)=>idx===i?{...o,profile:e.target.value}:o)})} style={{width:'100%',padding:'0.25rem',marginBottom:'0.3rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(74,106,184,0.2)',color:'#F5F0E8'}}>
+                          <option value="pragmatic">Pragmático</option>
+                          <option value="idealist">Idealista</option>
+                          <option value="relational">Relacional</option>
+                          <option value="systemic">Sistémico</option>
+                        </select>
+                        <textarea placeholder="Opción" value={formData.options[i].text} onChange={(e)=>setFormData({...formData,options:formData.options.map((o,idx)=>idx===i?{...o,text:e.target.value}:o)})} style={{width:'100%',padding:'0.3rem',marginBottom:'0.3rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(74,106,184,0.2)',color:'#F5F0E8',boxSizing:'border-box',minHeight:'1.8rem',fontFamily:'inherit',resize:'none'}}/>
+                        <textarea placeholder="Resultado" value={formData.options[i].outcome} onChange={(e)=>setFormData({...formData,options:formData.options.map((o,idx)=>idx===i?{...o,outcome:e.target.value}:o)})} style={{width:'100%',padding:'0.3rem',marginBottom:'0.3rem',fontSize:'0.65rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(74,106,184,0.2)',color:'#F5F0E8',boxSizing:'border-box',minHeight:'1.5rem',fontFamily:'inherit',resize:'none'}}/>
+                        <input type="text" placeholder="Consecuencias" value={formData.options[i].consequence} onChange={(e)=>setFormData({...formData,options:formData.options.map((o,idx)=>idx===i?{...o,consequence:e.target.value}:o)})} style={{width:'100%',padding:'0.3rem',fontSize:'0.65rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(74,106,184,0.2)',color:'#F5F0E8',boxSizing:'border-box',fontFamily:'inherit'}}/>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <div style={{display:'flex',gap:'0.4rem'}}>
+                    <button onClick={()=>addScenarioToModule(editingModuleIdx)} style={{flex:1,background:'#4A6AB8',color:'#F5F0E8',padding:'0.4rem',fontSize:'0.7rem',borderRadius:2,border:'none',cursor:'pointer',fontWeight:600}}>Agregar Escenario</button>
+                    <button onClick={()=>{setEditingModuleIdx(null);resetForm();}} style={{flex:1,background:'transparent',border:'1px solid rgba(74,106,184,0.5)',color:'rgba(74,106,184,0.8)',padding:'0.4rem',fontSize:'0.7rem',borderRadius:2,cursor:'pointer'}}>Cancelar</button>
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </div>
