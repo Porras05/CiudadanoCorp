@@ -18,10 +18,11 @@ async function saveCertificate(data) {
 
 // ─── DATA ───
 const CHARACTERS = [
-  { id: 'char1', name: 'Alejandra', skin: '#F0C27F', hair: '#1A0A00', outfit: '#1A3A5C', hairstyle: 'long', expression: 'happy' },
-  { id: 'char2', name: 'Marcos', skin: '#D4956A', hair: '#3B1F00', outfit: '#2E5F8A', hairstyle: 'short', expression: 'serious' },
+  { id: 'char1', name: 'Femenino', skin: '#F0C27F', hair: '#1A0A00', outfit: '#1A3A5C', hairstyle: 'long', expression: 'happy', avatar: 'public\\mujer.png' },
+  { id: 'char2', name: 'Masculino', skin: '#D4956A', hair: '#3B1F00', outfit: '#2E5F8A', hairstyle: 'short', expression: 'serious', avatar: 'public\\hombre.png' },
 ];
 
+// ...existing code...
 const PROFILES = {
   pragmatic:{ name:'Pragmático/a', desc:'Priorizas resultados medibles y eficiencia. Tomas decisiones basadas en impacto real más que en principios abstractos.', color:'#1A3A5C' },
   idealist:{ name:'Idealista', desc:'Guías tus decisiones por principios y valores. El proceso importa tanto como el resultado, y actúas con coherencia incluso cuando es incómodo.', color:'#4A7C5E' },
@@ -282,12 +283,12 @@ export default function ETHOSFERA() {
             <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:'1.8rem',color:'#F5F0E8',fontWeight:700,marginBottom:'2rem'}}>¿Con cuál deseas participar?</h2>
             <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))',gap:'2rem',marginBottom:'2rem'}}>
               {CHARACTERS.map(char=>(
-                <div key={char.id} onClick={()=>{setPc({...char,jobTitle:'',company:''});setScreen('info');}} style={{background:'rgba(245,240,232,0.05)',border:'2px solid rgba(201,168,76,0.25)',borderRadius:8,padding:'2rem',cursor:'pointer',transition:'all 0.3s',display:'flex',flexDirection:'column',alignItems:'center',gap:'1rem'}}>
-                  <div style={{width:200,height:240,background:'linear-gradient(170deg,#0D1522,#101A0F,#1A1209)',border:'1px solid rgba(201,168,76,0.35)',borderRadius:10,display:'flex',alignItems:'flex-end',justifyContent:'center',paddingBottom:14,overflow:'hidden'}}>
-                    <div dangerouslySetInnerHTML={{__html:charSVG(char,130,160,true)}}/>
+                <div key={char.id} onClick={()=>{setPc({...char,jobTitle:'',company:''});setScreen('info');}} style={{background:'rgba(245,240,232,0.05)',border:'2px solid rgba(201,168,76,0.25)',borderRadius:8,padding:'2rem',cursor:'pointer',transition:'all 0.3s ease',display:'flex',flexDirection:'column',alignItems:'center',gap:'1rem',_hover:{borderColor:'rgba(201,168,76,0.5)'}}}>
+                  <div style={{width:200,height:240,background:'linear-gradient(170deg,#0D1522,#101A0F,#1A1209)',border:'1px solid rgba(201,168,76,0.35)',borderRadius:10,display:'flex',alignItems:'center',justifyContent:'center',paddingBottom:0,overflow:'hidden'}}>
+                    <img src={char.avatar} alt={char.name} style={{width:'100%',height:'100%',objectFit:'cover',objectPosition:'center top'}}/>
                   </div>
                   <div style={{color:'#F5F0E8',fontSize:'1.1rem',fontWeight:700}}>{char.name}</div>
-                  <button onClick={()=>{setPc({...char,jobTitle:'',company:''});setScreen('info');}} style={{background:'#C9A84C',color:'#0D0D14',padding:'0.65rem 1.6rem',borderRadius:2,fontWeight:600,fontSize:'0.85rem',border:'none',cursor:'pointer'}}>Seleccionar</button>
+                  <button onClick={(e)=>{e.stopPropagation();setPc({...char,jobTitle:'',company:''});setScreen('info');}} style={{background:'#C9A84C',color:'#0D0D14',padding:'0.65rem 1.6rem',borderRadius:2,fontWeight:600,fontSize:'0.85rem',border:'none',cursor:'pointer',transition:'all 0.2s'}}>Seleccionar</button>
                 </div>
               ))}
             </div>
@@ -301,7 +302,7 @@ export default function ETHOSFERA() {
         <div style={{minHeight:'100vh',background:'#0D0D14',padding:'2rem',display:'flex',alignItems:'center',justifyContent:'center',overflowY:'auto'}}>
           <div style={{display:'grid',gridTemplateColumns:'220px 1fr',gap:'3rem',maxWidth:780,width:'100%',alignItems:'start'}}>
             <div style={{display:'flex',flexDirection:'column',alignItems:'center',gap:'0.5rem',position:'sticky',top:'2rem'}}>
-              <div style={{width:180,height:220,background:'linear-gradient(170deg,#0D1522,#101A0F,#1A1209)',border:'1px solid rgba(201,168,76,0.35)',borderRadius:10,display:'flex',alignItems:'flex-end',justifyContent:'center',paddingBottom:14,overflow:'hidden',boxShadow:'0 16px 48px rgba(0,0,0,0.65)'}}>
+              <div style={{width:180,height:220,background:'linear-gradient(170deg,#0D1522,#101A0F,#1A1209)',border:'1px solid rgba(201,168,76,0.35)',borderRadius:10,display:'flex',alignItems:'center',justifyContent:'center',paddingBottom:0,overflow:'hidden',boxShadow:'0 16px 48px rgba(0,0,0,0.65)'}}>
                 <div dangerouslySetInnerHTML={{__html:charSVG(pc,110,145,true)}}/>
               </div>
               <div style={{color:'#C9A84C',fontSize:'0.78rem',fontWeight:500,letterSpacing:1}}>{pc.name}</div>
