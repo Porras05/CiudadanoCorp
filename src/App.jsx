@@ -18,17 +18,9 @@ async function saveCertificate(data) {
 
 // ─── DATA ───
 const CHARACTERS = [
-  { id: 'char1', name: 'Femenino', skin: '#F0C27F', hair: '#1A0A00', outfit: '#1A3A5C', hairstyle: 'long', expression: 'happy', avatar: 'public\\mujer.png' },
-  { id: 'char2', name: 'Masculino', skin: '#D4956A', hair: '#3B1F00', outfit: '#2E5F8A', hairstyle: 'short', expression: 'serious', avatar: 'public\\hombre.png' },
+  { id: 'char1', name: 'Femenino', skin: '#F0C27F', hair: '#1A0A00', outfit: '#1A3A5C', hairstyle: 'long', expression: 'happy', avatar: '/images/mujer.png' },
+  { id: 'char2', name: 'Masculino', skin: '#D4956A', hair: '#3B1F00', outfit: '#2E5F8A', hairstyle: 'short', expression: 'serious', avatar: '/images/hombre.png' },
 ];
-
-// ...existing code...
-const PROFILES = {
-  pragmatic:{ name:'Pragmático/a', desc:'Priorizas resultados medibles y eficiencia. Tomas decisiones basadas en impacto real más que en principios abstractos.', color:'#1A3A5C' },
-  idealist:{ name:'Idealista', desc:'Guías tus decisiones por principios y valores. El proceso importa tanto como el resultado, y actúas con coherencia incluso cuando es incómodo.', color:'#4A7C5E' },
-  relational:{ name:'Relacional', desc:'Las personas y las relaciones son tu centro. Buscas consenso, cuidas el tejido humano y priorizas que todos sean escuchados.', color:'#A04A2F' },
-  systemic:{ name:'Sistémico/a', desc:'Piensas en estructuras, procesos y sostenibilidad a largo plazo. Cambias el sistema, no solo los síntomas.', color:'#5A4A7C' },
-};
 
 // Decreto 815 - Módulo único
 const MODULES = [
@@ -135,40 +127,27 @@ function charSVG(cfg, w, h, anim) {
 }
 
 // ─── CERTIFICATE ───
-function Certificate({ name, jobTitle, company, profile, scores }) {
-  const prof = PROFILES[profile]||PROFILES.pragmatic;
-  const MONTHS=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
-  const d=new Date(), dateStr=`${d.getDate()} de ${MONTHS[d.getMonth()]} de ${d.getFullYear()}`;
-  const total=Math.max(1,Object.values(scores).reduce((a,b)=>a+b,0));
+function Certificate({ name, jobTitle, company }) {
+  const MONTHS = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  const d = new Date();
+  const dateStr = `${d.getDate()} de ${MONTHS[d.getMonth()]} de ${d.getFullYear()}`;
+
   return (
-    <div id="cert-render" style={{background:'#FDFCF8',border:'2px solid #C9A84C',padding:'2.5rem 2.5rem 2rem',position:'relative',maxWidth:580,margin:'0 auto',fontFamily:'Georgia,serif'}}>
+    <div id="cert-render" style={{ background:'#F4F6E7', border:'2px solid #7BAE49', padding:'2.5rem 2.5rem 2rem', position:'relative', maxWidth:580, margin:'0 auto', fontFamily:'Georgia,serif', color:'#0D2C1B' }}>
       {[['tl','2px 0 0 2px'],['tr','2px 2px 0 0'],['bl','0 0 2px 2px'],['br','0 2px 2px 0']].map(([k,bw])=>(
-        <div key={k} style={{position:'absolute',width:20,height:20,top:k.includes('t')?8:'auto',bottom:k.includes('b')?8:'auto',left:k.includes('l')?8:'auto',right:k.includes('r')?8:'auto',borderColor:'#0D0D14',borderStyle:'solid',borderWidth:bw}}/>
+        <div key={k} style={{ position:'absolute', width:20, height:20, top:k.includes('t')?8:'auto', bottom:k.includes('b')?8:'auto', left:k.includes('l')?8:'auto', right:k.includes('r')?8:'auto', borderColor:'#0D2C1B', borderStyle:'solid', borderWidth:bw }} />
       ))}
-      <div style={{textAlign:'center'}}>
-        <div style={{fontSize:'0.62rem',letterSpacing:4,textTransform:'uppercase',color:'#7A7060',marginBottom:'0.7rem'}}>Certificado de Aprendizaje · ETHOSFERA</div>
-        <div style={{fontSize:'0.82rem',color:'#7A7060',marginBottom:'0.4rem'}}>Se certifica que</div>
-        <div style={{fontFamily:'Georgia,serif',fontSize:'2rem',color:'#0D0D14',fontWeight:900,marginBottom:'0.2rem'}}>{name||'Participante'}</div>
-        {jobTitle&&<div style={{fontSize:'0.9rem',color:'#1A3A5C',fontWeight:600,marginBottom:'0.15rem'}}>{jobTitle}</div>}
-        {company&&<div style={{fontSize:'0.82rem',color:'#7A7060',marginBottom:'0.3rem'}}>{company}</div>}
-        <div style={{width:40,height:1,background:'#C9A84C',margin:'0.8rem auto'}}/>
-        <div style={{fontSize:'0.82rem',color:'#7A7060',lineHeight:1.6,maxWidth:360,margin:'0 auto 0.8rem'}}>Ha completado exitosamente el módulo de capacitación ETHOSFERA, demostrando liderazgo ético y reflexión crítica en dilemas organizacionales.</div>
-        <div style={{width:40,height:1,background:'#C9A84C',margin:'0.8rem auto'}}/>
-        <div style={{fontFamily:'Georgia,serif',fontSize:'1.5rem',color:prof.color,fontStyle:'italic',fontWeight:700,marginBottom:'0.3rem'}}>{prof.name}</div>
-        <div style={{fontSize:'0.78rem',color:'#7A7060',marginBottom:'1rem'}}>Perfil de Liderazgo Dominante</div>
-        <div style={{maxWidth:320,margin:'0 auto 1rem'}}>
-          {Object.entries(PROFILES).map(([k,p])=>(
-            <div key={k} style={{display:'flex',alignItems:'center',gap:'0.5rem',marginBottom:'0.3rem'}}>
-              <span style={{fontSize:'0.72rem',color:'#7A7060',width:90,textAlign:'right',flexShrink:0}}>{p.name}</span>
-              <div style={{flex:1,height:4,background:'#E8E4DC',borderRadius:2,overflow:'hidden'}}>
-                <div style={{height:'100%',width:`${(scores[k]||0)/total*100}%`,background:p.color,borderRadius:2}}/>
-              </div>
-              <span style={{fontSize:'0.7rem',color:'#C9A84C',width:18}}>{scores[k]||0}</span>
-            </div>
-          ))}
-        </div>
-        <div style={{width:40,height:1,background:'#C9A84C',margin:'0.8rem auto'}}/>
-        <div style={{fontSize:'0.68rem',letterSpacing:2,color:'#7A7060'}}>{dateStr}</div>
+      <div style={{ textAlign:'center' }}>
+        <div style={{ fontSize:'0.62rem', letterSpacing:4, textTransform:'uppercase', color:'#7BAE49', marginBottom:'0.7rem' }}>Certificado de Aprendizaje · ETHOSFERA</div>
+        <div style={{ fontSize:'0.82rem', color:'#0D2C1B', marginBottom:'0.4rem' }}>Se certifica que</div>
+        <div style={{ fontFamily:'Georgia,serif', fontSize:'2rem', color:'#0D2C1B', fontWeight:900, marginBottom:'0.2rem' }}>{name||'Participante'}</div>
+        {jobTitle && <div style={{ fontSize:'0.9rem', color:'#1A4C24', fontWeight:600, marginBottom:'0.15rem' }}>{jobTitle}</div>}
+        {company && <div style={{ fontSize:'0.82rem', color:'#7A7A7A', marginBottom:'0.3rem' }}>{company}</div>}
+        <div style={{ width:40, height:1, background:'#7BAE49', margin:'0.8rem auto' }}/>
+        <div style={{ fontSize:'0.82rem', color:'#0D2C1B', lineHeight:1.6, maxWidth:360, margin:'0 auto 0.8rem' }}>Ha completado exitosamente el módulo de capacitación ETHOSFERA, demostrando compromiso con la ética y el liderazgo público.</div>
+        <div style={{ width:40, height:1, background:'#7BAE49', margin:'0.8rem auto' }}/>
+        <div style={{ fontSize:'1rem', color:'#0D2C1B', fontWeight:700, marginBottom:'0.6rem' }}>Herramienta que forma líderes</div>
+        <div style={{ fontSize:'0.68rem', letterSpacing:2, color:'#7A7A7A' }}>{dateStr}</div>
       </div>
     </div>
   );
@@ -178,7 +157,14 @@ function Certificate({ name, jobTitle, company, profile, scores }) {
 export default function ETHOSFERA() {
   const [screen, setScreen] = useState('title');
   const [pc, setPc] = useState(null); // null hasta elegir personaje
-  const [gs, setGs] = useState({completedModules:[],moduleProfiles:{},totalProfiles:{pragmatic:0,idealist:0,relational:0,systemic:0},currentModule:null,currentScenario:0,answered:false,selectedOpt:null,shuffledOpts:[]});
+  const [gs, setGs] = useState({
+    completedModules: [],
+    currentModule: null,
+    currentScenario: 0,
+    answered: false,
+    selectedOpt: null,
+    shuffledOpts: []
+  });
   const [adminMode, setAdminMode] = useState(false);
   const [adminAuth, setAdminAuth] = useState('');
   const [modules, setModules] = useState(MODULES);
@@ -191,16 +177,13 @@ export default function ETHOSFERA() {
 
   const startModule = (idx) => {
     const opts = shuffle(modules[idx].scenarios[0].options);
-    setGs(g=>({...g,currentModule:idx,currentScenario:0,answered:false,selectedOpt:null,shuffledOpts:opts,moduleProfiles:{...g.moduleProfiles,[idx]:{pragmatic:0,idealist:0,relational:0,systemic:0}}}));
+    setGs(g=>({...g,currentModule:idx,currentScenario:0,answered:false,selectedOpt:null,shuffledOpts:opts}));
     setScreen('game');
   };
 
   const selectOpt = (opt) => {
     if (gs.answered) return;
-    setGs(g=>({...g,answered:true,selectedOpt:opt,
-      moduleProfiles:{...g.moduleProfiles,[g.currentModule]:{...g.moduleProfiles[g.currentModule],[opt.profile]:(g.moduleProfiles[g.currentModule]?.[opt.profile]||0)+1}},
-      totalProfiles:{...g.totalProfiles,[opt.profile]:g.totalProfiles[opt.profile]+1},
-    }));
+    setGs(g => ({ ...g, answered: true, selectedOpt: opt }));
   };
 
   const nextScenario = () => {
@@ -220,8 +203,14 @@ export default function ETHOSFERA() {
     setScreen('final');
     if (!dbSaved) {
       setDbStatus('saving');
-      const profile = domProfile(gs.totalProfiles);
-      const result = await saveCertificate({full_name:pc.name||'Participante',job_title:pc.jobTitle||'Sin especificar',company:pc.company||null,dominant_profile:profile,profile_scores:gs.totalProfiles,modules_completed:gs.completedModules.length,issued_at:new Date().toISOString(),session_id:Math.random().toString(36).slice(2)});
+      const result = await saveCertificate({
+        full_name: pc.fullName || pc.name,
+        job_title: pc.jobTitle || null,
+        company: pc.company || null,
+        modules_completed: gs.completedModules.length,
+        issued_at: new Date().toISOString(),
+        session_id: Math.random().toString(36).slice(2)
+      });
       setDbSaved(true);
       setDbStatus(result ? 'ok' : 'error');
     }
@@ -258,7 +247,29 @@ export default function ETHOSFERA() {
   return (
     <div style={{fontFamily:"'DM Sans',system-ui,sans-serif",width:'100%',minHeight:'100vh',background:'#0D0D14'}}>
       <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-      <style>{`*{box-sizing:border-box;margin:0;padding:0}html,body,#root{width:100%;min-height:100vh;overflow-x:hidden}@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}@keyframes slideUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}.opt-card:hover:not(:disabled){border-color:#0D0D14!important;background:#EDE8DC!important;transform:translateX(3px)}`}</style>
+      <style>{`
+        *{box-sizing:border-box;margin:0;padding:0}
+        html,body,#root{width:100%;min-height:100vh;overflow-x:hidden;background:#042712;color:#F4F6E7;font-family:'DM Sans',system-ui,sans-serif}
+        @keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes slideUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+        .opt-card:hover:not(:disabled){border-color:#0D2B1B!important;background:#E8E4D8!important;transform:translateX(3px)}
+        .selection-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem}
+        .info-grid{display:grid;grid-template-columns:220px 1fr;gap:2rem}
+        .game-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:0}
+        .module-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px}
+        .character-card{background:rgba(244,246,231,0.12);border:2px solid rgba(123,174,73,0.25);border-radius:12px;transition:all 0.3s ease}
+        .button-primary{background:#7BAE49;color:#F4F6E7}
+        .button-secondary{background:transparent;color:rgba(244,246,231,0.9);border:1px solid rgba(244,246,231,0.24)}
+        @media (max-width:860px){
+          .info-grid,.game-grid{grid-template-columns:1fr}
+          .info-grid > div,.game-grid > div{width:100%}
+        }
+        @media (max-width:640px){
+          .hero-title{font-size:2.6rem}
+          .character-card{padding:1.25rem}
+          .button-primary,.button-secondary{width:100%;justify-content:center}
+        }
+      `}</style>
 
       {/* ── TITLE ── */}
       {screen==='title'&&(
@@ -277,47 +288,56 @@ export default function ETHOSFERA() {
 
       {/* ── CHARACTER SELECT ── */}
       {screen==='character-select'&&(
-        <div style={{minHeight:'100vh',background:'#0D0D14',padding:'2rem',display:'flex',alignItems:'center',justifyContent:'center',overflowY:'auto'}}>
+        <div style={{minHeight:'100vh',background:'#042712',padding:'2rem',display:'flex',alignItems:'center',justifyContent:'center',overflowY:'auto'}}>
           <div style={{maxWidth:900,width:'100%',textAlign:'center'}}>
-            <div style={{fontSize:'0.65rem',letterSpacing:3,textTransform:'uppercase',color:'#C9A84C',marginBottom:'1rem',fontWeight:600}}>Elige tu personaje</div>
-            <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:'1.8rem',color:'#F5F0E8',fontWeight:700,marginBottom:'2rem'}}>¿Con cuál deseas participar?</h2>
-            <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))',gap:'2rem',marginBottom:'2rem'}}>
+            <div style={{fontSize:'0.65rem',letterSpacing:3,textTransform:'uppercase',color:'#7BAE49',marginBottom:'1rem',fontWeight:600}}>Elige tu personaje</div>
+            <h2 className="hero-title" style={{fontFamily:"'Playfair Display',serif",fontSize:'2rem',color:'#F4F6E7',fontWeight:700,marginBottom:'2rem'}}>¿Con cuál deseas participar?</h2>
+            <div className="selection-grid" style={{marginBottom:'2rem'}}>
               {CHARACTERS.map(char=>(
-                <div key={char.id} onClick={()=>{setPc({...char,jobTitle:'',company:''});setScreen('info');}} style={{background:'rgba(245,240,232,0.05)',border:'2px solid rgba(201,168,76,0.25)',borderRadius:8,padding:'2rem',cursor:'pointer',transition:'all 0.3s ease',display:'flex',flexDirection:'column',alignItems:'center',gap:'1rem',_hover:{borderColor:'rgba(201,168,76,0.5)'}}}>
-                  <div style={{width:200,height:240,background:'linear-gradient(170deg,#0D1522,#101A0F,#1A1209)',border:'1px solid rgba(201,168,76,0.35)',borderRadius:10,display:'flex',alignItems:'center',justifyContent:'center',paddingBottom:0,overflow:'hidden'}}>
-                    <img src={char.avatar} alt={char.name} style={{width:'100%',height:'100%',objectFit:'cover',objectPosition:'center top'}}/>
+                <div key={char.id} onClick={()=>{setPc({...char, fullName:'', jobTitle:'', company:''});setScreen('info');}} className="character-card" style={{padding:'2rem',cursor:'pointer',display:'flex',flexDirection:'column',alignItems:'center',gap:'1rem'}}>
+                  <div style={{width:'100%',maxWidth:260,height:260,background:'linear-gradient(170deg,#0D2C1B,#0A361F,#163E1B)',border:'1px solid rgba(123,174,73,0.35)',borderRadius:16,display:'flex',alignItems:'center',justifyContent:'center',overflow:'hidden'}}>
+                    <img src={char.avatar} alt={char.name} style={{width:'100%',height:'100%',objectFit:'cover',objectPosition:'center'}}/>
                   </div>
-                  <div style={{color:'#F5F0E8',fontSize:'1.1rem',fontWeight:700}}>{char.name}</div>
-                  <button onClick={(e)=>{e.stopPropagation();setPc({...char,jobTitle:'',company:''});setScreen('info');}} style={{background:'#C9A84C',color:'#0D0D14',padding:'0.65rem 1.6rem',borderRadius:2,fontWeight:600,fontSize:'0.85rem',border:'none',cursor:'pointer',transition:'all 0.2s'}}>Seleccionar</button>
+                  <div style={{color:'#F4F6E7',fontSize:'1.1rem',fontWeight:700}}>{char.name}</div>
+                  <button onClick={(e)=>{e.stopPropagation();setPc({...char, fullName:'', jobTitle:'', company:''});setScreen('info');}} className="button-primary" style={{padding:'0.75rem 1.6rem',borderRadius:6,border:'none',cursor:'pointer',fontWeight:600,fontSize:'0.88rem'}}>Seleccionar</button>
                 </div>
               ))}
             </div>
-            <button onClick={()=>setScreen('title')} style={{background:'transparent',border:'1px solid rgba(245,240,232,0.14)',color:'rgba(245,240,232,0.45)',padding:'0.72rem 1.5rem',borderRadius:2,fontSize:'0.82rem',cursor:'pointer',fontFamily:'inherit'}}>← Volver</button>
+            <button onClick={()=>setScreen('title')} className="button-secondary" style={{padding:'0.72rem 1.5rem',borderRadius:6,fontSize:'0.82rem',cursor:'pointer',fontFamily:'inherit'}}>← Volver</button>
           </div>
         </div>
       )}
 
       {/* ── INFO ── */}
       {screen==='info'&&pc&&(
-        <div style={{minHeight:'100vh',background:'#0D0D14',padding:'2rem',display:'flex',alignItems:'center',justifyContent:'center',overflowY:'auto'}}>
-          <div style={{display:'grid',gridTemplateColumns:'220px 1fr',gap:'3rem',maxWidth:780,width:'100%',alignItems:'start'}}>
+        <div style={{minHeight:'100vh',background:'#042712',padding:'2rem',display:'flex',alignItems:'center',justifyContent:'center',overflowY:'auto'}}>
+          <div className="info-grid" style={{maxWidth:780,width:'100%',alignItems:'start'}}>
             <div style={{display:'flex',flexDirection:'column',alignItems:'center',gap:'0.5rem',position:'sticky',top:'2rem'}}>
-              <div style={{width:180,height:220,background:'linear-gradient(170deg,#0D1522,#101A0F,#1A1209)',border:'1px solid rgba(201,168,76,0.35)',borderRadius:10,display:'flex',alignItems:'center',justifyContent:'center',paddingBottom:0,overflow:'hidden',boxShadow:'0 16px 48px rgba(0,0,0,0.65)'}}>
-                <div dangerouslySetInnerHTML={{__html:charSVG(pc,110,145,true)}}/>
+              <div style={{width:180,height:220,background:'linear-gradient(170deg,#0D2C1B,#0A361F,#163E1B)',border:'1px solid rgba(123,174,73,0.35)',borderRadius:12,display:'flex',alignItems:'center',justifyContent:'center',overflow:'hidden',boxShadow:'0 16px 48px rgba(0,0,0,0.45)'}}>
+                <img src={pc.avatar} alt={pc.name} style={{width:'100%',height:'100%',objectFit:'cover',objectPosition:'center'}}/>
               </div>
-              <div style={{color:'#C9A84C',fontSize:'0.78rem',fontWeight:500,letterSpacing:1}}>{pc.name}</div>
+              <div style={{color:'#7BAE49',fontSize:'0.78rem',fontWeight:500,letterSpacing:1}}>{pc.name}</div>
             </div>
             <div>
-              <div style={{fontSize:'0.65rem',letterSpacing:3,textTransform:'uppercase',color:'#C9A84C',marginBottom:'1.5rem',fontWeight:600}}>Información de participante</div>
-              {[['Nombre Completo','jobTitle','Tu nombre y apellidos'],['Cargo','jobTitle','Tu cargo u posición'],['Organización (opcional)','company','Tu empresa u organización']].map(([label,field,ph])=>(
+              <div style={{fontSize:'0.65rem',letterSpacing:3,textTransform:'uppercase',color:'#7BAE49',marginBottom:'1.5rem',fontWeight:600}}>Información de participante</div>
+              {[
+                ['Nombre completo','fullName','Tu nombre y apellidos'],
+                ['Cargo','jobTitle','Tu cargo u posición'],
+                ['Organización (opcional)','company','Tu empresa u organización']
+              ].map(([label,field,ph])=>(
                 <div key={field} style={{marginBottom:'1.3rem'}}>
-                  <h3 style={{fontFamily:"'Playfair Display',serif",color:'#F5F0E8',fontSize:'0.95rem',fontWeight:700,marginBottom:'0.6rem'}}>{label}</h3>
-                  <input placeholder={ph} value={pc[field]||''} onChange={e=>setPc(p=>({...p,[field]:e.target.value}))} style={{background:'rgba(245,240,232,0.07)',border:'1px solid rgba(201,168,76,0.22)',borderRadius:2,padding:'0.6rem 0.9rem',color:'#F5F0E8',fontFamily:'inherit',fontSize:'0.88rem',width:'100%',outline:'none'}}/>
+                  <h3 style={{fontFamily:"'Playfair Display',serif",color:'#F4F6E7',fontSize:'0.95rem',fontWeight:700,marginBottom:'0.6rem'}}>{label}</h3>
+                  <input
+                    placeholder={ph}
+                    value={pc[field]||''}
+                    onChange={e=>setPc(p=>({...p,[field]:e.target.value}))}
+                    style={{background:'rgba(244,246,231,0.08)',border:'1px solid rgba(123,174,73,0.22)',borderRadius:6,padding:'0.75rem 0.95rem',color:'#F4F6E7',fontFamily:'inherit',fontSize:'0.88rem',width:'100%',outline:'none'}}
+                  />
                 </div>
               ))}
               <div style={{display:'flex',gap:'0.8rem',flexWrap:'wrap',marginTop:'2rem'}}>
-                <button onClick={()=>{if(!pc.jobTitle||!pc.jobTitle.trim()){alert('Por favor completa al menos tu nombre.');return;}setScreen('modules');}} style={{background:'#C9A84C',color:'#0D0D14',padding:'0.78rem 1.9rem',borderRadius:2,fontWeight:600,fontSize:'0.88rem',border:'none',cursor:'pointer'}}>Continuar →</button>
-                <button onClick={()=>setScreen('character-select')} style={{background:'transparent',border:'1px solid rgba(245,240,232,0.14)',color:'rgba(245,240,232,0.45)',padding:'0.72rem 1.5rem',borderRadius:2,fontSize:'0.82rem',cursor:'pointer',fontFamily:'inherit'}}>← Cambiar personaje</button>
+                <button onClick={()=>{if(!pc.fullName||!pc.fullName.trim()){alert('Por favor completa tu nombre.');return;}setScreen('modules');}} className="button-primary" style={{padding:'0.78rem 1.9rem',borderRadius:6,border:'none',cursor:'pointer',fontWeight:600,fontSize:'0.88rem'}}>Continuar →</button>
+                <button onClick={()=>setScreen('character-select')} className="button-secondary" style={{padding:'0.72rem 1.5rem',borderRadius:6,fontSize:'0.82rem',cursor:'pointer',fontFamily:'inherit'}}>← Cambiar personaje</button>
               </div>
             </div>
           </div>
@@ -331,7 +351,7 @@ export default function ETHOSFERA() {
             <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:'2rem',color:'#0D0D14',fontWeight:900}}>Módulos de Capacitación</h2>
             <p style={{color:'#7A7060',fontSize:'0.85rem',marginTop:'0.3rem'}}>Completa el módulo para generar tu certificado</p>
           </div>
-          <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(240px,1fr))',gap:1,width:'100%',maxWidth:860,border:'1px solid #D4CCB8'}}>
+          <div className="module-grid" style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(240px,1fr))',gap:1,width:'100%',maxWidth:860,border:'1px solid #D4CCB8'}}>
             {modules.map((mod,i)=>{
               const done=gs.completedModules.includes(i);
               return (
@@ -351,44 +371,44 @@ export default function ETHOSFERA() {
 
       {/* ── GAME ── */}
       {screen==='game'&&currentSc&&(
-        <div style={{height:'100vh',background:'#F5F0E8',display:'flex',flexDirection:'column'}}>
-          <div style={{background:'#0D0D14',padding:'0.7rem 1.4rem',display:'flex',alignItems:'center',justifyContent:'space-between',flexShrink:0,gap:'0.5rem'}}>
-            <div style={{fontFamily:"'Playfair Display',serif",color:'#F5F0E8',fontSize:'0.9rem',fontWeight:700}}>{currentMod.icon} {currentMod.title}</div>
-            <div style={{display:'flex',gap:'0.38rem',alignItems:'center'}}>
-              {currentMod.scenarios.map((_,i)=><div key={i} style={{width:7,height:7,borderRadius:'50%',background:i<gs.currentScenario?'#C9A84C':i===gs.currentScenario?'#F5F0E8':'rgba(245,240,232,0.18)',transform:i===gs.currentScenario?'scale(1.35)':'scale(1)'}}/>)}
+        <div style={{minHeight:'100vh',background:'#F4F6E7',display:'flex',flexDirection:'column'}}>
+          <div style={{background:'#0D2B1B',padding:'0.9rem 1.4rem',display:'flex',flexWrap:'wrap',alignItems:'center',justifyContent:'space-between',gap:'0.5rem'}}>
+            <div style={{fontFamily:"'Playfair Display',serif",color:'#F4F6E7',fontSize:'0.95rem',fontWeight:700}}>{currentMod.icon} {currentMod.title}</div>
+            <div style={{display:'flex',gap:'0.38rem',alignItems:'center',flexWrap:'wrap'}}>
+              {currentMod.scenarios.map((_,i)=><div key={i} style={{width:8,height:8,borderRadius:'50%',background:i<gs.currentScenario?'#7BAE49':i===gs.currentScenario?'#F4F6E7':'rgba(244,246,231,0.35)',transform:i===gs.currentScenario?'scale(1.25)':'scale(1)'}}/>)}
             </div>
-            <button onClick={()=>setScreen('modules')} style={{background:'none',border:'1px solid rgba(245,240,232,0.18)',color:'rgba(245,240,232,0.55)',padding:'0.28rem 0.75rem',fontSize:'0.75rem',cursor:'pointer',borderRadius:1,fontFamily:'inherit'}}>← Salir</button>
+            <button onClick={()=>setScreen('modules')} className="button-secondary" style={{padding:'0.32rem 0.75rem',fontSize:'0.75rem',cursor:'pointer',borderRadius:6,fontFamily:'inherit'}}>← Salir</button>
           </div>
-          <div style={{flex:1,display:'grid',gridTemplateColumns:'1fr 1.15fr',overflow:'hidden'}}>
-            <div style={{background:'#0D0D14',padding:'1.8rem',display:'flex',flexDirection:'column',gap:'1.3rem',overflowY:'auto'}}>
+          <div className="game-grid" style={{flex:1,overflow:'hidden'}}>
+            <div style={{background:'#0D2B1B',padding:'1.8rem',display:'flex',flexDirection:'column',gap:'1.3rem',overflowY:'auto'}}>
               <div style={{animation:'fadeIn 0.5s ease'}}>
-                <div style={{fontSize:'0.63rem',letterSpacing:'3px',textTransform:'uppercase',color:'#C9A84C',fontWeight:600}}>{currentSc.tag} · {gs.currentScenario+1}/{currentMod.scenarios.length}</div>
-                <div style={{fontFamily:"'Playfair Display',serif",fontSize:'1.25rem',color:'#F5F0E8',fontWeight:700,lineHeight:1.3,marginTop:'0.3rem'}}>{currentSc.title}</div>
+                <div style={{fontSize:'0.63rem',letterSpacing:'3px',textTransform:'uppercase',color:'#7BAE49',fontWeight:600}}>{currentSc.tag} · {gs.currentScenario+1}/{currentMod.scenarios.length}</div>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:'1.25rem',color:'#F4F6E7',fontWeight:700,lineHeight:1.3,marginTop:'0.3rem'}}>{currentSc.title}</div>
               </div>
-              <p style={{fontSize:'0.85rem',color:'rgba(245,240,232,0.68)',lineHeight:1.75}}>{currentSc.body}</p>
-              <div style={{background:'rgba(201,168,76,0.07)',borderLeft:'2px solid rgba(201,168,76,0.5)',padding:'0.75rem 0.9rem',borderRadius:'0 2px 2px 0'}}>
-                <div style={{fontSize:'0.62rem',letterSpacing:'2px',textTransform:'uppercase',color:'#C9A84C',marginBottom:'0.28rem',fontWeight:600}}>Contexto</div>
-                <div style={{fontSize:'0.8rem',color:'rgba(245,240,232,0.55)',lineHeight:1.55}}>{currentSc.context}</div>
+              <p style={{fontSize:'0.9rem',color:'rgba(244,246,231,0.85)',lineHeight:1.75}}>{currentSc.body}</p>
+              <div style={{background:'rgba(123,174,73,0.12)',borderLeft:'2px solid rgba(123,174,73,0.8)',padding:'0.75rem 0.9rem',borderRadius:'0 2px 2px 0'}}>
+                <div style={{fontSize:'0.62rem',letterSpacing:'2px',textTransform:'uppercase',color:'#7BAE49',marginBottom:'0.28rem',fontWeight:600}}>Contexto</div>
+                <div style={{fontSize:'0.84rem',color:'rgba(244,246,231,0.9)',lineHeight:1.55}}>{currentSc.context}</div>
               </div>
               <div style={{display:'flex',justifyContent:'center',marginTop:'auto',paddingTop:'0.8rem'}}>
                 <div dangerouslySetInnerHTML={{__html:charSVG(pc,90,110,true)}}/>
               </div>
             </div>
-            <div style={{background:'#F5F0E8',padding:'1.8rem',display:'flex',flexDirection:'column',gap:'0.8rem',overflowY:'auto'}}>
-              <div style={{fontSize:'0.62rem',letterSpacing:'3px',textTransform:'uppercase',color:'#7A7060',fontWeight:600,marginBottom:'0.2rem'}}>¿Cómo respondes a este dilema?</div>
+            <div style={{background:'#F4F6E7',padding:'1.8rem',display:'flex',flexDirection:'column',gap:'0.8rem',overflowY:'auto'}}>
+              <div style={{fontSize:'0.62rem',letterSpacing:'3px',textTransform:'uppercase',color:'#0D2C1B',fontWeight:600,marginBottom:'0.2rem'}}>¿Cómo respondes a este dilema?</div>
               {gs.shuffledOpts.map((opt,i)=>(
-                <button key={i} disabled={gs.answered} onClick={()=>selectOpt(opt)} className="opt-card" style={{background:gs.answered&&gs.selectedOpt===opt?'#EDE8DC':'#FDFCF8',border:`1.5px solid ${gs.answered&&gs.selectedOpt===opt?'#0D0D14':'#D4CCB8'}`,borderRadius:2,padding:'0.82rem 1rem',cursor:gs.answered?'default':'pointer',fontFamily:'inherit',fontSize:'0.84rem',color:'#0D0D14',textAlign:'left',lineHeight:1.45,display:'flex',gap:'0.7rem',alignItems:'flex-start',width:'100%',opacity:gs.answered&&gs.selectedOpt!==opt?0.35:1,transition:'all 0.18s',boxShadow:gs.answered&&gs.selectedOpt===opt?'0 0 0 2px #0D0D14':'none'}}>
-                  <span style={{width:22,height:22,borderRadius:1,background:gs.answered&&gs.selectedOpt===opt?'#0D0D14':'#EDE8DC',color:gs.answered&&gs.selectedOpt===opt?'#F5F0E8':'#7A7060',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'0.7rem',fontWeight:700,flexShrink:0,border:'1px solid #D4CCB8'}}>{['A','B','C','D'][i]}</span>
+                <button key={i} disabled={gs.answered} onClick={()=>selectOpt(opt)} className="opt-card" style={{background:gs.answered&&gs.selectedOpt===opt?'#E8E4D8':'#FFFFFF',border:`1.5px solid ${gs.answered&&gs.selectedOpt===opt?'#0D2B1B':'#CAD6B4'}`,borderRadius:8,padding:'0.82rem 1rem',cursor:gs.answered?'default':'pointer',fontFamily:'inherit',fontSize:'0.9rem',color:'#0D2C1B',textAlign:'left',lineHeight:1.45,display:'flex',gap:'0.7rem',alignItems:'flex-start',width:'100%',opacity:gs.answered&&gs.selectedOpt!==opt?0.45:1,transition:'all 0.18s',boxShadow:gs.answered&&gs.selectedOpt===opt?'0 0 0 2px #0D2B1B':'none'}}>
+                  <span style={{width:26,height:26,borderRadius:6,background:gs.answered&&gs.selectedOpt===opt?'#0D2B1B':'#E8E4D8',color:gs.answered&&gs.selectedOpt===opt?'#F4F6E7':'#0D2C1B',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'0.78rem',fontWeight:700,flexShrink:0,border:'1px solid #CAD6B4'}}>{['A','B','C','D'][i]}</span>
                   <span>{opt.text}</span>
                 </button>
               ))}
               {gs.answered&&gs.selectedOpt&&(
-                <div style={{borderRadius:2,padding:'0.9rem 1.1rem',animation:'slideUp 0.35s ease',background:'#EDE8DC',borderLeft:'3px solid #C9A84C'}}>
-                  <div style={{fontSize:'0.62rem',letterSpacing:'2px',textTransform:'uppercase',fontWeight:700,marginBottom:'0.35rem',color:'#1A3A5C'}}>Perfil: {PROFILES[gs.selectedOpt.profile]?.name}</div>
-                  <div style={{fontSize:'0.83rem',color:'#0D0D14',lineHeight:1.55}}>{gs.selectedOpt.outcome}</div>
-                  <div style={{marginTop:'0.5rem',fontSize:'0.77rem',color:'#7A7060',fontStyle:'italic'}}>{gs.selectedOpt.consequence}</div>
-                  <button onClick={nextScenario} style={{background:'#0D0D14',color:'#F5F0E8',padding:'0.72rem 1.7rem',borderRadius:2,fontWeight:600,fontSize:'0.85rem',border:'none',cursor:'pointer',marginTop:'0.8rem'}}>
-                    {gs.currentScenario>=currentMod.scenarios.length-1?'Ver resultados →':'Siguiente dilema →'}
+                <div style={{borderRadius:8,padding:'1rem',animation:'slideUp 0.35s ease',background:'#E8E4D8',borderLeft:'3px solid #7BAE49'}}>
+                  <div style={{fontSize:'0.62rem',letterSpacing:'2px',textTransform:'uppercase',fontWeight:700,marginBottom:'0.35rem',color:'#0D2C1B'}}>Resultado</div>
+                  <div style={{fontSize:'0.9rem',color:'#0D2C1B',lineHeight:1.65}}>{gs.selectedOpt.outcome}</div>
+                  <div style={{marginTop:'0.5rem',fontSize:'0.82rem',color:'#4B5F3D',fontStyle:'italic'}}>{gs.selectedOpt.consequence}</div>
+                  <button onClick={nextScenario} className="button-primary" style={{background:'#0D2B1B',color:'#F4F6E7',padding:'0.78rem 1.7rem',borderRadius:8,fontWeight:700,fontSize:'0.88rem',border:'none',cursor:'pointer',marginTop:'0.9rem'}}>
+                    {gs.currentScenario >= currentMod.scenarios.length-1 ? 'Ver resultados →' : 'Siguiente dilema →'}
                   </button>
                 </div>
               )}
@@ -399,29 +419,20 @@ export default function ETHOSFERA() {
 
       {/* ── RESULT ── */}
       {screen==='result'&&(()=>{
-        const mi=gs.currentModule, mp=gs.moduleProfiles[mi]||{}, dom=domProfile(mp), prof=PROFILES[dom];
-        const total=Math.max(1,Object.values(mp).reduce((a,b)=>a+b,0));
+        const mod = modules[gs.currentModule];
         return (
-          <div style={{minHeight:'100vh',background:'#0D0D14',padding:'2rem',display:'flex',alignItems:'center',justifyContent:'center'}}>
-            <div style={{maxWidth:540,width:'100%',textAlign:'center',animation:'fadeIn 0.5s ease'}}>
-              <div style={{fontSize:'0.65rem',letterSpacing:'4px',textTransform:'uppercase',color:'#C9A84C',marginBottom:'0.8rem',fontWeight:600}}>Resultado del Módulo</div>
-              <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:'2.2rem',color:'#F5F0E8',fontWeight:900,marginBottom:'0.4rem'}}>{prof.name}</h2>
-              <p style={{fontSize:'0.85rem',color:'rgba(245,240,232,0.55)',lineHeight:1.65,marginBottom:'1.5rem'}}>{prof.desc}</p>
-              <div style={{background:'rgba(245,240,232,0.04)',border:'1px solid rgba(201,168,76,0.18)',borderRadius:2,padding:'1.3rem',marginBottom:'1.5rem',textAlign:'left'}}>
-                <div style={{fontSize:'0.63rem',letterSpacing:'3px',textTransform:'uppercase',color:'#C9A84C',marginBottom:'0.9rem',fontWeight:600}}>Tu distribución</div>
-                {Object.entries(PROFILES).map(([k,p])=>(
-                  <div key={k} style={{display:'flex',alignItems:'center',gap:'0.7rem',marginBottom:'0.6rem'}}>
-                    <span style={{fontSize:'0.75rem',color:'rgba(245,240,232,0.65)',width:115,flexShrink:0}}>{p.name}</span>
-                    <div style={{flex:1,height:4,background:'rgba(245,240,232,0.08)',borderRadius:2,overflow:'hidden'}}>
-                      <div style={{height:'100%',width:`${(mp[k]||0)/total*100}%`,background:p.color,borderRadius:2,transition:'width 0.8s ease'}}/>
-                    </div>
-                    <span style={{fontSize:'0.72rem',color:'#C9A84C',width:18,textAlign:'right'}}>{mp[k]||0}</span>
-                  </div>
-                ))}
+          <div style={{minHeight:'100vh',background:'#042712',padding:'2rem',display:'flex',alignItems:'center',justifyContent:'center'}}>
+            <div style={{maxWidth:560,width:'100%',textAlign:'center',animation:'fadeIn 0.5s ease'}}>
+              <div style={{fontSize:'0.65rem',letterSpacing:'4px',textTransform:'uppercase',color:'#7BAE49',marginBottom:'0.8rem',fontWeight:600}}>Resultado del Módulo</div>
+              <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:'2.2rem',color:'#F4F6E7',fontWeight:900,marginBottom:'0.4rem'}}>Módulo completado</h2>
+              <p style={{fontSize:'0.95rem',color:'rgba(244,246,231,0.9)',lineHeight:1.75,marginBottom:'1.5rem'}}>Has respondido {mod.scenarios.length} dilemas del Decreto 815 sobre ética en la función pública.</p>
+              <div style={{background:'rgba(244,246,231,0.08)',border:'1px solid rgba(123,174,73,0.25)',borderRadius:12,padding:'1.4rem',marginBottom:'1.5rem',textAlign:'left'}}>
+                <p style={{fontSize:'0.9rem',color:'#F4F6E7',marginBottom:'0.8rem'}}>{mod.desc}</p>
+                <p style={{fontSize:'0.85rem',color:'#DCE5D4'}}>Esta herramienta está pensada para apoyar procesos de formación interactiva en la administración pública.</p>
               </div>
               <div style={{display:'flex',gap:'0.8rem',justifyContent:'center',flexWrap:'wrap'}}>
-                <button onClick={()=>setScreen('modules')} style={{background:'transparent',color:'rgba(245,240,232,0.45)',padding:'0.72rem 1.5rem',borderRadius:2,fontSize:'0.82rem',border:'1px solid rgba(245,240,232,0.14)',cursor:'pointer',fontFamily:'inherit'}}>← Volver a Módulos</button>
-                <button onClick={handleFinal} style={{background:'#C9A84C',color:'#0D0D14',padding:'0.78rem 1.9rem',borderRadius:2,fontWeight:600,fontSize:'0.88rem',border:'none',cursor:'pointer'}}>🎓 Ver Certificado →</button>
+                <button onClick={()=>setScreen('modules')} className="button-secondary" style={{padding:'0.72rem 1.5rem',borderRadius:8,fontSize:'0.82rem',cursor:'pointer',fontFamily:'inherit'}}>← Volver a Módulos</button>
+                <button onClick={handleFinal} className="button-primary" style={{padding:'0.78rem 1.9rem',borderRadius:8,fontWeight:700,fontSize:'0.88rem',border:'none',cursor:'pointer'}}>🎓 Ver Certificado →</button>
               </div>
             </div>
           </div>
@@ -442,10 +453,10 @@ export default function ETHOSFERA() {
             </div>
             <Certificate name={pc.jobTitle} jobTitle={pc.name} company={pc.company} profile={globalProfile} scores={gs.totalProfiles}/>
             <div style={{display:'flex',gap:'1rem',justifyContent:'center',marginTop:'1.5rem',flexWrap:'wrap'}}>
-              <button onClick={downloadPDF} disabled={pdfLoading} style={{background:'#0D0D14',color:'#F5F0E8',padding:'0.78rem 1.9rem',borderRadius:2,fontWeight:600,fontSize:'0.88rem',border:'none',cursor:pdfLoading?'wait':'pointer',opacity:pdfLoading?0.7:1,display:'inline-flex',alignItems:'center',gap:'0.5rem'}}>
+              <button onClick={downloadPDF} disabled={pdfLoading} className="button-primary" style={{padding:'0.78rem 1.9rem',borderRadius:8,fontWeight:600,fontSize:'0.88rem',border:'none',cursor:pdfLoading?'wait':'pointer',opacity:pdfLoading?0.7:1,display:'inline-flex',alignItems:'center',gap:'0.5rem'}}>
                 {pdfLoading?'⏳ Generando PDF...':'⬇ Descargar Certificado PDF'}
               </button>
-              <button onClick={()=>{setScreen('title');setGs({completedModules:[],moduleProfiles:{},totalProfiles:{pragmatic:0,idealist:0,relational:0,systemic:0},currentModule:null,currentScenario:0,answered:false,selectedOpt:null,shuffledOpts:[]});setDbSaved(false);setDbStatus('idle');}} style={{background:'transparent',color:'#7A7060',padding:'0.72rem 1.5rem',borderRadius:2,fontSize:'0.85rem',border:'1px solid #D4CCB8',cursor:'pointer',fontFamily:'inherit'}}>Nuevo intento</button>
+              <button onClick={()=>{setScreen('title');setGs({completedModules:[],moduleProfiles:{},totalProfiles:{pragmatic:0,idealist:0,relational:0,systemic:0},currentModule:null,currentScenario:0,answered:false,selectedOpt:null,shuffledOpts:[]});setDbSaved(false);setDbStatus('idle');}} className="button-secondary" style={{padding:'0.72rem 1.5rem',borderRadius:8,fontSize:'0.85rem',border:'1px solid #D4CCB8',cursor:'pointer',fontFamily:'inherit'}}>Nuevo intento</button>
             </div>
           </div>
         </div>
