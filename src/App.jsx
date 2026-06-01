@@ -502,6 +502,12 @@ export default function ETHOSFERA() {
         }
       `}</style>
 
+      <div style={{display:'flex',justifyContent:'center',gap:'0.65rem',padding:'1rem 1.5rem',background:'#0D0D14',borderBottom:'1px solid rgba(245,240,232,0.08)',position:'sticky',top:0,zIndex:20}}>
+        <button onClick={()=>setScreen('title')} style={{background:screen==='title'?'#7BAE49':'transparent',color:screen==='title'?'#0D0D14':'#F4F6E7',border:'1px solid rgba(245,240,232,0.18)',borderRadius:2,padding:'0.55rem 0.9rem',cursor:'pointer',fontSize:'0.82rem'}}>Inicio</button>
+        <button onClick={()=>setScreen('modules')} style={{background:screen==='modules'?'#7BAE49':'transparent',color:screen==='modules'?'#0D0D14':'#F4F6E7',border:'1px solid rgba(245,240,232,0.18)',borderRadius:2,padding:'0.55rem 0.9rem',cursor:'pointer',fontSize:'0.82rem'}}>Módulos</button>
+        <button onClick={()=>setScreen('questions')} style={{background:screen==='questions'?'#7BAE49':'transparent',color:screen==='questions'?'#0D0D14':'#F4F6E7',border:'1px solid rgba(245,240,232,0.18)',borderRadius:2,padding:'0.55rem 0.9rem',cursor:'pointer',fontSize:'0.82rem'}}>Preguntas</button>
+      </div>
+
       {/* ── TITLE ── */}
       {screen==='title'&&(
         <div style={{minHeight:'100vh',background:'#0D0D14',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',padding:'2rem',textAlign:'center',animation:'fadeIn 0.5s ease'}}>
@@ -589,6 +595,48 @@ export default function ETHOSFERA() {
             })}
           </div>
           {allDone&&<div style={{marginTop:'1.5rem'}}><button onClick={handleFinal} style={{display:'inline-flex',alignItems:'center',gap:'0.5rem',background:'#0D0D14',color:'#F5F0E8',padding:'0.78rem 1.9rem',borderRadius:2,fontWeight:600,fontSize:'0.88rem',border:'none',cursor:'pointer'}}>🎓 Ver Certificado Final</button></div>}
+        </div>
+      )}
+
+      {/* ── PREGUNTAS AUTORIZADAS ── */}
+      {screen==='questions'&&(
+        <div style={{minHeight:'100vh',background:'#0D0D14',padding:'2rem',display:'flex',flexDirection:'column',alignItems:'center',gap:'1.5rem'}}>
+          <div style={{width:'100%',maxWidth:900,textAlign:'center'}}>
+            <div style={{fontSize:'0.65rem',letterSpacing:3,textTransform:'uppercase',color:'#7BAE49',marginBottom:'1rem',fontWeight:600}}>Espacio autorizado de preguntas</div>
+            <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:'2rem',color:'#F4F6E7',fontWeight:900,marginBottom:'0.6rem'}}>Acceso seguro para consultas y preguntas</h2>
+            <p style={{color:'#B9C6B2',fontSize:'0.92rem',lineHeight:1.7,maxWidth:720,margin:'0 auto'}}>Solo usuarios autorizados pueden enviar preguntas y registrar inquietudes sobre cualquier módulo del programa. Añade tantas preguntas como desees y referencia el módulo o la cantidad de módulos que necesites.</p>
+          </div>
+
+          {!authAccess ? (
+            <div style={{background:'rgba(255,255,255,0.04)',border:'1px solid rgba(123,174,73,0.25)',borderRadius:10,padding:'1.5rem',width:'100%',maxWidth:520}}>
+              <p style={{color:'#F4F6E7',marginBottom:'1rem'}}>Introduce el código de acceso autorizado para acceder al espacio de preguntas.</p>
+              <input type="password" value={authInput} onChange={e=>setAuthInput(e.target.value)} placeholder="Código de acceso" style={{width:'100%',padding:'0.9rem 1rem',borderRadius:4,border:'1px solid rgba(255,255,255,0.12)',background:'rgba(245,240,232,0.06)',color:'#F4F6E7',marginBottom:'1rem',fontSize:'0.92rem'}}/>
+              <button onClick={authorizeUser} style={{width:'100%',background:'#7BAE49',color:'#0D0D14',padding:'0.9rem 1rem',borderRadius:4,border:'none',cursor:'pointer',fontWeight:700}}>Ingresar</button>
+            </div>
+          ) : (
+            <div style={{width:'100%',maxWidth:900,display:'grid',gridTemplateColumns:'1fr 1fr',gap:'1.2rem'}}>
+              <div style={{background:'rgba(255,255,255,0.04)',border:'1px solid rgba(123,174,73,0.25)',borderRadius:10,padding:'1.4rem'}}>
+                <div style={{fontSize:'0.85rem',fontWeight:700,color:'#7BAE49',marginBottom:'1rem'}}>Registrar nueva pregunta</div>
+                <input placeholder="Módulo o referencia" value={questionForm.moduleRef} onChange={e=>setQuestionForm(f=>({...f,moduleRef:e.target.value}))} style={{width:'100%',padding:'0.85rem 1rem',borderRadius:4,border:'1px solid rgba(255,255,255,0.12)',background:'rgba(245,240,232,0.06)',color:'#F4F6E7',marginBottom:'1rem',fontSize:'0.9rem'}}/>
+                <textarea placeholder="Escribe tu pregunta aquí" value={questionForm.text} onChange={e=>setQuestionForm(f=>({...f,text:e.target.value}))} style={{width:'100%',minHeight:'180px',padding:'1rem',borderRadius:4,border:'1px solid rgba(255,255,255,0.12)',background:'rgba(245,240,232,0.06)',color:'#F4F6E7',fontSize:'0.9rem',resize:'vertical',marginBottom:'1rem'}}/>
+                <button onClick={submitQuestion} style={{width:'100%',background:'#7BAE49',color:'#0D0D14',padding:'0.95rem 1rem',borderRadius:4,border:'none',cursor:'pointer',fontWeight:700}}>Enviar pregunta</button>
+              </div>
+              <div style={{background:'rgba(255,255,255,0.04)',border:'1px solid rgba(123,174,73,0.25)',borderRadius:10,padding:'1.4rem',maxHeight:'540px',overflowY:'auto'}}>
+                <div style={{fontSize:'0.85rem',fontWeight:700,color:'#7BAE49',marginBottom:'1rem'}}>Preguntas registradas</div>
+                {questions.length === 0 ? (
+                  <p style={{color:'#B9C6E0'}}>No hay preguntas registradas aún. Sé el primero en crear una.</p>
+                ) : (
+                  questions.slice().reverse().map(question => (
+                    <div key={question.id} style={{marginBottom:'1rem',padding:'0.9rem',borderRadius:4,background:'rgba(255,255,255,0.05)',border:'1px solid rgba(255,255,255,0.08)'}}>
+                      <div style={{fontSize:'0.8rem',fontWeight:700,color:'#F4F6E7',marginBottom:'0.35rem'}}>{question.moduleRef}</div>
+                      <div style={{fontSize:'0.92rem',color:'#E5E9F0',lineHeight:1.5}}>{question.text}</div>
+                      <div style={{fontSize:'0.72rem',color:'#A9B9A7',marginTop:'0.55rem'}}>{question.createdAt}</div>
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+          )}
         </div>
       )}
 
