@@ -238,6 +238,8 @@ export default function ETHOSFERA() {
   const [authAccess, setAuthAccess] = useState(false);
   const [authInput, setAuthInput] = useState('');
   const [questionForm, setQuestionForm] = useState({ moduleRef:'', text:'' });
+  const [editingQuestionId, setEditingQuestionId] = useState(null);
+  const [editingModuleFormIdx, setEditingModuleFormIdx] = useState(null);
   const [formData, setFormData] = useState({
     moduleIcon: '📋',
     moduleTitle: '',
@@ -272,11 +274,31 @@ export default function ETHOSFERA() {
     }
   };
 
+  const resetQuestionForm = () => {
+    setQuestionForm({ moduleRef:'', text:'' });
+    setEditingQuestionId(null);
+  };
+
   const submitQuestion = () => {
     if (!questionForm.text.trim()) {
       alert('Escribe la pregunta antes de enviar');
       return;
     }
+
+    if (editingQuestionId !== null) {
+      const updated = questions.map(q => q.id === editingQuestionId ? {
+        ...q,
+        moduleRef: questionForm.moduleRef.trim() || 'General',
+        text: questionForm.text.trim(),
+        updatedAt: new Date().toLocaleString('es-ES')
+      } : q);
+      setQuestions(updated);
+      saveQuestionsToStorage(updated);
+      resetQuestionForm();
+      alert('Pregunta actualizada correctamente');
+      return;
+    }
+
     const newEntry = {
       id: Date.now(),
       moduleRef: questionForm.moduleRef.trim() || 'General',
@@ -286,8 +308,69 @@ export default function ETHOSFERA() {
     const updated = [...questions, newEntry];
     setQuestions(updated);
     saveQuestionsToStorage(updated);
-    setQuestionForm({ moduleRef: '', text: '' });
+    resetQuestionForm();
     alert('Pregunta registrada correctamente');
+  };
+
+  const editQuestion = (question) => {
+    setEditingQuestionId(question.id);
+    setQuestionForm({ moduleRef: question.moduleRef, text: question.text });
+  };
+
+  const deleteQuestion = (id) => {
+    if (!window.confirm('¿Eliminar esta pregunta?')) return;
+    const updated = questions.filter(q => q.id !== id);
+    setQuestions(updated);
+    saveQuestionsToStorage(updated);
+  };
+
+  const editModuleMeta = (moduleIdx) => {
+    const module = modules[moduleIdx];
+    setEditingModuleFormIdx(moduleIdx);
+    setShowModuleForm(true);
+    setFormData({
+      moduleIcon: module.icon,
+      moduleTitle: module.title,
+      moduleTag: module.tag,
+      moduleDesc: module.desc,
+      scenarioTag: '',
+      scenarioTitle: '',
+      scenarioBody: '',
+      scenarioContext: '',
+      options: [
+        {text:'',profile:'pragmatic',outcome:'',consequence:''},
+        {text:'',profile:'idealist',outcome:'',consequence:''},
+        {text:'',profile:'relational',outcome:'',consequence:''},
+        {text:'',profile:'systemic',outcome:'',consequence:''},
+      ]
+    });
+  };
+
+  const saveEditedModule = () => {
+    if (editingModuleFormIdx === null) return;
+    if (!formData.moduleTitle.trim()) {
+      alert('El módulo debe tener un título');
+      return;
+    }
+    const updated = [...modules];
+    updated[editingModuleFormIdx] = {
+      ...updated[editingModuleFormIdx],
+      icon: formData.moduleIcon,
+      title: formData.moduleTitle,
+      tag: formData.moduleTag,
+      desc: formData.moduleDesc,
+    };
+    updateModules(updated);
+    setEditingModuleFormIdx(null);
+    setShowModuleForm(false);
+    resetForm();
+    alert('Módulo actualizado correctamente');
+  };
+
+  const cancelModuleEdit = () => {
+    setEditingModuleFormIdx(null);
+    resetForm();
+    setShowModuleForm(false);
   };
 
   const addModule = () => {
@@ -601,39 +684,107 @@ export default function ETHOSFERA() {
       {/* ── PREGUNTAS AUTORIZADAS ── */}
       {screen==='questions'&&(
         <div style={{minHeight:'100vh',background:'#0D0D14',padding:'2rem',display:'flex',flexDirection:'column',alignItems:'center',gap:'1.5rem'}}>
-          <div style={{width:'100%',maxWidth:900,textAlign:'center'}}>
-            <div style={{fontSize:'0.65rem',letterSpacing:3,textTransform:'uppercase',color:'#7BAE49',marginBottom:'1rem',fontWeight:600}}>Espacio autorizado de preguntas</div>
-            <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:'2rem',color:'#F4F6E7',fontWeight:900,marginBottom:'0.6rem'}}>Acceso seguro para consultas y preguntas</h2>
-            <p style={{color:'#B9C6B2',fontSize:'0.92rem',lineHeight:1.7,maxWidth:720,margin:'0 auto'}}>Solo usuarios autorizados pueden enviar preguntas y registrar inquietudes sobre cualquier módulo del programa. Añade tantas preguntas como desees y referencia el módulo o la cantidad de módulos que necesites.</p>
+          <div style={{width:'100%',maxWidth:960,textAlign:'center'}}>
+            <div style={{fontSize:'0.65rem',letterSpacing:3,textTransform:'uppercase',color:'#7BAE49',marginBottom:'1rem',fontWeight:600}}>Gestión autorizada de contenido</div>
+            <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:'2rem',color:'#F4F6E7',fontWeight:900,marginBottom:'0.6rem'}}>Administra módulos y preguntas del curso</h2>
+            <p style={{color:'#B9C6B2',fontSize:'0.92rem',lineHeight:1.7,maxWidth:760,margin:'0 auto'}}>Solo personal autorizado puede crear, editar o eliminar módulos y preguntas del curso. Ingrese con el código autorizado para administrar el contenido que verán los participantes.</p>
           </div>
 
           {!authAccess ? (
             <div style={{background:'rgba(255,255,255,0.04)',border:'1px solid rgba(123,174,73,0.25)',borderRadius:10,padding:'1.5rem',width:'100%',maxWidth:520}}>
-              <p style={{color:'#F4F6E7',marginBottom:'1rem'}}>Introduce el código de acceso autorizado para acceder al espacio de preguntas.</p>
+              <p style={{color:'#F4F6E7',marginBottom:'1rem'}}>Ingrese el código de acceso autorizado para gestionar módulos y preguntas.</p>
               <input type="password" value={authInput} onChange={e=>setAuthInput(e.target.value)} placeholder="Código de acceso" style={{width:'100%',padding:'0.9rem 1rem',borderRadius:4,border:'1px solid rgba(255,255,255,0.12)',background:'rgba(245,240,232,0.06)',color:'#F4F6E7',marginBottom:'1rem',fontSize:'0.92rem'}}/>
               <button onClick={authorizeUser} style={{width:'100%',background:'#7BAE49',color:'#0D0D14',padding:'0.9rem 1rem',borderRadius:4,border:'none',cursor:'pointer',fontWeight:700}}>Ingresar</button>
             </div>
           ) : (
-            <div style={{width:'100%',maxWidth:900,display:'grid',gridTemplateColumns:'1fr 1fr',gap:'1.2rem'}}>
-              <div style={{background:'rgba(255,255,255,0.04)',border:'1px solid rgba(123,174,73,0.25)',borderRadius:10,padding:'1.4rem'}}>
-                <div style={{fontSize:'0.85rem',fontWeight:700,color:'#7BAE49',marginBottom:'1rem'}}>Registrar nueva pregunta</div>
-                <input placeholder="Módulo o referencia" value={questionForm.moduleRef} onChange={e=>setQuestionForm(f=>({...f,moduleRef:e.target.value}))} style={{width:'100%',padding:'0.85rem 1rem',borderRadius:4,border:'1px solid rgba(255,255,255,0.12)',background:'rgba(245,240,232,0.06)',color:'#F4F6E7',marginBottom:'1rem',fontSize:'0.9rem'}}/>
-                <textarea placeholder="Escribe tu pregunta aquí" value={questionForm.text} onChange={e=>setQuestionForm(f=>({...f,text:e.target.value}))} style={{width:'100%',minHeight:'180px',padding:'1rem',borderRadius:4,border:'1px solid rgba(255,255,255,0.12)',background:'rgba(245,240,232,0.06)',color:'#F4F6E7',fontSize:'0.9rem',resize:'vertical',marginBottom:'1rem'}}/>
-                <button onClick={submitQuestion} style={{width:'100%',background:'#7BAE49',color:'#0D0D14',padding:'0.95rem 1rem',borderRadius:4,border:'none',cursor:'pointer',fontWeight:700}}>Enviar pregunta</button>
+            <div style={{width:'100%',maxWidth:960,display:'grid',gridTemplateColumns:'1fr',gap:'1.2rem'}}>
+              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'1.2rem'}}>
+                <div style={{background:'rgba(255,255,255,0.04)',border:'1px solid rgba(123,174,73,0.25)',borderRadius:10,padding:'1.4rem'}}>
+                  <div style={{fontSize:'0.85rem',fontWeight:700,color:'#7BAE49',marginBottom:'1rem'}}>Registrar nueva pregunta</div>
+                  <input placeholder="Módulo o referencia" value={questionForm.moduleRef} onChange={e=>setQuestionForm(f=>({...f,moduleRef:e.target.value}))} style={{width:'100%',padding:'0.85rem 1rem',borderRadius:4,border:'1px solid rgba(255,255,255,0.12)',background:'rgba(245,240,232,0.06)',color:'#F4F6E7',marginBottom:'1rem',fontSize:'0.9rem'}}/>
+                  <textarea placeholder="Escribe tu pregunta aquí" value={questionForm.text} onChange={e=>setQuestionForm(f=>({...f,text:e.target.value}))} style={{width:'100%',minHeight:'160px',padding:'1rem',borderRadius:4,border:'1px solid rgba(255,255,255,0.12)',background:'rgba(245,240,232,0.06)',color:'#F4F6E7',fontSize:'0.9rem',resize:'vertical',marginBottom:'1rem'}}/>
+                  <div style={{display:'flex',gap:'0.75rem',flexWrap:'wrap'}}>
+                    <button onClick={submitQuestion} style={{flex:1,background:'#7BAE49',color:'#0D0D14',padding:'0.95rem 1rem',borderRadius:4,border:'none',cursor:'pointer',fontWeight:700}}>{editingQuestionId!==null?'Guardar cambios':'Enviar pregunta'}</button>
+                    {editingQuestionId!==null&&(
+                      <button onClick={resetQuestionForm} style={{flex:1,background:'transparent',border:'1px solid rgba(255,255,255,0.12)',color:'#F4F6E7',padding:'0.95rem 1rem',borderRadius:4,cursor:'pointer'}}>Cancelar</button>
+                    )}
+                  </div>
+                </div>
+                <div style={{background:'rgba(255,255,255,0.04)',border:'1px solid rgba(123,174,73,0.25)',borderRadius:10,padding:'1.4rem',maxHeight:'520px',overflowY:'auto'}}>
+                  <div style={{fontSize:'0.85rem',fontWeight:700,color:'#7BAE49',marginBottom:'1rem'}}>Preguntas registradas</div>
+                  {questions.length === 0 ? (
+                    <p style={{color:'#B9C6E0'}}>No hay preguntas registradas aún.</p>
+                  ) : (
+                    questions.slice().reverse().map(question => (
+                      <div key={question.id} style={{marginBottom:'1rem',padding:'0.9rem',borderRadius:4,background:'rgba(255,255,255,0.05)',border:'1px solid rgba(255,255,255,0.08)'}}>
+                        <div style={{display:'flex',justifyContent:'space-between',gap:'0.75rem',flexWrap:'wrap',marginBottom:'0.5rem'}}>
+                          <span style={{fontSize:'0.78rem',fontWeight:700,color:'#F4F6E7'}}>{question.moduleRef}</span>
+                          <div style={{display:'flex',gap:'0.35rem',flexWrap:'wrap'}}>
+                            <button onClick={()=>editQuestion(question)} style={{background:'transparent',border:'1px solid rgba(255,255,255,0.14)',color:'#F4F6E7',padding:'0.25rem 0.6rem',fontSize:'0.72rem',borderRadius:3,cursor:'pointer'}}>Editar</button>
+                            <button onClick={()=>deleteQuestion(question.id)} style={{background:'transparent',border:'1px solid rgba(255,100,100,0.4)',color:'#ff8b8b',padding:'0.25rem 0.6rem',fontSize:'0.72rem',borderRadius:3,cursor:'pointer'}}>Eliminar</button>
+                          </div>
+                        </div>
+                        <div style={{fontSize:'0.92rem',color:'#E5E9F0',lineHeight:1.5}}>{question.text}</div>
+                        <div style={{fontSize:'0.72rem',color:'#A9B9A7',marginTop:'0.55rem'}}>{question.createdAt}{question.updatedAt?` · editada ${question.updatedAt}`:''}</div>
+                      </div>
+                    ))
+                  )}
+                </div>
               </div>
-              <div style={{background:'rgba(255,255,255,0.04)',border:'1px solid rgba(123,174,73,0.25)',borderRadius:10,padding:'1.4rem',maxHeight:'540px',overflowY:'auto'}}>
-                <div style={{fontSize:'0.85rem',fontWeight:700,color:'#7BAE49',marginBottom:'1rem'}}>Preguntas registradas</div>
-                {questions.length === 0 ? (
-                  <p style={{color:'#B9C6E0'}}>No hay preguntas registradas aún. Sé el primero en crear una.</p>
-                ) : (
-                  questions.slice().reverse().map(question => (
-                    <div key={question.id} style={{marginBottom:'1rem',padding:'0.9rem',borderRadius:4,background:'rgba(255,255,255,0.05)',border:'1px solid rgba(255,255,255,0.08)'}}>
-                      <div style={{fontSize:'0.8rem',fontWeight:700,color:'#F4F6E7',marginBottom:'0.35rem'}}>{question.moduleRef}</div>
-                      <div style={{fontSize:'0.92rem',color:'#E5E9F0',lineHeight:1.5}}>{question.text}</div>
-                      <div style={{fontSize:'0.72rem',color:'#A9B9A7',marginTop:'0.55rem'}}>{question.createdAt}</div>
+
+              <div style={{background:'rgba(255,255,255,0.04)',border:'1px solid rgba(123,174,73,0.25)',borderRadius:10,padding:'1.4rem'}}>
+                <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'1rem',gap:'1rem'}}>
+                  <div>
+                    <div style={{fontSize:'0.85rem',fontWeight:700,color:'#7BAE49'}}>Gestión de módulos</div>
+                    <div style={{fontSize:'0.78rem',color:'#B9C6B2'}}>Crea y edita el contenido que verá el curso.</div>
+                  </div>
+                  <button onClick={()=>{setShowModuleForm(!showModuleForm);setEditingModuleFormIdx(null);}} style={{background:'#7BAE49',color:'#0D0D14',padding:'0.75rem 1rem',borderRadius:4,border:'none',cursor:'pointer',fontWeight:700}}>+ Nuevo módulo</button>
+                </div>
+
+                {showModuleForm && (
+                  <div style={{background:'rgba(255,255,255,0.05)',border:'1px solid rgba(255,255,255,0.12)',borderRadius:10,padding:'1rem',marginBottom:'1rem'}}>
+                    <div style={{fontSize:'0.82rem',fontWeight:700,color:'#F4F6E7',marginBottom:'0.8rem'}}>{editingModuleFormIdx===null ? 'Crear módulo' : 'Editar módulo'}</div>
+                    <input type="text" placeholder="Emoji del módulo" maxLength="2" value={formData.moduleIcon} onChange={e=>setFormData({...formData,moduleIcon:e.target.value})} style={{width:'100%',padding:'0.7rem',marginBottom:'0.6rem',borderRadius:4,border:'1px solid rgba(255,255,255,0.12)',background:'rgba(245,240,232,0.06)',color:'#F4F6E7',fontSize:'0.9rem'}}/>
+                    <input type="text" placeholder="Título del módulo" value={formData.moduleTitle} onChange={e=>setFormData({...formData,moduleTitle:e.target.value})} style={{width:'100%',padding:'0.7rem',marginBottom:'0.6rem',borderRadius:4,border:'1px solid rgba(255,255,255,0.12)',background:'rgba(245,240,232,0.06)',color:'#F4F6E7',fontSize:'0.9rem'}}/>
+                    <input type="text" placeholder="Etiqueta" value={formData.moduleTag} onChange={e=>setFormData({...formData,moduleTag:e.target.value})} style={{width:'100%',padding:'0.7rem',marginBottom:'0.6rem',borderRadius:4,border:'1px solid rgba(255,255,255,0.12)',background:'rgba(245,240,232,0.06)',color:'#F4F6E7',fontSize:'0.9rem'}}/>
+                    <textarea placeholder="Descripción del módulo" value={formData.moduleDesc} onChange={e=>setFormData({...formData,moduleDesc:e.target.value})} style={{width:'100%',padding:'0.85rem',marginBottom:'0.8rem',borderRadius:4,border:'1px solid rgba(255,255,255,0.12)',background:'rgba(245,240,232,0.06)',color:'#F4F6E7',fontSize:'0.9rem',resize:'vertical',minHeight:'100px'}}/>
+                    <div style={{display:'flex',gap:'0.75rem',flexWrap:'wrap'}}>
+                      <button onClick={editingModuleFormIdx===null ? addModule : saveEditedModule} style={{flex:1,background:'#7BAE49',color:'#0D0D14',padding:'0.85rem 1rem',borderRadius:4,border:'none',cursor:'pointer',fontWeight:700}}>{editingModuleFormIdx===null ? 'Crear módulo' : 'Guardar módulo'}</button>
+                      <button onClick={cancelModuleEdit} style={{flex:1,background:'transparent',border:'1px solid rgba(255,255,255,0.12)',color:'#F4F6E7',padding:'0.85rem 1rem',borderRadius:4,cursor:'pointer'}}>Cancelar</button>
                     </div>
-                  ))
+                  </div>
                 )}
+
+                <div style={{maxHeight:'420px',overflowY:'auto'}}>
+                  {modules.length===0 ? (
+                    <p style={{color:'#B9C6E0'}}>No hay módulos definidos aún.</p>
+                  ) : modules.map((mod,midx)=>(
+                    <div key={midx} style={{background:'rgba(255,255,255,0.05)',border:'1px solid rgba(255,255,255,0.12)',borderRadius:10,padding:'1rem',marginBottom:'1rem'}}>
+                      <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',gap:'1rem',flexWrap:'wrap',marginBottom:'0.65rem'}}>
+                        <div>
+                          <div style={{fontSize:'1rem',fontWeight:700,color:'#F4F6E7'}}>{mod.icon} {mod.title}</div>
+                          <div style={{fontSize:'0.78rem',color:'#B9C6B2',marginTop:'0.25rem'}}>{mod.tag}</div>
+                        </div>
+                        <div style={{display:'flex',gap:'0.4rem',flexWrap:'wrap'}}>
+                          <button onClick={()=>editModuleMeta(midx)} style={{background:'transparent',border:'1px solid rgba(255,255,255,0.14)',color:'#F4F6E7',padding:'0.4rem 0.65rem',fontSize:'0.72rem',borderRadius:3,cursor:'pointer'}}>Editar</button>
+                          <button onClick={()=>{setEditingModuleIdx(midx);setShowModuleForm(false);}} style={{background:'transparent',border:'1px solid rgba(255,255,255,0.14)',color:'#F4F6E7',padding:'0.4rem 0.65rem',fontSize:'0.72rem',borderRadius:3,cursor:'pointer'}}>+ Escenario</button>
+                          <button onClick={()=>deleteModule(midx)} style={{background:'transparent',border:'1px solid rgba(255,100,100,0.4)',color:'#ff8b8b',padding:'0.4rem 0.65rem',fontSize:'0.72rem',borderRadius:3,cursor:'pointer'}}>Eliminar</button>
+                        </div>
+                      </div>
+                      <p style={{fontSize:'0.85rem',color:'#D4D8D3',marginBottom:'0.75rem'}}>{mod.desc}</p>
+                      <div style={{display:'grid',gap:'0.55rem'}}>
+                        {mod.scenarios.map((esc,sidx)=>(
+                          <div key={sidx} style={{background:'rgba(255,255,255,0.03)',border:'1px solid rgba(255,255,255,0.08)',borderRadius:8,padding:'0.8rem'}}>
+                            <div style={{fontSize:'0.82rem',fontWeight:700,color:'#F4F6E7',marginBottom:'0.35rem'}}>{esc.tag} · {esc.title}</div>
+                            <div style={{fontSize:'0.78rem',color:'#B9C6B2',lineHeight:1.4}}>{esc.body}</div>
+                            <div style={{marginTop:'0.55rem',fontSize:'0.72rem',color:'#A9B9A7'}}>Opciones: {esc.options.length}</div>
+                            <button onClick={()=>deleteScenario(midx,sidx)} style={{marginTop:'0.55rem',background:'transparent',border:'1px solid rgba(255,100,100,0.4)',color:'#ff8b8b',padding:'0.35rem 0.6rem',fontSize:'0.72rem',borderRadius:3,cursor:'pointer'}}>Eliminar escenario</button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           )}
