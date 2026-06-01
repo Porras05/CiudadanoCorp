@@ -83,6 +83,28 @@ function saveModulesToStorage(modules) {
   }
 }
 
+function loadQuestionsFromStorage() {
+  try {
+    const saved = localStorage.getItem('ethosfera_questions');
+    if (saved) {
+      return JSON.parse(saved);
+    }
+  } catch (e) {
+    console.error('Error loading questions:', e);
+  }
+  return [];
+}
+
+function saveQuestionsToStorage(questions) {
+  try {
+    localStorage.setItem('ethosfera_questions', JSON.stringify(questions));
+    return true;
+  } catch (e) {
+    console.error('Error saving questions:', e);
+    return false;
+  }
+}
+
 const PROFILES = {
   pragmatic: { name: 'Pragmático', desc: 'Decisiones centradas en resultados y consecución de objetivos.', color: '#C9A84C' },
   idealist: { name: 'Idealista', desc: 'Apuestas por la ética y el cumplimiento normativo por encima de todo.', color: '#4A6AB8' },
@@ -208,9 +230,14 @@ export default function ETHOSFERA() {
   const [dbStatus, setDbStatus] = useState('idle');
   const [pdfLoading, setPdfLoading] = useState(false);
   const [modules, setModules] = useState(() => loadModulesFromStorage());
+  const QUESTION_PASSWORD = 'ethosfera2025';
   const [showModuleForm, setShowModuleForm] = useState(false);
   const [editingModuleIdx, setEditingModuleIdx] = useState(null);
   const [currentScenarioIdx, setCurrentScenarioIdx] = useState(0);
+  const [questions, setQuestions] = useState(() => loadQuestionsFromStorage());
+  const [authAccess, setAuthAccess] = useState(false);
+  const [authInput, setAuthInput] = useState('');
+  const [questionForm, setQuestionForm] = useState({ moduleRef:'', text:'' });
   const [formData, setFormData] = useState({
     moduleIcon: '📋',
     moduleTitle: '',
@@ -232,6 +259,35 @@ export default function ETHOSFERA() {
   const updateModules = (newModules) => {
     setModules(newModules);
     saveModulesToStorage(newModules);
+  };
+
+  const authorizeUser = () => {
+    if (authInput.trim() === QUESTION_PASSWORD) {
+      setAuthAccess(true);
+      setAuthInput('');
+      alert('Acceso autorizado');
+      setScreen('questions');
+    } else {
+      alert('Código de acceso incorrecto');
+    }
+  };
+
+  const submitQuestion = () => {
+    if (!questionForm.text.trim()) {
+      alert('Escribe la pregunta antes de enviar');
+      return;
+    }
+    const newEntry = {
+      id: Date.now(),
+      moduleRef: questionForm.moduleRef.trim() || 'General',
+      text: questionForm.text.trim(),
+      createdAt: new Date().toLocaleString('es-ES')
+    };
+    const updated = [...questions, newEntry];
+    setQuestions(updated);
+    saveQuestionsToStorage(updated);
+    setQuestionForm({ moduleRef: '', text: '' });
+    alert('Pregunta registrada correctamente');
   };
 
   const addModule = () => {
