@@ -558,7 +558,9 @@ export default function ETHOSFERA() {
                 <div style={{fontSize:'0.8rem',color:'rgba(245,240,232,0.55)',lineHeight:1.55}}>{currentSc.context}</div>
               </div>
               <div style={{display:'flex',justifyContent:'center',marginTop:'auto',paddingTop:'0.8rem'}}>
-                <div dangerouslySetInnerHTML={{__html:charSVG(pc,90,110,true)}}/>
+                  <div style={{width:120,height:140,background:'linear-gradient(170deg,#0D1522,#101A0F,#1A1209)',border:'2px solid rgba(201,168,76,0.4)',borderRadius:8,display:'flex',alignItems:'center',justifyContent:'center',overflow:'hidden'}}>
+                    <img src={pc.avatar} alt={pc.name} style={{width:'100%',height:'100%',objectFit:'cover'}}/>
+                  </div>
               </div>
             </div>
             <div style={{background:'#F5F0E8',padding:'1.8rem',display:'flex',flexDirection:'column',gap:'0.8rem',overflowY:'auto'}}>
