@@ -758,18 +758,18 @@ export default function ETHOSFERA() {
 
       {/* ── PREGUNTAS AUTORIZADAS ── */}
       {screen==='questions'&&(
-        <div style={{minHeight:'100vh',background:'#0D0D14',padding:'2rem',display:'flex',flexDirection:'column',alignItems:'center',gap:'1.5rem'}}>
+        <div style={{minHeight:'100vh',background:'#ffffff',padding:'2rem',display:'flex',flexDirection:'column',alignItems:'center',gap:'1.5rem'}}>
           <div style={{width:'100%',maxWidth:960,textAlign:'center'}}>
-            <div style={{fontSize:'0.65rem',letterSpacing:3,textTransform:'uppercase',color:'#7BAE49',marginBottom:'1rem',fontWeight:600}}>Gestión autorizada de contenido</div>
-            <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:'2rem',color:'#F4F6E7',fontWeight:900,marginBottom:'0.6rem'}}>Administra módulos y preguntas del curso</h2>
-            <p style={{color:'#B9C6B2',fontSize:'0.92rem',lineHeight:1.7,maxWidth:760,margin:'0 auto'}}>Solo personal autorizado puede crear, editar o eliminar módulos y preguntas del curso. Ingrese con el código autorizado para administrar el contenido que verán los participantes.</p>
+            <div style={{fontSize:'0.65rem',letterSpacing:3,textTransform:'uppercase',color:'#0b5640',marginBottom:'1rem',fontWeight:600}}>Gestión autorizada de contenido</div>
+            <h2 style={{fontFamily:'Poppins, sans-serif',fontSize:'2rem',color:'#0D0D0D',fontWeight:900,marginBottom:'0.6rem'}}>Administra módulos y preguntas del curso</h2>
+            <p style={{color:'#1A1A1A',fontSize:'0.92rem',lineHeight:1.7,maxWidth:760,margin:'0 auto'}}>Solo personal autorizado puede crear, editar o eliminar módulos y preguntas del curso. Ingrese con el código autorizado para administrar el contenido que verán los participantes.</p>
           </div>
 
           {!authAccess ? (
-            <div style={{background:'rgba(255,255,255,0.04)',border:'1px solid rgba(123,174,73,0.25)',borderRadius:10,padding:'1.5rem',width:'100%',maxWidth:520}}>
-              <p style={{color:'#F4F6E7',marginBottom:'1rem'}}>Ingrese el código de acceso autorizado para gestionar módulos y preguntas.</p>
-              <input type="password" value={authInput} onChange={e=>setAuthInput(e.target.value)} placeholder="Código de acceso" style={{width:'100%',padding:'0.9rem 1rem',borderRadius:4,border:'1px solid rgba(255,255,255,0.12)',background:'rgba(245,240,232,0.06)',color:'#F4F6E7',marginBottom:'1rem',fontSize:'0.92rem'}}/>
-              <button onClick={authorizeUser} style={{width:'100%',background:'#7BAE49',color:'#0D0D14',padding:'0.9rem 1rem',borderRadius:4,border:'none',cursor:'pointer',fontWeight:700}}>Ingresar</button>
+            <div style={{background:'#f6fff6',border:'1px solid rgba(11,86,64,0.16)',borderRadius:10,padding:'1.5rem',width:'100%',maxWidth:520}}>
+              <p style={{color:'#1A1A1A',marginBottom:'1rem'}}>Ingrese el código de acceso autorizado para gestionar módulos y preguntas.</p>
+              <input type="password" value={authInput} onChange={e=>setAuthInput(e.target.value)} placeholder="Código de acceso" style={{width:'100%',padding:'0.9rem 1rem',borderRadius:4,border:'1px solid rgba(11,86,64,0.18)',background:'#ffffff',color:'#0D0D14',marginBottom:'1rem',fontSize:'0.92rem'}}/>
+              <button onClick={authorizeUser} style={{width:'100%',background:'#3af9a2',color:'#0D0D14',padding:'0.9rem 1rem',borderRadius:4,border:'none',cursor:'pointer',fontWeight:700}}>Ingresar</button>
             </div>
           ) : (
             <div style={{width:'100%',maxWidth:960,display:'grid',gridTemplateColumns:'1fr',gap:'1.2rem'}}>
