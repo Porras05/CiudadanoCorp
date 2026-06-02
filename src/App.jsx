@@ -677,7 +677,7 @@ export default function ETHOSFERA() {
           <button onClick={()=>setScreen('character-select')} style={{background:'#3af9a2',color:'#0b5640',padding:'0.85rem 2.2rem',borderRadius:2,fontWeight:600,fontSize:'0.92rem',border:'none',cursor:'pointer',letterSpacing:0.5}}>Comenzar →</button>
           
           {/* Botón secreto para modo admin */}
-          <button onClick={()=>setAdminMode(!adminMode)} style={{position:'fixed',bottom:'1rem',right:'1rem',background:'transparent',border:'1px solid rgba(201,168,76,0.2)',color:'rgba(201,168,76,0.3)',padding:'0.3rem 0.6rem',borderRadius:2,fontSize:'0.65rem',cursor:'pointer',fontFamily:'monospace',opacity:0.3,transition:'opacity 0.3s'}} onMouseEnter={(e)=>e.target.style.opacity='1'} onMouseLeave={(e)=>e.target.style.opacity='0.3'}>admin</button>
+          <button onClick={()=>setAdminMode(!adminMode)} style={{position:'fixed',bottom:'1rem',right:'1rem',background:'transparent',border:'1px solid rgba(11,86,64,0.2)',color:'#0b5640',padding:'0.3rem 0.6rem',borderRadius:2,fontSize:'0.65rem',cursor:'pointer',fontFamily:'monospace',opacity:0.3,transition:'opacity 0.3s'}} onMouseEnter={(e)=>e.target.style.opacity='1'} onMouseLeave={(e)=>e.target.style.opacity='0.3'}>admin</button>
         </div>
       )}
 
@@ -722,7 +722,7 @@ export default function ETHOSFERA() {
                 </div>
               ))}
               <div style={{display:'flex',gap:'0.8rem',flexWrap:'wrap',marginTop:'2rem'}}>
-                <button onClick={()=>{if(!pc.fullName||!pc.fullName.trim()){alert('Por favor completa al menos tu nombre.');return;}setScreen('modules');}} style={{background:'#C9A84C',color:'#0D0D14',padding:'0.78rem 1.9rem',borderRadius:2,fontWeight:600,fontSize:'0.88rem',border:'none',cursor:'pointer'}}>Continuar →</button>
+                <button onClick={()=>{if(!pc.fullName||!pc.fullName.trim()){alert('Por favor completa al menos tu nombre.');return;}setScreen('modules');}} style={{background:'#3af9a2',color:'#0D0D14',padding:'0.78rem 1.9rem',borderRadius:2,fontWeight:600,fontSize:'0.88rem',border:'none',cursor:'pointer'}}>Continuar →</button>
                 <button onClick={()=>setScreen('character-select')} style={{background:'transparent',border:'1px solid rgba(11,86,64,0.15)',color:'#0b5640',padding:'0.72rem 1.5rem',borderRadius:2,fontSize:'0.82rem',cursor:'pointer',fontFamily:'inherit'}}>← Cambiar personaje</button>
               </div>
             </div>
@@ -732,27 +732,27 @@ export default function ETHOSFERA() {
 
       {/* ── MODULES ── */}
       {screen==='modules'&&(
-        <div style={{minHeight:'100vh',background:'#F5F0E8',padding:'2rem',display:'flex',flexDirection:'column',alignItems:'center',paddingTop:'2.5rem'}}>
+        <div style={{minHeight:'100vh',background:'#ffffff',padding:'2rem',display:'flex',flexDirection:'column',alignItems:'center',paddingTop:'2.5rem'}}>
           <div style={{textAlign:'center',marginBottom:'1.5rem',width:'100%',maxWidth:860}}>
             <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:'2rem',color:'#0D0D14',fontWeight:900}}>Módulos de Capacitación</h2>
-            <p style={{color:'#7A7060',fontSize:'0.85rem',marginTop:'0.3rem'}}>Completa el módulo para generar tu certificado</p>
+            <p style={{color:'#0D0D14',fontSize:'0.85rem',marginTop:'0.3rem'}}>Completa el módulo para generar tu certificado</p>
           </div>
-          <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(240px,1fr))',gap:1,width:'100%',maxWidth:860,border:'1px solid #D4CCB8'}}>
+          <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(240px,1fr))',gap:'1rem',width:'100%',maxWidth:860,border:'1px solid rgba(11,86,64,0.12)'}}>
             {modules.filter(mod=>mod.showInGame).map((mod,i)=>{
               const done=gs.completedModules.includes(mod.id);
               const realIndex = modules.findIndex(m=>m.id===mod.id);
               return (
-                <div key={mod.id} onClick={()=>startModule(realIndex)} style={{background:done?'#EDE8DC':'#FDFCF8',padding:'1.4rem',cursor:'pointer',position:'relative',borderBottom:'1px solid #D4CCB8',transition:'all 0.2s',display:'flex',flexDirection:'column'}}>
+                <div key={mod.id} onClick={()=>startModule(realIndex)} style={{background:done?'#f6fff6':'#ffffff',padding:'1.4rem',cursor:'pointer',position:'relative',borderBottom:'1px solid rgba(11,86,64,0.12)',transition:'all 0.2s',display:'flex',flexDirection:'column'}}>
                   <span style={{fontSize:'1.6rem',marginBottom:'0.7rem',display:'block'}}>{mod.icon}</span>
                   <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:'1rem',color:'#0D0D14',fontWeight:700,marginBottom:'0.3rem'}}>{mod.title}</h3>
-                  <p style={{fontSize:'0.78rem',color:'#7A7060',lineHeight:1.5,flexGrow:1}}>{mod.desc}</p>
-                  <span style={{display:'inline-block',marginTop:'0.7rem',padding:'0.12rem 0.55rem',fontSize:'0.65rem',letterSpacing:'1.5px',textTransform:'uppercase',fontWeight:600,border:'1px solid #D4CCB8',color:'#7A7060',borderRadius:1}}>{mod.tag}</span>
-                  {done&&<div style={{position:'absolute',top:'0.9rem',right:'0.9rem',fontSize:'0.75rem',fontWeight:600,color:'#C9A84C'}}>✓ Completado</div>}
+                  <p style={{fontSize:'0.78rem',color:'#0D0D14',lineHeight:1.5,flexGrow:1}}>{mod.desc}</p>
+                  <span style={{display:'inline-block',marginTop:'0.7rem',padding:'0.12rem 0.55rem',fontSize:'0.65rem',letterSpacing:'1.5px',textTransform:'uppercase',fontWeight:600,border:'1px solid rgba(11,86,64,0.12)',color:'#0b5640',borderRadius:1}}>{mod.tag}</span>
+                  {done&&<div style={{position:'absolute',top:'0.9rem',right:'0.9rem',fontSize:'0.75rem',fontWeight:600,color:'#0b5640'}}>✓ Completado</div>}
                 </div>
               );
             })}
           </div>
-          {allDone&&<div style={{marginTop:'1.5rem'}}><button onClick={handleFinal} style={{display:'inline-flex',alignItems:'center',gap:'0.5rem',background:'#0D0D14',color:'#F5F0E8',padding:'0.78rem 1.9rem',borderRadius:2,fontWeight:600,fontSize:'0.88rem',border:'none',cursor:'pointer'}}>🎓 Ver Certificado Final</button></div>}
+          {allDone&&<div style={{marginTop:'1.5rem'}}><button onClick={handleFinal} style={{display:'inline-flex',alignItems:'center',gap:'0.5rem',background:'#3af9a2',color:'#0D0D14',padding:'0.78rem 1.9rem',borderRadius:2,fontWeight:600,fontSize:'0.88rem',border:'none',cursor:'pointer'}}>🎓 Ver Certificado Final</button></div>}
         </div>
       )}
 
@@ -774,103 +774,103 @@ export default function ETHOSFERA() {
           ) : (
             <div style={{width:'100%',maxWidth:960,display:'grid',gridTemplateColumns:'1fr',gap:'1.2rem'}}>
               <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'1.2rem'}}>
-                <div style={{background:'rgba(255,255,255,0.04)',border:'1px solid rgba(123,174,73,0.25)',borderRadius:10,padding:'1.4rem'}}>
-                  <div style={{fontSize:'0.85rem',fontWeight:700,color:'#7BAE49',marginBottom:'1rem'}}>Registrar nueva pregunta</div>
-                  <select value={questionForm.moduleId} onChange={e=>setQuestionForm(f=>({...f,moduleId:e.target.value}))} style={{width:'100%',padding:'0.85rem 1rem',borderRadius:4,border:'1px solid rgba(255,255,255,0.12)',background:'rgba(245,240,232,0.06)',color:'#F4F6E7',marginBottom:'1rem',fontSize:'0.9rem'}}>
+                <div style={{background:'#f6fff6',border:'1px solid rgba(11,86,64,0.16)',borderRadius:10,padding:'1.4rem'}}>
+                  <div style={{fontSize:'0.85rem',fontWeight:700,color:'#0b5640',marginBottom:'1rem'}}>Registrar nueva pregunta</div>
+                  <select value={questionForm.moduleId} onChange={e=>setQuestionForm(f=>({...f,moduleId:e.target.value}))} style={{width:'100%',padding:'0.85rem 1rem',borderRadius:4,border:'1px solid rgba(11,86,64,0.18)',background:'#ffffff',color:'#0D0D14',marginBottom:'1rem',fontSize:'0.9rem'}}>
                     <option value="">Selecciona un módulo</option>
                     {modules.map(mod=>(
                       <option key={mod.id} value={mod.id}>{mod.title}</option>
                     ))}
                   </select>
-                  <textarea placeholder="Escribe tu pregunta aquí" value={questionForm.text} onChange={e=>setQuestionForm(f=>({...f,text:e.target.value}))} style={{width:'100%',minHeight:'120px',padding:'1rem',borderRadius:4,border:'1px solid rgba(255,255,255,0.12)',background:'rgba(245,240,232,0.06)',color:'#F4F6E7',fontSize:'0.9rem',resize:'vertical',marginBottom:'1rem'}}/>
-                  <input placeholder="Respuesta correcta" value={questionForm.correctAnswer} onChange={e=>setQuestionForm(f=>({...f,correctAnswer:e.target.value}))} style={{width:'100%',padding:'0.85rem 1rem',borderRadius:4,border:'1px solid rgba(255,255,255,0.12)',background:'rgba(245,240,232,0.06)',color:'#F4F6E7',marginBottom:'1rem',fontSize:'0.9rem'}}/>
+                  <textarea placeholder="Escribe tu pregunta aquí" value={questionForm.text} onChange={e=>setQuestionForm(f=>({...f,text:e.target.value}))} style={{width:'100%',minHeight:'120px',padding:'1rem',borderRadius:4,border:'1px solid rgba(11,86,64,0.18)',background:'#ffffff',color:'#0D0D14',fontSize:'0.9rem',resize:'vertical',marginBottom:'1rem'}}/>
+                  <input placeholder="Respuesta correcta" value={questionForm.correctAnswer} onChange={e=>setQuestionForm(f=>({...f,correctAnswer:e.target.value}))} style={{width:'100%',padding:'0.85rem 1rem',borderRadius:4,border:'1px solid rgba(11,86,64,0.18)',background:'#ffffff',color:'#0D0D14',marginBottom:'1rem',fontSize:'0.9rem'}}/>
                   {[0,1,2].map((idx)=>(
-                    <input key={idx} placeholder={`Respuesta incorrecta ${idx+1}`} value={questionForm.incorrectAnswers[idx]} onChange={e=>setQuestionForm(f=>({...f,incorrectAnswers:f.incorrectAnswers.map((val,i)=>i===idx?e.target.value:val)}))} style={{width:'100%',padding:'0.85rem 1rem',borderRadius:4,border:'1px solid rgba(255,255,255,0.12)',background:'rgba(245,240,232,0.06)',color:'#F4F6E7',marginBottom:'1rem',fontSize:'0.9rem'}}/>
+                    <input key={idx} placeholder={`Respuesta incorrecta ${idx+1}`} value={questionForm.incorrectAnswers[idx]} onChange={e=>setQuestionForm(f=>({...f,incorrectAnswers:f.incorrectAnswers.map((val,i)=>i===idx?e.target.value:val)}))} style={{width:'100%',padding:'0.85rem 1rem',borderRadius:4,border:'1px solid rgba(11,86,64,0.18)',background:'#ffffff',color:'#0D0D14',marginBottom:'1rem',fontSize:'0.9rem'}}/>
                   ))}
-                  <textarea placeholder="Retroalimentación para esta pregunta" value={questionForm.feedback} onChange={e=>setQuestionForm(f=>({...f,feedback:e.target.value}))} style={{width:'100%',minHeight:'100px',padding:'1rem',borderRadius:4,border:'1px solid rgba(255,255,255,0.12)',background:'rgba(245,240,232,0.06)',color:'#F4F6E7',fontSize:'0.9rem',resize:'vertical',marginBottom:'1rem'}}/>
+                  <textarea placeholder="Retroalimentación para esta pregunta" value={questionForm.feedback} onChange={e=>setQuestionForm(f=>({...f,feedback:e.target.value}))} style={{width:'100%',minHeight:'100px',padding:'1rem',borderRadius:4,border:'1px solid rgba(11,86,64,0.18)',background:'#ffffff',color:'#0D0D14',fontSize:'0.9rem',resize:'vertical',marginBottom:'1rem'}}/>
                   <div style={{display:'flex',gap:'0.75rem',flexWrap:'wrap'}}>
-                    <button onClick={submitQuestion} style={{flex:1,background:'#7BAE49',color:'#0D0D14',padding:'0.95rem 1rem',borderRadius:4,border:'none',cursor:'pointer',fontWeight:700}}>{editingQuestionId!==null?'Guardar cambios':'Enviar pregunta'}</button>
+                    <button onClick={submitQuestion} style={{flex:1,background:'#3af9a2',color:'#0D0D14',padding:'0.95rem 1rem',borderRadius:4,border:'none',cursor:'pointer',fontWeight:700}}>{editingQuestionId!==null?'Guardar cambios':'Enviar pregunta'}</button>
                     {editingQuestionId!==null&&(
-                      <button onClick={resetQuestionForm} style={{flex:1,background:'transparent',border:'1px solid rgba(255,255,255,0.12)',color:'#F4F6E7',padding:'0.95rem 1rem',borderRadius:4,cursor:'pointer'}}>Cancelar</button>
+                      <button onClick={resetQuestionForm} style={{flex:1,background:'transparent',border:'1px solid rgba(11,86,64,0.18)',color:'#0D0D14',padding:'0.95rem 1rem',borderRadius:4,cursor:'pointer'}}>Cancelar</button>
                     )}
                   </div>
                 </div>
-                <div style={{background:'rgba(255,255,255,0.04)',border:'1px solid rgba(123,174,73,0.25)',borderRadius:10,padding:'1.4rem',maxHeight:'520px',overflowY:'auto'}}>
-                  <div style={{fontSize:'0.85rem',fontWeight:700,color:'#7BAE49',marginBottom:'1rem'}}>Preguntas registradas</div>
+                <div style={{background:'#f6fff6',border:'1px solid rgba(11,86,64,0.16)',borderRadius:10,padding:'1.4rem',maxHeight:'520px',overflowY:'auto'}}>
+                  <div style={{fontSize:'0.85rem',fontWeight:700,color:'#0b5640',marginBottom:'1rem'}}>Preguntas registradas</div>
                   {questions.length === 0 ? (
-                    <p style={{color:'#B9C6E0'}}>No hay preguntas registradas aún.</p>
+                    <p style={{color:'#7A7060'}}>No hay preguntas registradas aún.</p>
                   ) : (
                     questions.slice().reverse().map(question => (
-                      <div key={question.id} style={{marginBottom:'1rem',padding:'0.9rem',borderRadius:4,background:'rgba(255,255,255,0.05)',border:'1px solid rgba(255,255,255,0.08)'}}>
+                      <div key={question.id} style={{marginBottom:'1rem',padding:'0.9rem',borderRadius:4,background:'#ffffff',border:'1px solid rgba(11,86,64,0.12)'}}>
                         <div style={{display:'flex',justifyContent:'space-between',gap:'0.75rem',flexWrap:'wrap',marginBottom:'0.5rem'}}>
-                          <span style={{fontSize:'0.78rem',fontWeight:700,color:'#F4F6E7'}}>{question.moduleRef}</span>
+                          <span style={{fontSize:'0.78rem',fontWeight:700,color:'#0b5640'}}>{question.moduleRef}</span>
                           <div style={{display:'flex',gap:'0.35rem',flexWrap:'wrap'}}>
-                            <button onClick={()=>editQuestion(question)} style={{background:'transparent',border:'1px solid rgba(255,255,255,0.14)',color:'#F4F6E7',padding:'0.25rem 0.6rem',fontSize:'0.72rem',borderRadius:3,cursor:'pointer'}}>Editar</button>
-                            <button onClick={()=>deleteQuestion(question.id)} style={{background:'transparent',border:'1px solid rgba(255,100,100,0.4)',color:'#ff8b8b',padding:'0.25rem 0.6rem',fontSize:'0.72rem',borderRadius:3,cursor:'pointer'}}>Eliminar</button>
+                            <button onClick={()=>editQuestion(question)} style={{background:'transparent',border:'1px solid rgba(11,86,64,0.18)',color:'#0D0D14',padding:'0.25rem 0.6rem',fontSize:'0.72rem',borderRadius:3,cursor:'pointer'}}>Editar</button>
+                            <button onClick={()=>deleteQuestion(question.id)} style={{background:'transparent',border:'1px solid rgba(255,100,100,0.4)',color:'#c33',padding:'0.25rem 0.6rem',fontSize:'0.72rem',borderRadius:3,cursor:'pointer'}}>Eliminar</button>
                           </div>
                         </div>
-                        <div style={{fontSize:'0.92rem',color:'#E5E9F0',lineHeight:1.5,marginBottom:'0.65rem'}}>{question.text}</div>
+                        <div style={{fontSize:'0.92rem',color:'#0D0D14',lineHeight:1.5,marginBottom:'0.65rem'}}>{question.text}</div>
                         <div style={{display:'grid',gap:'0.35rem',marginBottom:'0.65rem'}}>
-                          <div style={{fontSize:'0.78rem',color:'#C9A84C'}}>Correcta: {question.correctAnswer}</div>
+                          <div style={{fontSize:'0.78rem',color:'#0b5640'}}>Correcta: {question.correctAnswer}</div>
                           {question.incorrectAnswers.map((wrong, idx)=>(
-                            <div key={idx} style={{fontSize:'0.76rem',color:'#B9C1B4'}}>Incorrecta {idx+1}: {wrong}</div>
+                            <div key={idx} style={{fontSize:'0.76rem',color:'#0D0D14'}}>Incorrecta {idx+1}: {wrong}</div>
                           ))}
                         </div>
-                        <div style={{fontSize:'0.8rem',color:'#A9B9A7',marginBottom:'0.55rem'}}>Retroalimentación: {question.feedback || 'Sin retroalimentación'}</div>
-                        <div style={{fontSize:'0.72rem',color:'#A9B9A7'}}>{question.createdAt}{question.updatedAt?` · editada ${question.updatedAt}`:''}</div>
+                        <div style={{fontSize:'0.8rem',color:'#0D0D14',marginBottom:'0.55rem'}}>Retroalimentación: {question.feedback || 'Sin retroalimentación'}</div>
+                        <div style={{fontSize:'0.72rem',color:'#0D0D14'}}>{question.createdAt}{question.updatedAt?` · editada ${question.updatedAt}`:''}</div>
                       </div>
                     ))
                   )}
                 </div>
               </div>
 
-              <div style={{background:'rgba(255,255,255,0.04)',border:'1px solid rgba(123,174,73,0.25)',borderRadius:10,padding:'1.4rem'}}>
+              <div style={{background:'#f6fff6',border:'1px solid rgba(11,86,64,0.16)',borderRadius:10,padding:'1.4rem'}}>
                 <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'1rem',gap:'1rem'}}>
                   <div>
-                    <div style={{fontSize:'0.85rem',fontWeight:700,color:'#7BAE49'}}>Gestión de módulos</div>
-                    <div style={{fontSize:'0.78rem',color:'#B9C6B2'}}>Crea y edita el contenido que verá el curso.</div>
+                    <div style={{fontSize:'0.85rem',fontWeight:700,color:'#0b5640'}}>Gestión de módulos</div>
+                    <div style={{fontSize:'0.78rem',color:'#0D0D14'}}>Crea y edita el contenido que verá el curso.</div>
                   </div>
-                  <button onClick={()=>{setShowModuleForm(!showModuleForm);setEditingModuleFormIdx(null);}} style={{background:'#7BAE49',color:'#0D0D14',padding:'0.75rem 1rem',borderRadius:4,border:'none',cursor:'pointer',fontWeight:700}}>+ Nuevo módulo</button>
+                  <button onClick={()=>{setShowModuleForm(!showModuleForm);setEditingModuleFormIdx(null);}} style={{background:'#3af9a2',color:'#0D0D14',padding:'0.75rem 1rem',borderRadius:4,border:'none',cursor:'pointer',fontWeight:700}}>+ Nuevo módulo</button>
                 </div>
 
                 {showModuleForm && (
-                  <div style={{background:'rgba(255,255,255,0.05)',border:'1px solid rgba(255,255,255,0.12)',borderRadius:10,padding:'1rem',marginBottom:'1rem'}}>
-                    <div style={{fontSize:'0.82rem',fontWeight:700,color:'#F4F6E7',marginBottom:'0.8rem'}}>{editingModuleFormIdx===null ? 'Crear módulo' : 'Editar módulo'}</div>
-                    <input type="text" placeholder="Emoji del módulo" maxLength="2" value={formData.moduleIcon} onChange={e=>setFormData({...formData,moduleIcon:e.target.value})} style={{width:'100%',padding:'0.7rem',marginBottom:'0.6rem',borderRadius:4,border:'1px solid rgba(255,255,255,0.12)',background:'rgba(245,240,232,0.06)',color:'#F4F6E7',fontSize:'0.9rem'}}/>
-                    <input type="text" placeholder="Título del módulo" value={formData.moduleTitle} onChange={e=>setFormData({...formData,moduleTitle:e.target.value})} style={{width:'100%',padding:'0.7rem',marginBottom:'0.6rem',borderRadius:4,border:'1px solid rgba(255,255,255,0.12)',background:'rgba(245,240,232,0.06)',color:'#F4F6E7',fontSize:'0.9rem'}}/>
-                    <input type="text" placeholder="Etiqueta" value={formData.moduleTag} onChange={e=>setFormData({...formData,moduleTag:e.target.value})} style={{width:'100%',padding:'0.7rem',marginBottom:'0.6rem',borderRadius:4,border:'1px solid rgba(255,255,255,0.12)',background:'rgba(245,240,232,0.06)',color:'#F4F6E7',fontSize:'0.9rem'}}/>
-                    <textarea placeholder="Descripción del módulo" value={formData.moduleDesc} onChange={e=>setFormData({...formData,moduleDesc:e.target.value})} style={{width:'100%',padding:'0.85rem',marginBottom:'0.8rem',borderRadius:4,border:'1px solid rgba(255,255,255,0.12)',background:'rgba(245,240,232,0.06)',color:'#F4F6E7',fontSize:'0.9rem',resize:'vertical',minHeight:'100px'}}/>
+                  <div style={{background:'#ffffff',border:'1px solid rgba(11,86,64,0.18)',borderRadius:10,padding:'1rem',marginBottom:'1rem'}}>
+                    <div style={{fontSize:'0.82rem',fontWeight:700,color:'#0D0D14',marginBottom:'0.8rem'}}>{editingModuleFormIdx===null ? 'Crear módulo' : 'Editar módulo'}</div>
+                    <input type="text" placeholder="Emoji del módulo" maxLength="2" value={formData.moduleIcon} onChange={e=>setFormData({...formData,moduleIcon:e.target.value})} style={{width:'100%',padding:'0.7rem',marginBottom:'0.6rem',borderRadius:4,border:'1px solid rgba(11,86,64,0.18)',background:'#ffffff',color:'#0D0D14',fontSize:'0.9rem'}}/>
+                    <input type="text" placeholder="Título del módulo" value={formData.moduleTitle} onChange={e=>setFormData({...formData,moduleTitle:e.target.value})} style={{width:'100%',padding:'0.7rem',marginBottom:'0.6rem',borderRadius:4,border:'1px solid rgba(11,86,64,0.18)',background:'#ffffff',color:'#0D0D14',fontSize:'0.9rem'}}/>
+                    <input type="text" placeholder="Etiqueta" value={formData.moduleTag} onChange={e=>setFormData({...formData,moduleTag:e.target.value})} style={{width:'100%',padding:'0.7rem',marginBottom:'0.6rem',borderRadius:4,border:'1px solid rgba(11,86,64,0.18)',background:'#ffffff',color:'#0D0D14',fontSize:'0.9rem'}}/>
+                    <textarea placeholder="Descripción del módulo" value={formData.moduleDesc} onChange={e=>setFormData({...formData,moduleDesc:e.target.value})} style={{width:'100%',padding:'0.85rem',marginBottom:'0.8rem',borderRadius:4,border:'1px solid rgba(11,86,64,0.18)',background:'#ffffff',color:'#0D0D14',fontSize:'0.9rem',resize:'vertical',minHeight:'100px'}}/>
                     <div style={{display:'flex',gap:'0.75rem',flexWrap:'wrap'}}>
-                      <button onClick={editingModuleFormIdx===null ? addModule : saveEditedModule} style={{flex:1,background:'#7BAE49',color:'#0D0D14',padding:'0.85rem 1rem',borderRadius:4,border:'none',cursor:'pointer',fontWeight:700}}>{editingModuleFormIdx===null ? 'Crear módulo' : 'Guardar módulo'}</button>
-                      <button onClick={cancelModuleEdit} style={{flex:1,background:'transparent',border:'1px solid rgba(255,255,255,0.12)',color:'#F4F6E7',padding:'0.85rem 1rem',borderRadius:4,cursor:'pointer'}}>Cancelar</button>
+                      <button onClick={editingModuleFormIdx===null ? addModule : saveEditedModule} style={{flex:1,background:'#3af9a2',color:'#0D0D14',padding:'0.85rem 1rem',borderRadius:4,border:'none',cursor:'pointer',fontWeight:700}}>{editingModuleFormIdx===null ? 'Crear módulo' : 'Guardar módulo'}</button>
+                      <button onClick={cancelModuleEdit} style={{flex:1,background:'transparent',border:'1px solid rgba(11,86,64,0.18)',color:'#0D0D14',padding:'0.85rem 1rem',borderRadius:4,cursor:'pointer'}}>Cancelar</button>
                     </div>
                   </div>
                 )}
 
                 <div style={{maxHeight:'420px',overflowY:'auto'}}>
                   {modules.length===0 ? (
-                    <p style={{color:'#B9C6E0'}}>No hay módulos definidos aún.</p>
+                    <p style={{color:'#7A7060'}}>No hay módulos definidos aún.</p>
                   ) : modules.map((mod,midx)=>(
-                    <div key={midx} style={{background:'rgba(255,255,255,0.05)',border:'1px solid rgba(255,255,255,0.12)',borderRadius:10,padding:'1rem',marginBottom:'1rem'}}>
+                    <div key={midx} style={{background:'#ffffff',border:'1px solid rgba(11,86,64,0.12)',borderRadius:10,padding:'1rem',marginBottom:'1rem'}}>
                       <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',gap:'1rem',flexWrap:'wrap',marginBottom:'0.65rem'}}>
                         <div>
-                          <div style={{fontSize:'1rem',fontWeight:700,color:'#F4F6E7'}}>{mod.icon} {mod.title}</div>
-                          <div style={{fontSize:'0.78rem',color:'#B9C6B2',marginTop:'0.25rem'}}>{mod.tag}</div>
-                          <div style={{fontSize:'0.72rem',color:mod.showInGame ? '#C9A84C' : '#A9B9A7',marginTop:'0.25rem'}}>{mod.showInGame ? 'Visible en juegos' : 'Oculto en juegos'}</div>
+                          <div style={{fontSize:'1rem',fontWeight:700,color:'#0D0D14'}}>{mod.icon} {mod.title}</div>
+                          <div style={{fontSize:'0.78rem',color:'#0D0D14',marginTop:'0.25rem'}}>{mod.tag}</div>
+                          <div style={{fontSize:'0.72rem',color:mod.showInGame ? '#3af9a2' : '#A9B9A7',marginTop:'0.25rem'}}>{mod.showInGame ? 'Visible en juegos' : 'Oculto en juegos'}</div>
                         </div>
                         <div style={{display:'flex',gap:'0.4rem',flexWrap:'wrap'}}>
-                          <button onClick={()=>toggleModuleVisibility(midx)} style={{background:'transparent',border:'1px solid rgba(255,255,255,0.14)',color:'#F4F6E7',padding:'0.4rem 0.65rem',fontSize:'0.72rem',borderRadius:3,cursor:'pointer'}}>{mod.showInGame ? 'Ocultar en juego' : 'Mostrar en juego'}</button>
-                          <button onClick={()=>editModuleMeta(midx)} style={{background:'transparent',border:'1px solid rgba(255,255,255,0.14)',color:'#F4F6E7',padding:'0.4rem 0.65rem',fontSize:'0.72rem',borderRadius:3,cursor:'pointer'}}>Editar</button>
-                          <button onClick={()=>{setEditingModuleIdx(midx);setShowModuleForm(false);}} style={{background:'transparent',border:'1px solid rgba(255,255,255,0.14)',color:'#F4F6E7',padding:'0.4rem 0.65rem',fontSize:'0.72rem',borderRadius:3,cursor:'pointer'}}>+ Escenario</button>
+                          <button onClick={()=>toggleModuleVisibility(midx)} style={{background:'transparent',border:'1px solid rgba(11,86,64,0.18)',color:'#0D0D14',padding:'0.4rem 0.65rem',fontSize:'0.72rem',borderRadius:3,cursor:'pointer'}}>{mod.showInGame ? 'Ocultar en juego' : 'Mostrar en juego'}</button>
+                          <button onClick={()=>editModuleMeta(midx)} style={{background:'transparent',border:'1px solid rgba(11,86,64,0.18)',color:'#0D0D14',padding:'0.4rem 0.65rem',fontSize:'0.72rem',borderRadius:3,cursor:'pointer'}}>Editar</button>
+                          <button onClick={()=>{setEditingModuleIdx(midx);setShowModuleForm(false);}} style={{background:'transparent',border:'1px solid rgba(11,86,64,0.18)',color:'#0D0D14',padding:'0.4rem 0.65rem',fontSize:'0.72rem',borderRadius:3,cursor:'pointer'}}>+ Escenario</button>
                           <button onClick={()=>deleteModule(midx)} style={{background:'transparent',border:'1px solid rgba(255,100,100,0.4)',color:'#ff8b8b',padding:'0.4rem 0.65rem',fontSize:'0.72rem',borderRadius:3,cursor:'pointer'}}>Eliminar</button>
                         </div>
                       </div>
-                      <p style={{fontSize:'0.85rem',color:'#D4D8D3',marginBottom:'0.75rem'}}>{mod.desc}</p>
+                      <p style={{fontSize:'0.85rem',color:'#0D0D14',marginBottom:'0.75rem'}}>{mod.desc}</p>
                       <div style={{display:'grid',gap:'0.55rem'}}>
                         {mod.scenarios.map((esc,sidx)=>(
-                          <div key={sidx} style={{background:'rgba(255,255,255,0.03)',border:'1px solid rgba(255,255,255,0.08)',borderRadius:8,padding:'0.8rem'}}>
-                            <div style={{fontSize:'0.82rem',fontWeight:700,color:'#F4F6E7',marginBottom:'0.35rem'}}>{esc.tag} · {esc.title}</div>
-                            <div style={{fontSize:'0.78rem',color:'#B9C6B2',lineHeight:1.4}}>{esc.body}</div>
+                          <div key={sidx} style={{background:'#ffffff',border:'1px solid rgba(11,86,64,0.12)',borderRadius:8,padding:'0.8rem'}}>
+                            <div style={{fontSize:'0.82rem',fontWeight:700,color:'#0D0D14',marginBottom:'0.35rem'}}>{esc.tag} · {esc.title}</div>
+                            <div style={{fontSize:'0.78rem',color:'#0D0D14',lineHeight:1.4}}>{esc.body}</div>
                             <div style={{marginTop:'0.55rem',fontSize:'0.72rem',color:'#A9B9A7'}}>Opciones: {esc.options.length}</div>
                             <button onClick={()=>deleteScenario(midx,sidx)} style={{marginTop:'0.55rem',background:'transparent',border:'1px solid rgba(255,100,100,0.4)',color:'#ff8b8b',padding:'0.35rem 0.6rem',fontSize:'0.72rem',borderRadius:3,cursor:'pointer'}}>Eliminar escenario</button>
                           </div>
@@ -887,44 +887,44 @@ export default function ETHOSFERA() {
 
       {/* ── GAME ── */}
       {screen==='game'&&currentSc&&(
-        <div style={{height:'100vh',background:'#F5F0E8',display:'flex',flexDirection:'column'}}>
-          <div style={{background:'#0D0D14',padding:'0.7rem 1.4rem',display:'flex',alignItems:'center',justifyContent:'space-between',flexShrink:0,gap:'0.5rem'}}>
-            <div style={{fontFamily:"'Playfair Display',serif",color:'#F5F0E8',fontSize:'0.9rem',fontWeight:700}}>{currentMod.icon} {currentMod.title}</div>
+        <div style={{height:'100vh',background:'#ffffff',display:'flex',flexDirection:'column'}}>
+          <div style={{background:'#f6fff6',padding:'0.7rem 1.4rem',display:'flex',alignItems:'center',justifyContent:'space-between',flexShrink:0,gap:'0.5rem'}}>
+            <div style={{fontFamily:"'Playfair Display',serif",color:'#0b5640',fontSize:'0.9rem',fontWeight:700}}>{currentMod.icon} {currentMod.title}</div>
             <div style={{display:'flex',gap:'0.38rem',alignItems:'center'}}>
-              {currentScenarios.map((_,i)=><div key={i} style={{width:7,height:7,borderRadius:'50%',background:i<gs.currentScenario?'#C9A84C':i===gs.currentScenario?'#F5F0E8':'rgba(245,240,232,0.18)',transform:i===gs.currentScenario?'scale(1.35)':'scale(1)'}}/>)}
+              {currentScenarios.map((_,i)=><div key={i} style={{width:7,height:7,borderRadius:'50%',background:i<gs.currentScenario?'#3af9a2':i===gs.currentScenario?'#0b5640':'rgba(11,86,64,0.18)',transform:i===gs.currentScenario?'scale(1.35)':'scale(1)'}}/>)}
             </div>
-            <button onClick={()=>setScreen('modules')} style={{background:'none',border:'1px solid rgba(245,240,232,0.18)',color:'rgba(245,240,232,0.55)',padding:'0.28rem 0.75rem',fontSize:'0.75rem',cursor:'pointer',borderRadius:1,fontFamily:'inherit'}}>← Salir</button>
+            <button onClick={()=>setScreen('modules')} style={{background:'none',border:'1px solid rgba(11,86,64,0.18)',color:'#0b5640',padding:'0.28rem 0.75rem',fontSize:'0.75rem',cursor:'pointer',borderRadius:1,fontFamily:'inherit'}}>← Salir</button>
           </div>
           <div style={{flex:1,display:'grid',gridTemplateColumns:'1fr 1.15fr',overflow:'hidden'}}>
-            <div style={{background:'#0D0D14',padding:'1.8rem',display:'flex',flexDirection:'column',gap:'1.3rem',overflowY:'auto'}}>
+            <div style={{background:'#ffffff',padding:'1.8rem',display:'flex',flexDirection:'column',gap:'1.3rem',overflowY:'auto'}}>
               <div style={{animation:'fadeIn 0.5s ease'}}>
-                <div style={{fontSize:'0.63rem',letterSpacing:'3px',textTransform:'uppercase',color:'#C9A84C',fontWeight:600}}>{currentSc.tag} · {gs.currentScenario+1}/{currentScenarios.length}</div>
-                <div style={{fontFamily:"'Playfair Display',serif",fontSize:'1.25rem',color:'#F5F0E8',fontWeight:700,lineHeight:1.3,marginTop:'0.3rem'}}>{currentSc.title}</div>
+                <div style={{fontSize:'0.63rem',letterSpacing:'3px',textTransform:'uppercase',color:'#0b5640',fontWeight:600}}>{currentSc.tag} · {gs.currentScenario+1}/{currentScenarios.length}</div>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:'1.25rem',color:'#0D0D14',fontWeight:700,lineHeight:1.3,marginTop:'0.3rem'}}>{currentSc.title}</div>
               </div>
-              <p style={{fontSize:'0.85rem',color:'rgba(245,240,232,0.68)',lineHeight:1.75}}>{currentSc.body}</p>
-              <div style={{background:'rgba(201,168,76,0.07)',borderLeft:'2px solid rgba(201,168,76,0.5)',padding:'0.75rem 0.9rem',borderRadius:'0 2px 2px 0'}}>
-                <div style={{fontSize:'0.62rem',letterSpacing:'2px',textTransform:'uppercase',color:'#C9A84C',marginBottom:'0.28rem',fontWeight:600}}>Contexto</div>
-                <div style={{fontSize:'0.8rem',color:'rgba(245,240,232,0.55)',lineHeight:1.55}}>{currentSc.context}</div>
+              <p style={{fontSize:'0.85rem',color:'#0D0D14',lineHeight:1.75}}>{currentSc.body}</p>
+              <div style={{background:'rgba(58,249,162,0.08)',borderLeft:'2px solid rgba(11,86,64,0.3)',padding:'0.75rem 0.9rem',borderRadius:'0 2px 2px 0'}}>
+                <div style={{fontSize:'0.62rem',letterSpacing:'2px',textTransform:'uppercase',color:'#0b5640',marginBottom:'0.28rem',fontWeight:600}}>Contexto</div>
+                <div style={{fontSize:'0.8rem',color:'#0D0D14',lineHeight:1.55}}>{currentSc.context}</div>
               </div>
               <div style={{display:'flex',justifyContent:'center',marginTop:'auto',paddingTop:'0.8rem'}}>
-                  <div style={{width:120,height:140,background:'linear-gradient(170deg,#0D1522,#101A0F,#1A1209)',border:'2px solid rgba(201,168,76,0.4)',borderRadius:8,display:'flex',alignItems:'center',justifyContent:'center',overflow:'hidden'}}>
+                  <div style={{width:120,height:140,background:'linear-gradient(170deg,#0b5640,#018d38,#3af9a2)',border:'2px solid rgba(11,86,64,0.22)',borderRadius:8,display:'flex',alignItems:'center',justifyContent:'center',overflow:'hidden'}}>
                     <img src={pc.avatar} alt={pc.name} style={{width:'100%',height:'100%',objectFit:'cover'}}/>
                   </div>
               </div>
             </div>
-            <div style={{background:'#F5F0E8',padding:'1.8rem',display:'flex',flexDirection:'column',gap:'0.8rem',overflowY:'auto'}}>
-              <div style={{fontSize:'0.62rem',letterSpacing:'3px',textTransform:'uppercase',color:'#7A7060',fontWeight:600,marginBottom:'0.2rem'}}>Selecciona la respuesta correcta</div>
+            <div style={{background:'#ffffff',padding:'1.8rem',display:'flex',flexDirection:'column',gap:'0.8rem',overflowY:'auto',borderLeft:'1px solid rgba(11,86,64,0.08)'}}>
+              <div style={{fontSize:'0.62rem',letterSpacing:'3px',textTransform:'uppercase',color:'#0b5640',fontWeight:600,marginBottom:'0.2rem'}}>Selecciona la respuesta correcta</div>
               {gs.shuffledOpts.map((opt,i)=>(
-                <button key={i} disabled={gs.answered} onClick={()=>selectOpt(opt)} className="opt-card" style={{background:gs.answered&&gs.selectedOpt===opt?'#EDE8DC':'#FDFCF8',border:`1.5px solid ${gs.answered&&gs.selectedOpt===opt?'#0D0D14':'#D4CCB8'}`,borderRadius:2,padding:'0.82rem 1rem',cursor:gs.answered?'default':'pointer',fontFamily:'inherit',fontSize:'0.84rem',color:'#0D0D14',textAlign:'left',lineHeight:1.45,display:'flex',gap:'0.7rem',alignItems:'flex-start',width:'100%',opacity:gs.answered&&gs.selectedOpt!==opt?0.35:1,transition:'all 0.18s',boxShadow:gs.answered&&gs.selectedOpt===opt?'0 0 0 2px #0D0D14':'none'}}>
-                  <span style={{width:22,height:22,borderRadius:1,background:gs.answered&&gs.selectedOpt===opt?'#0D0D14':'#EDE8DC',color:gs.answered&&gs.selectedOpt===opt?'#F5F0E8':'#7A7060',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'0.7rem',fontWeight:700,flexShrink:0,border:'1px solid #D4CCB8'}}>{['A','B','C','D'][i]}</span>
+                <button key={i} disabled={gs.answered} onClick={()=>selectOpt(opt)} className="opt-card" style={{background:gs.answered&&gs.selectedOpt===opt?'#f6fff6':'#ffffff',border:`1.5px solid ${gs.answered&&gs.selectedOpt===opt?'#0b5640':'rgba(11,86,64,0.12)'}`,borderRadius:2,padding:'0.82rem 1rem',cursor:gs.answered?'default':'pointer',fontFamily:'inherit',fontSize:'0.84rem',color:'#0D0D14',textAlign:'left',lineHeight:1.45,display:'flex',gap:'0.7rem',alignItems:'flex-start',width:'100%',opacity:gs.answered&&gs.selectedOpt!==opt?0.45:1,transition:'all 0.18s',boxShadow:gs.answered&&gs.selectedOpt===opt?'0 0 0 2px rgba(58,249,162,0.45)':'none'}}>
+                  <span style={{width:22,height:22,borderRadius:1,background:gs.answered&&gs.selectedOpt===opt?'#0b5640':'#f6fff6',color:gs.answered&&gs.selectedOpt===opt?'#ffffff':'#0b5640',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'0.7rem',fontWeight:700,flexShrink:0,border:'1px solid rgba(11,86,64,0.12)'}}>{['A','B','C','D'][i]}</span>
                   <span>{opt.text}</span>
                 </button>
               ))}
               {gs.answered&&gs.selectedOpt&&(
-                <div style={{borderRadius:2,padding:'0.9rem 1.1rem',animation:'slideUp 0.35s ease',background:'#EDE8DC',borderLeft:'3px solid #C9A84C'}}>
-                  <div style={{fontSize:'0.62rem',letterSpacing:'2px',textTransform:'uppercase',fontWeight:700,marginBottom:'0.35rem',color:'#1A3A5C'}}>{gs.selectedOpt.isCorrect ? 'Respuesta correcta' : 'Respuesta incorrecta'}</div>
+                <div style={{borderRadius:2,padding:'0.9rem 1.1rem',animation:'slideUp 0.35s ease',background:'#f6fff6',borderLeft:'3px solid #3af9a2'}}>
+                  <div style={{fontSize:'0.62rem',letterSpacing:'2px',textTransform:'uppercase',fontWeight:700,marginBottom:'0.35rem',color:'#0b5640'}}>{gs.selectedOpt.isCorrect ? 'Respuesta correcta' : 'Respuesta incorrecta'}</div>
                   <div style={{fontSize:'0.83rem',color:'#0D0D14',lineHeight:1.55}}>{gs.selectedOpt.feedback}</div>
-                  <button onClick={nextScenario} style={{background:'#0D0D14',color:'#F5F0E8',padding:'0.72rem 1.7rem',borderRadius:2,fontWeight:600,fontSize:'0.85rem',border:'none',cursor:'pointer',marginTop:'0.8rem'}}>
+                  <button onClick={nextScenario} style={{background:'#3af9a2',color:'#0D0D14',padding:'0.72rem 1.7rem',borderRadius:2,fontWeight:600,fontSize:'0.85rem',border:'none',cursor:'pointer',marginTop:'0.8rem'}}>
                     {gs.currentScenario>=currentScenarios.length-1?'Ver resultados →':'Siguiente →'}
                   </button>
                 </div>
@@ -939,18 +939,18 @@ export default function ETHOSFERA() {
         const total = currentMod ? currentMod.scenarios.length : 0;
         const correct = gs.score;
         return (
-          <div style={{minHeight:'100vh',background:'#0D0D14',padding:'2rem',display:'flex',alignItems:'center',justifyContent:'center'}}>
+          <div style={{minHeight:'100vh',background:'#ffffff',padding:'2rem',display:'flex',alignItems:'center',justifyContent:'center'}}>
             <div style={{maxWidth:540,width:'100%',textAlign:'center',animation:'fadeIn 0.5s ease'}}>
-              <div style={{fontSize:'0.65rem',letterSpacing:'4px',textTransform:'uppercase',color:'#C9A84C',marginBottom:'0.8rem',fontWeight:600}}>Resultado del módulo</div>
-              <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:'2.2rem',color:'#F5F0E8',fontWeight:900,marginBottom:'0.4rem'}}>{currentMod?.title || 'Módulo completado'}</h2>
-              <p style={{fontSize:'0.85rem',color:'rgba(245,240,232,0.55)',lineHeight:1.65,marginBottom:'1.5rem'}}>Respondiste {correct} de {total} preguntas correctamente en este módulo.</p>
-              <div style={{background:'rgba(245,240,232,0.04)',border:'1px solid rgba(201,168,76,0.18)',borderRadius:2,padding:'1.3rem',marginBottom:'1.5rem',textAlign:'left'}}>
-                <div style={{fontSize:'0.75rem',letterSpacing:'2px',textTransform:'uppercase',color:'#C9A84C',marginBottom:'0.8rem',fontWeight:600}}>Comentarios</div>
-                <p style={{margin:0,color:'#F5F0E8',lineHeight:1.7}}>{currentMod?.desc || 'Has completado el módulo y puedes continuar con el siguiente.'}</p>
+              <div style={{fontSize:'0.65rem',letterSpacing:'4px',textTransform:'uppercase',color:'#0b5640',marginBottom:'0.8rem',fontWeight:600}}>Resultado del módulo</div>
+              <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:'2.2rem',color:'#0D0D14',fontWeight:900,marginBottom:'0.4rem'}}>{currentMod?.title || 'Módulo completado'}</h2>
+              <p style={{fontSize:'0.85rem',color:'#0D0D14',lineHeight:1.65,marginBottom:'1.5rem'}}>Respondiste {correct} de {total} preguntas correctamente en este módulo.</p>
+              <div style={{background:'#f6fff6',border:'1px solid rgba(11,86,64,0.12)',borderRadius:2,padding:'1.3rem',marginBottom:'1.5rem',textAlign:'left'}}>
+                <div style={{fontSize:'0.75rem',letterSpacing:'2px',textTransform:'uppercase',color:'#0b5640',marginBottom:'0.8rem',fontWeight:600}}>Comentarios</div>
+                <p style={{margin:0,color:'#0D0D14',lineHeight:1.7}}>{currentMod?.desc || 'Has completado el módulo y puedes continuar con el siguiente.'}</p>
               </div>
               <div style={{display:'flex',gap:'0.8rem',justifyContent:'center',flexWrap:'wrap'}}>
-                <button onClick={()=>setScreen('modules')} style={{background:'transparent',color:'rgba(245,240,232,0.45)',padding:'0.72rem 1.5rem',borderRadius:2,fontSize:'0.82rem',border:'1px solid rgba(245,240,232,0.14)',cursor:'pointer',fontFamily:'inherit'}}>← Volver a Módulos</button>
-                <button onClick={handleFinal} style={{background:'#C9A84C',color:'#0D0D14',padding:'0.78rem 1.9rem',borderRadius:2,fontWeight:600,fontSize:'0.88rem',border:'none',cursor:'pointer'}}>🎓 Ver Certificado →</button>
+                <button onClick={()=>setScreen('modules')} style={{background:'transparent',color:'#0b5640',padding:'0.72rem 1.5rem',borderRadius:2,fontSize:'0.82rem',border:'1px solid rgba(11,86,64,0.12)',cursor:'pointer',fontFamily:'inherit'}}>← Volver a Módulos</button>
+                <button onClick={handleFinal} style={{background:'#3af9a2',color:'#0D0D14',padding:'0.78rem 1.9rem',borderRadius:2,fontWeight:600,fontSize:'0.88rem',border:'none',cursor:'pointer'}}>🎓 Ver Certificado →</button>
               </div>
             </div>
           </div>
@@ -959,11 +959,11 @@ export default function ETHOSFERA() {
 
       {/* ── FINAL ── */}
       {screen==='final'&&(
-        <div style={{minHeight:'100vh',background:'#F5F0E8',padding:'2rem',display:'flex',flexDirection:'column',alignItems:'center',paddingTop:'2.5rem',overflowY:'auto'}}>
+        <div style={{minHeight:'100vh',background:'#ffffff',padding:'2rem',display:'flex',flexDirection:'column',alignItems:'center',paddingTop:'2.5rem',overflowY:'auto'}}>
           <div style={{maxWidth:640,width:'100%',textAlign:'center'}}>
-            <div style={{fontSize:'0.65rem',letterSpacing:'4px',textTransform:'uppercase',color:'#7A7060',marginBottom:'0.8rem'}}>Programa Completado</div>
+            <div style={{fontSize:'0.65rem',letterSpacing:'4px',textTransform:'uppercase',color:'#0b5640',marginBottom:'0.8rem'}}>Programa Completado</div>
             <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:'2rem',fontWeight:900,color:'#0D0D14',marginBottom:'0.5rem'}}>Tu Certificado ETHOSFERA</h2>
-            <div style={{marginBottom:'1.2rem',padding:'0.6rem 1rem',borderRadius:2,background:dbStatus==='ok'?'rgba(74,124,94,0.1)':dbStatus==='error'?'rgba(160,74,47,0.1)':'rgba(201,168,76,0.08)',border:`1px solid ${dbStatus==='ok'?'rgba(74,124,94,0.3)':dbStatus==='error'?'rgba(160,74,47,0.3)':'rgba(201,168,76,0.2)'}`,fontSize:'0.78rem',color:dbStatus==='ok'?'#4A7C5E':dbStatus==='error'?'#A04A2F':'#7A7060',display:'inline-block'}}>
+            <div style={{marginBottom:'1.2rem',padding:'0.6rem 1rem',borderRadius:2,background:dbStatus==='ok'?'rgba(58,249,162,0.12)':dbStatus==='error'?'rgba(160,74,47,0.1)':'rgba(58,249,162,0.08)',border:`1px solid ${dbStatus==='ok'?'rgba(58,249,162,0.3)':dbStatus==='error'?'rgba(160,74,47,0.3)':'rgba(58,249,162,0.2)'}`,fontSize:'0.78rem',color:dbStatus==='ok'?'#0b5640':dbStatus==='error'?'#A04A2F':'#0b5640',display:'inline-block'}}>
               {dbStatus==='saving'&&'⏳ Guardando en base de datos...'}
               {dbStatus==='ok'&&'✅ Registro guardado correctamente'}
               {dbStatus==='error'&&'⚠️ No se pudo guardar en BD'}
@@ -971,7 +971,7 @@ export default function ETHOSFERA() {
             </div>
             <Certificate name={pc.fullName || pc.name} jobTitle={pc.jobTitle} company={pc.company} profile={globalProfile} scores={gs.totalProfiles}/>
             <div style={{display:'flex',gap:'1rem',justifyContent:'center',marginTop:'1.5rem',flexWrap:'wrap'}}>
-              <button onClick={downloadPDF} disabled={pdfLoading} style={{background:'#0D0D14',color:'#F5F0E8',padding:'0.78rem 1.9rem',borderRadius:2,fontWeight:600,fontSize:'0.88rem',border:'none',cursor:pdfLoading?'wait':'pointer',opacity:pdfLoading?0.7:1,display:'inline-flex',alignItems:'center',gap:'0.5rem'}}>
+              <button onClick={downloadPDF} disabled={pdfLoading} style={{background:'#3af9a2',color:'#0D0D14',padding:'0.78rem 1.9rem',borderRadius:2,fontWeight:600,fontSize:'0.88rem',border:'none',cursor:pdfLoading?'wait':'pointer',opacity:pdfLoading?0.7:1,display:'inline-flex',alignItems:'center',gap:'0.5rem'}}>
                 {pdfLoading?'⏳ Generando PDF...':'⬇ Descargar Certificado PDF'}
               </button>
               <button onClick={()=>{setScreen('title');setGs({completedModules:[],currentModule:null,currentScenario:0,answered:false,selectedOpt:null,shuffledOpts:[],score:0});setDbSaved(false);setDbStatus('idle');}} style={{background:'transparent',color:'#7A7060',padding:'0.72rem 1.5rem',borderRadius:2,fontSize:'0.85rem',border:'1px solid #D4CCB8',cursor:'pointer',fontFamily:'inherit'}}>Nuevo intento</button>
@@ -982,105 +982,106 @@ export default function ETHOSFERA() {
 
       {/* ── ADMIN PANEL ── */}
       {adminMode&&(
-        <div style={{position:'fixed',bottom:'1rem',right:'1rem',background:'#1A1A2E',border:'2px solid #C9A84C',borderRadius:8,padding:'1.2rem',maxWidth:600,maxHeight:'90vh',overflowY:'auto',zIndex:9999,boxShadow:'0 8px 32px rgba(0,0,0,0.8)',fontFamily:'inherit'}}>
-          <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'1rem'}}>
-            <h3 style={{color:'#C9A84C',fontSize:'0.95rem',fontWeight:700,margin:0}}>PANEL ADMIN - GESTIÓN DE CONTENIDO</h3>
-            <button onClick={()=>setAdminMode(false)} style={{background:'none',border:'none',color:'#C9A84C',fontSize:'1.2rem',cursor:'pointer'}}>✕</button>
+        <div style={{position:'fixed',bottom:'1rem',right:'1rem',background:'#ffffff',border:'2px solid #3af9a2',borderRadius:12,padding:'1.2rem',maxWidth:640,maxHeight:'90vh',overflowY:'auto',zIndex:9999,boxShadow:'0 10px 40px rgba(0,0,0,0.08)',fontFamily:'inherit'}}>
+          <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'1rem',gap:'1rem',flexWrap:'wrap'}}>
+            <h3 style={{color:'#0b5640',fontSize:'0.96rem',fontWeight:700,margin:0}}>PANEL ADMIN - GESTIÓN DE CONTENIDO</h3>
+            <button onClick={()=>setAdminMode(false)} style={{background:'none',border:'none',color:'#0b5640',fontSize:'1.2rem',cursor:'pointer'}}>✕</button>
           </div>
 
           {!adminAuth?(
-            <div>
-              <input type="password" placeholder="Contraseña admin" value={adminAuth} onChange={(e)=>setAdminAuth(e.target.value)} onKeyPress={(e)=>{if(e.key==='Enter'&&adminAuth===adminPassword){setAdminAuth('AUTH');alert('Autenticado');}}} style={{width:'100%',padding:'0.5rem',borderRadius:2,marginBottom:'0.5rem',fontSize:'0.8rem',background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.3)',color:'#F5F0E8',boxSizing:'border-box'}}/>
-              <button onClick={()=>{if(adminAuth===adminPassword){setAdminAuth('AUTH');alert('Autenticado');}else{alert('Contraseña incorrecta');}}} style={{background:'#C9A84C',color:'#0D0D14',padding:'0.4rem 0.8rem',fontSize:'0.75rem',border:'none',borderRadius:2,cursor:'pointer',width:'100%',fontWeight:600}}>Ingresar</button>
+            <div style={{background:'#f6fff6',border:'1px solid rgba(11,86,64,0.16)',borderRadius:10,padding:'1rem'}}>
+              <p style={{color:'#0D0D14',marginBottom:'1rem'}}>Ingrese el código de acceso autorizado para gestionar módulos y preguntas.</p>
+              <input type="password" placeholder="Contraseña admin" value={adminAuth} onChange={(e)=>setAdminAuth(e.target.value)} onKeyPress={(e)=>{if(e.key==='Enter'&&adminAuth===adminPassword){setAdminAuth('AUTH');alert('Autenticado');}}} style={{width:'100%',padding:'0.75rem',borderRadius:8,marginBottom:'0.8rem',fontSize:'0.92rem',background:'#ffffff',border:'1px solid rgba(11,86,64,0.18)',color:'#0D0D14',boxSizing:'border-box'}}/>
+              <button onClick={()=>{if(adminAuth===adminPassword){setAdminAuth('AUTH');alert('Autenticado');}else{alert('Contraseña incorrecta');}}} style={{width:'100%',background:'#3af9a2',color:'#0D0D14',padding:'0.9rem 1rem',border:'none',borderRadius:8,cursor:'pointer',fontWeight:700}}>Ingresar</button>
             </div>
           ):(
-            <div>
-              <div style={{display:'flex',gap:'0.5rem',marginBottom:'1rem'}}>
-                <button onClick={()=>setAdminAuth('')} style={{flex:1,background:'transparent',border:'1px solid #C9A84C',color:'#C9A84C',padding:'0.3rem 0.6rem',fontSize:'0.7rem',borderRadius:2,cursor:'pointer',fontWeight:600}}>Salir</button>
-                <button onClick={()=>{setShowModuleForm(!showModuleForm);setEditingModuleIdx(null);}} style={{flex:1,background:'#C9A84C',color:'#0D0D14',padding:'0.3rem 0.6rem',fontSize:'0.7rem',borderRadius:2,cursor:'pointer',fontWeight:600}}>+ Nuevo Módulo</button>
+            <div style={{display:'grid',gap:'1rem'}}>
+              <div style={{display:'flex',gap:'0.65rem',marginBottom:'1rem',flexWrap:'wrap'}}>
+                <button onClick={()=>setAdminAuth('')} style={{flex:1,background:'transparent',border:'1px solid rgba(11,86,64,0.18)',color:'#0b5640',padding:'0.55rem 0.8rem',fontSize:'0.78rem',borderRadius:8,cursor:'pointer',fontWeight:600}}>Salir</button>
+                <button onClick={()=>{setShowModuleForm(!showModuleForm);setEditingModuleIdx(null);}} style={{flex:1,background:'#3af9a2',color:'#0D0D14',padding:'0.55rem 0.8rem',fontSize:'0.78rem',borderRadius:8,cursor:'pointer',fontWeight:600}}>+ Nuevo Módulo</button>
               </div>
 
               {/* ESTADÍSTICAS */}
-              <div style={{background:'rgba(201,168,76,0.1)',padding:'0.7rem',borderRadius:2,marginBottom:'1rem',fontSize:'0.75rem',color:'#F5F0E8'}}>
+              <div style={{background:'#f6fff6',padding:'0.9rem 1rem',borderRadius:10,border:'1px solid rgba(11,86,64,0.16)',marginBottom:'1rem',fontSize:'0.85rem',color:'#0D0D14'}}>
                 <p style={{margin:'0.2rem 0'}}>Módulos activos: <strong>{modules.length}</strong></p>
                 <p style={{margin:'0.2rem 0'}}>Total escenarios: <strong>{modules.reduce((a,m)=>a+m.scenarios.length,0)}</strong></p>
-                <p style={{margin:'0.2rem 0'}}>lmacenamiento: <strong>localStorage</strong></p>
+                <p style={{margin:'0.2rem 0'}}>Almacenamiento: <strong>localStorage</strong></p>
               </div>
 
               {/* FORMULARIO - NUEVO MÓDULO */}
               {showModuleForm&&!editingModuleIdx&&(
-                <div style={{background:'rgba(201,168,76,0.05)',border:'1px solid rgba(201,168,76,0.3)',borderRadius:4,padding:'0.8rem',marginBottom:'1rem'}}>
-                  <h4 style={{color:'#C9A84C',fontSize:'0.8rem',marginTop:0,marginBottom:'0.6rem'}}>Crear Nuevo Módulo</h4>
-                  <input type="text" placeholder="Emoji del módulo (ej: 📋)" maxLength="2" value={formData.moduleIcon} onChange={(e)=>setFormData({...formData,moduleIcon:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.5rem',fontSize:'0.75rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box'}}/>
-                  <input type="text" placeholder="Título del módulo" value={formData.moduleTitle} onChange={(e)=>setFormData({...formData,moduleTitle:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.5rem',fontSize:'0.75rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box'}}/>
-                  <input type="text" placeholder="Etiqueta (ej: Ética y Transparencia)" value={formData.moduleTag} onChange={(e)=>setFormData({...formData,moduleTag:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.5rem',fontSize:'0.75rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box'}}/>
-                  <textarea placeholder="Descripción del módulo" value={formData.moduleDesc} onChange={(e)=>setFormData({...formData,moduleDesc:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.5rem',fontSize:'0.75rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box',minHeight:'3rem',fontFamily:'inherit',resize:'vertical'}}/>
-                  <label style={{display:'flex',alignItems:'center',gap:'0.45rem',marginBottom:'0.8rem',fontSize:'0.75rem',color:'#F4F6E7'}}>
-                    <input type="checkbox" checked={formData.showInGame} onChange={(e)=>setFormData({...formData,showInGame:e.target.checked})} style={{width:14,height:14,margin:0}}/>
+                <div style={{background:'#ffffff',border:'1px solid rgba(11,86,64,0.16)',borderRadius:10,padding:'1rem',marginBottom:'1rem'}}>
+                  <h4 style={{color:'#0b5640',fontSize:'0.95rem',marginTop:0,marginBottom:'0.8rem'}}>Crear Nuevo Módulo</h4>
+                  <input type="text" placeholder="Emoji del módulo (ej: 📋)" maxLength="2" value={formData.moduleIcon} onChange={(e)=>setFormData({...formData,moduleIcon:e.target.value})} style={{width:'100%',padding:'0.85rem',marginBottom:'0.7rem',fontSize:'0.92rem',borderRadius:10,background:'#f6fff6',border:'1px solid rgba(11,86,64,0.16)',color:'#0D0D14',boxSizing:'border-box'}}/>
+                  <input type="text" placeholder="Título del módulo" value={formData.moduleTitle} onChange={(e)=>setFormData({...formData,moduleTitle:e.target.value})} style={{width:'100%',padding:'0.85rem',marginBottom:'0.7rem',fontSize:'0.92rem',borderRadius:10,background:'#f6fff6',border:'1px solid rgba(11,86,64,0.16)',color:'#0D0D14',boxSizing:'border-box'}}/>
+                  <input type="text" placeholder="Etiqueta (ej: Ética y Transparencia)" value={formData.moduleTag} onChange={(e)=>setFormData({...formData,moduleTag:e.target.value})} style={{width:'100%',padding:'0.85rem',marginBottom:'0.7rem',fontSize:'0.92rem',borderRadius:10,background:'#f6fff6',border:'1px solid rgba(11,86,64,0.16)',color:'#0D0D14',boxSizing:'border-box'}}/>
+                  <textarea placeholder="Descripción del módulo" value={formData.moduleDesc} onChange={(e)=>setFormData({...formData,moduleDesc:e.target.value})} style={{width:'100%',padding:'0.85rem',marginBottom:'0.7rem',fontSize:'0.92rem',borderRadius:10,background:'#f6fff6',border:'1px solid rgba(11,86,64,0.16)',color:'#0D0D14',boxSizing:'border-box',minHeight:'120px',fontFamily:'inherit',resize:'vertical'}}/>
+                  <label style={{display:'flex',alignItems:'center',gap:'0.45rem',marginBottom:'0.8rem',fontSize:'0.85rem',color:'#0D0D14'}}>
+                    <input type="checkbox" checked={formData.showInGame} onChange={(e)=>setFormData({...formData,showInGame:e.target.checked})} style={{width:16,height:16,margin:0}}/>
                     Incluir módulo en juegos
                   </label>
-                  <h5 style={{color:'#C9A84C',fontSize:'0.75rem',marginBottom:'0.5rem',marginTop:0}}>Primer Escenario (Obligatorio)</h5>
-                  <input type="text" placeholder="Etiqueta escenario (ej: Escenario 01)" value={formData.scenarioTag} onChange={(e)=>setFormData({...formData,scenarioTag:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.4rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box'}}/>
-                  <input type="text" placeholder="Título del escenario" value={formData.scenarioTitle} onChange={(e)=>setFormData({...formData,scenarioTitle:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.4rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box'}}/>
-                  <textarea placeholder="Descripción del escenario" value={formData.scenarioBody} onChange={(e)=>setFormData({...formData,scenarioBody:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.4rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box',minHeight:'2.5rem',fontFamily:'inherit',resize:'vertical'}}/>
-                  <textarea placeholder="Contexto" value={formData.scenarioContext} onChange={(e)=>setFormData({...formData,scenarioContext:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.4rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box',minHeight:'2rem',fontFamily:'inherit',resize:'vertical'}}/>
-                  <label style={{display:'flex',alignItems:'center',gap:'0.45rem',marginBottom:'0.8rem',fontSize:'0.75rem',color:'#F4F6E7'}}>
-                    <input type="checkbox" checked={formData.scenarioShowInGame} onChange={(e)=>setFormData({...formData,scenarioShowInGame:e.target.checked})} style={{width:14,height:14,margin:0}}/>
+                  <h5 style={{color:'#0b5640',fontSize:'0.85rem',marginBottom:'0.5rem',marginTop:0}}>Primer Escenario (Obligatorio)</h5>
+                  <input type="text" placeholder="Etiqueta escenario (ej: Escenario 01)" value={formData.scenarioTag} onChange={(e)=>setFormData({...formData,scenarioTag:e.target.value})} style={{width:'100%',padding:'0.85rem',marginBottom:'0.6rem',fontSize:'0.88rem',borderRadius:10,background:'#f6fff6',border:'1px solid rgba(11,86,64,0.16)',color:'#0D0D14',boxSizing:'border-box'}}/>
+                  <input type="text" placeholder="Título del escenario" value={formData.scenarioTitle} onChange={(e)=>setFormData({...formData,scenarioTitle:e.target.value})} style={{width:'100%',padding:'0.85rem',marginBottom:'0.6rem',fontSize:'0.88rem',borderRadius:10,background:'#f6fff6',border:'1px solid rgba(11,86,64,0.16)',color:'#0D0D14',boxSizing:'border-box'}}/>
+                  <textarea placeholder="Descripción del escenario" value={formData.scenarioBody} onChange={(e)=>setFormData({...formData,scenarioBody:e.target.value})} style={{width:'100%',padding:'0.85rem',marginBottom:'0.6rem',fontSize:'0.88rem',borderRadius:10,background:'#f6fff6',border:'1px solid rgba(11,86,64,0.16)',color:'#0D0D14',boxSizing:'border-box',minHeight:'100px',fontFamily:'inherit',resize:'vertical'}}/>
+                  <textarea placeholder="Contexto" value={formData.scenarioContext} onChange={(e)=>setFormData({...formData,scenarioContext:e.target.value})} style={{width:'100%',padding:'0.85rem',marginBottom:'0.9rem',fontSize:'0.88rem',borderRadius:10,background:'#f6fff6',border:'1px solid rgba(11,86,64,0.16)',color:'#0D0D14',boxSizing:'border-box',minHeight:'90px',fontFamily:'inherit',resize:'vertical'}}/>
+                  <label style={{display:'flex',alignItems:'center',gap:'0.45rem',marginBottom:'1rem',fontSize:'0.85rem',color:'#0D0D14'}}>
+                    <input type="checkbox" checked={formData.scenarioShowInGame} onChange={(e)=>setFormData({...formData,scenarioShowInGame:e.target.checked})} style={{width:16,height:16,margin:0}}/>
                     Incluir este escenario en juegos
                   </label>
-                  <h5 style={{color:'#C9A84C',fontSize:'0.75rem',marginBottom:'0.4rem',marginTop:0}}>4 Opciones de Respuesta</h5>
-                  <div style={{maxHeight:'15rem',overflowY:'auto',marginBottom:'0.6rem',paddingRight:'0.4rem'}}>
+                  <h5 style={{color:'#0b5640',fontSize:'0.85rem',marginBottom:'0.6rem',marginTop:0}}>4 Opciones de Respuesta</h5>
+                  <div style={{maxHeight:'15rem',overflowY:'auto',marginBottom:'0.8rem',paddingRight:'0.4rem'}}>
                     {[0,1,2,3].map(i=>(
-                      <div key={i} style={{background:'rgba(20,20,30,0.5)',padding:'0.5rem',marginBottom:'0.4rem',borderRadius:2,border:'1px solid rgba(201,168,76,0.15)'}}>
-                        <label style={{display:'flex',alignItems:'center',gap:'0.4rem',marginBottom:'0.45rem',fontSize:'0.72rem',color:'#F5F0E8'}}>
-                          <input type="radio" name="correctAnswer" checked={formData.options[i].isCorrect} onChange={()=>setFormData({...formData,options:formData.options.map((o,idx)=>({...o,isCorrect:idx===i}))})} style={{width:14,height:14,margin:0}}/>
+                      <div key={i} style={{background:'#f6fff6',padding:'0.85rem',marginBottom:'0.55rem',borderRadius:10,border:'1px solid rgba(11,86,64,0.16)'}}>
+                        <label style={{display:'flex',alignItems:'center',gap:'0.5rem',marginBottom:'0.55rem',fontSize:'0.85rem',color:'#0D0D14'}}>
+                          <input type="radio" name="correctAnswer" checked={formData.options[i].isCorrect} onChange={()=>setFormData({...formData,options:formData.options.map((o,idx)=>({...o,isCorrect:idx===i}))})} style={{width:16,height:16,margin:0}}/>
                           Marcar como respuesta correcta
                         </label>
-                        <textarea placeholder="Opción de respuesta" value={formData.options[i].text} onChange={(e)=>setFormData({...formData,options:formData.options.map((o,idx)=>idx===i?{...o,text:e.target.value}:o)})} style={{width:'100%',padding:'0.3rem',marginBottom:'0.3rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box',minHeight:'1.8rem',fontFamily:'inherit',resize:'none'}}/>
-                        <textarea placeholder="Retroalimentación" value={formData.options[i].feedback} onChange={(e)=>setFormData({...formData,options:formData.options.map((o,idx)=>idx===i?{...o,feedback:e.target.value}:o)})} style={{width:'100%',padding:'0.3rem',marginBottom:'0.3rem',fontSize:'0.65rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box',minHeight:'1.5rem',fontFamily:'inherit',resize:'none'}}/>
+                        <textarea placeholder="Opción de respuesta" value={formData.options[i].text} onChange={(e)=>setFormData({...formData,options:formData.options.map((o,idx)=>idx===i?{...o,text:e.target.value}:o)})} style={{width:'100%',padding:'0.75rem',marginBottom:'0.5rem',fontSize:'0.88rem',borderRadius:10,background:'#ffffff',border:'1px solid rgba(11,86,64,0.16)',color:'#0D0D14',boxSizing:'border-box',minHeight:'48px',fontFamily:'inherit',resize:'none'}}/>
+                        <textarea placeholder="Retroalimentación" value={formData.options[i].feedback} onChange={(e)=>setFormData({...formData,options:formData.options.map((o,idx)=>idx===i?{...o,feedback:e.target.value}:o)})} style={{width:'100%',padding:'0.75rem',marginBottom:'0',fontSize:'0.82rem',borderRadius:10,background:'#ffffff',border:'1px solid rgba(11,86,64,0.16)',color:'#0D0D14',boxSizing:'border-box',minHeight:'48px',fontFamily:'inherit',resize:'none'}}/>
                       </div>
                     ))}
                   </div>
                   
-                  <div style={{display:'flex',gap:'0.4rem'}}>
-                    <button onClick={addModule} style={{flex:1,background:'#7BAE49',color:'#F5F0E8',padding:'0.4rem',fontSize:'0.7rem',borderRadius:2,border:'none',cursor:'pointer',fontWeight:600}}>Crear Módulo</button>
-                    <button onClick={resetForm} style={{flex:1,background:'transparent',border:'1px solid rgba(201,168,76,0.5)',color:'rgba(201,168,76,0.8)',padding:'0.4rem',fontSize:'0.7rem',borderRadius:2,cursor:'pointer'}}>Cancelar</button>
+                  <div style={{display:'flex',gap:'0.55rem',flexWrap:'wrap'}}>
+                    <button onClick={addModule} style={{flex:1,background:'#3af9a2',color:'#0D0D14',padding:'0.75rem',fontSize:'0.88rem',borderRadius:10,border:'none',cursor:'pointer',fontWeight:700}}>Crear Módulo</button>
+                    <button onClick={resetForm} style={{flex:1,background:'transparent',border:'1px solid rgba(11,86,64,0.16)',color:'#0b5640',padding:'0.75rem',fontSize:'0.88rem',borderRadius:10,cursor:'pointer'}}>Cancelar</button>
                   </div>
                 </div>
               )}
 
               {/* LISTA DE MÓDULOS EXISTENTES */}
               <div style={{marginBottom:'0.5rem'}}>
-                <h4 style={{color:'#C9A84C',fontSize:'0.8rem',marginBottom:'0.6rem'}}>Módulos Existentes</h4>
-                <div style={{maxHeight:'25rem',overflowY:'auto'}}>
+                <h4 style={{color:'#0b5640',fontSize:'0.95rem',marginBottom:'0.75rem'}}>Módulos Existentes</h4>
+                <div style={{maxHeight:'25rem',overflowY:'auto',paddingRight:'0.25rem'}}>
                   {modules.map((mod, midx)=>(
-                    <div key={midx} style={{background:'rgba(201,168,76,0.08)',border:'1px solid rgba(201,168,76,0.2)',borderRadius:3,padding:'0.6rem',marginBottom:'0.6rem'}}>
-                      <div style={{display:'flex',justifyContent:'space-between',alignItems:'start',marginBottom:'0.5rem'}}>
+                    <div key={midx} style={{background:'#f6fff6',border:'1px solid rgba(11,86,64,0.12)',borderRadius:12,padding:'1rem',marginBottom:'0.75rem'}}>
+                      <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:'0.75rem',gap:'1rem',flexWrap:'wrap'}}>
                         <div>
-                          <div style={{fontSize:'0.85rem',color:'#F5F0E8',fontWeight:600}}>{mod.icon} {mod.title}</div>
-                          <div style={{fontSize:'0.7rem',color:'rgba(245,240,232,0.6)',marginTop:'0.2rem'}}>{mod.tag}</div>
+                          <div style={{fontSize:'1rem',color:'#0D0D14',fontWeight:700}}>{mod.icon} {mod.title}</div>
+                          <div style={{fontSize:'0.82rem',color:'#0D0D14',marginTop:'0.35rem'}}>{mod.tag}</div>
+                          <div style={{fontSize:'0.78rem',color:mod.showInGame ? '#3af9a2' : '#A9B9A7',marginTop:'0.35rem'}}>{mod.showInGame ? 'Visible en juegos' : 'Oculto en juegos'}</div>
                         </div>
-                        <div style={{display:'flex',gap:'0.3rem'}}>
-                          <button onClick={()=>{setEditingModuleIdx(midx);setCurrentScenarioIdx(0);setShowModuleForm(false);}} style={{background:'transparent',border:'1px solid rgba(201,168,76,0.4)',color:'#C9A84C',padding:'0.2rem 0.5rem',fontSize:'0.65rem',borderRadius:2,cursor:'pointer'}}>+Escenario</button>
-                          <button onClick={()=>deleteModule(midx)} style={{background:'transparent',border:'1px solid rgba(255,100,100,0.4)',color:'#ff6464',padding:'0.2rem 0.5rem',fontSize:'0.65rem',borderRadius:2,cursor:'pointer'}}>Eliminar</button>
+                        <div style={{display:'flex',gap:'0.45rem',flexWrap:'wrap'}}>
+                          <button onClick={()=>{setEditingModuleIdx(midx);setCurrentScenarioIdx(0);setShowModuleForm(false);}} style={{background:'transparent',border:'1px solid rgba(11,86,64,0.16)',color:'#0b5640',padding:'0.45rem 0.65rem',fontSize:'0.78rem',borderRadius:8,cursor:'pointer'}}>+ Escenario</button>
+                          <button onClick={()=>deleteModule(midx)} style={{background:'transparent',border:'1px solid rgba(255,100,100,0.4)',color:'#ff6464',padding:'0.45rem 0.65rem',fontSize:'0.78rem',borderRadius:8,cursor:'pointer'}}>Eliminar</button>
                         </div>
                       </div>
-                      
-                      {/* Escenarios del módulo */}
-                      <div style={{fontSize:'0.7rem',color:'rgba(245,240,232,0.5)',marginBottom:'0.4rem'}}>
-                        {mod.scenarios.length} escenario{mod.scenarios.length!==1?'s':''}
-                      </div>
-                      {mod.scenarios.map((esc,sidx)=>(
-                        <div key={sidx} style={{background:'rgba(0,0,0,0.3)',padding:'0.4rem',borderRadius:2,marginBottom:'0.3rem',fontSize:'0.7rem'}}>
-                          <div style={{color:'#F5F0E8'}}>📝 {esc.tag}: {esc.title}</div>
-                          <div style={{color:'rgba(245,240,232,0.5)',fontSize:'0.65rem',marginTop:'0.15rem'}}>{esc.options.length} opciones</div>
-                          <div style={{display:'flex',alignItems:'center',gap:'0.5rem',marginTop:'0.25rem',flexWrap:'wrap'}}>
-                            <span style={{fontSize:'0.65rem',color:esc.showInGame?'#C9A84C':'#A9B9A7'}}>{esc.showInGame ? 'Visible en juego' : 'Oculto en juego'}</span>
-                            <button onClick={()=>toggleScenarioVisibility(midx,sidx)} style={{background:'transparent',border:'1px solid rgba(255,255,255,0.14)',color:'#F5F0E8',fontSize:'0.65rem',cursor:'pointer',padding:'0.2rem 0.35rem',borderRadius:2}}>Toggle</button>
+                      <p style={{fontSize:'0.88rem',color:'#0D0D14',marginBottom:'0.85rem'}}>{mod.desc}</p>
+                      <div style={{display:'grid',gap:'0.55rem'}}>
+                        {mod.scenarios.map((esc,sidx)=>(
+                          <div key={sidx} style={{background:'#ffffff',border:'1px solid rgba(11,86,64,0.12)',borderRadius:10,padding:'0.95rem'}}>
+                            <div style={{fontSize:'0.9rem',fontWeight:700,color:'#0D0D14',marginBottom:'0.45rem'}}>{esc.tag} · {esc.title}</div>
+                            <div style={{fontSize:'0.82rem',color:'#0D0D14',lineHeight:1.5}}>{esc.body}</div>
+                            <div style={{marginTop:'0.65rem',fontSize:'0.78rem',color:'#A9B9A7'}}>Opciones: {esc.options.length}</div>
+                            <div style={{display:'flex',alignItems:'center',gap:'0.55rem',marginTop:'0.55rem',flexWrap:'wrap'}}>
+                              <span style={{fontSize:'0.78rem',color:esc.showInGame?'#3af9a2':'#A9B9A7'}}>{esc.showInGame ? 'Visible en juego' : 'Oculto en juego'}</span>
+                              <button onClick={()=>toggleScenarioVisibility(midx,sidx)} style={{background:'transparent',border:'1px solid rgba(11,86,64,0.16)',color:'#0b5640',fontSize:'0.78rem',cursor:'pointer',padding:'0.35rem 0.55rem',borderRadius:8}}>Toggle</button>
+                            </div>
+                            <button onClick={()=>deleteScenario(midx,sidx)} style={{background:'transparent',border:'none',color:'#ff6464',fontSize:'0.78rem',cursor:'pointer',marginTop:'0.7rem',padding:0}}>Eliminar escenario</button>
                           </div>
-                          <button onClick={()=>deleteScenario(midx,sidx)} style={{background:'transparent',border:'none',color:'#ff8888',fontSize:'0.65rem',cursor:'pointer',marginTop:'0.3rem',padding:0}}>Eliminar escenario</button>
-                        </div>
-                      ))}
+                        ))}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -1088,50 +1089,50 @@ export default function ETHOSFERA() {
 
               {/* FORMULARIO - AGREGAR ESCENARIO */}
               {editingModuleIdx!==null&&(
-                <div style={{background:'rgba(74,106,184,0.1)',border:'1px solid rgba(74,106,184,0.3)',borderRadius:4,padding:'0.8rem'}}>
-                  <h4 style={{color:'#4A6AB8',fontSize:'0.8rem',marginTop:0,marginBottom:'0.6rem'}}>Agregar Escenario a: {modules[editingModuleIdx].title}</h4>
-                  <input type="text" placeholder="Etiqueta escenario (ej: Escenario 06)" value={formData.scenarioTag} onChange={(e)=>setFormData({...formData,scenarioTag:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.4rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(74,106,184,0.2)',color:'#F5F0E8',boxSizing:'border-box'}}/>
-                  <input type="text" placeholder="Título del escenario" value={formData.scenarioTitle} onChange={(e)=>setFormData({...formData,scenarioTitle:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.4rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(74,106,184,0.2)',color:'#F5F0E8',boxSizing:'border-box'}}/>
-                  <textarea placeholder="Descripción" value={formData.scenarioBody} onChange={(e)=>setFormData({...formData,scenarioBody:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.4rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(74,106,184,0.2)',color:'#F5F0E8',boxSizing:'border-box',minHeight:'2.5rem',fontFamily:'inherit',resize:'vertical'}}/>
-                  <textarea placeholder="Contexto" value={formData.scenarioContext} onChange={(e)=>setFormData({...formData,scenarioContext:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.4rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(74,106,184,0.2)',color:'#F5F0E8',boxSizing:'border-box',minHeight:'2rem',fontFamily:'inherit',resize:'vertical'}}/>
-                  <label style={{display:'flex',alignItems:'center',gap:'0.45rem',marginBottom:'0.8rem',fontSize:'0.75rem',color:'#F5F0E8'}}>
-                    <input type="checkbox" checked={formData.scenarioShowInGame} onChange={(e)=>setFormData({...formData,scenarioShowInGame:e.target.checked})} style={{width:14,height:14,margin:0}}/>
+                <div style={{background:'#ffffff',border:'1px solid rgba(11,86,64,0.16)',borderRadius:10,padding:'1rem'}}>
+                  <h4 style={{color:'#0b5640',fontSize:'0.95rem',marginTop:0,marginBottom:'0.8rem'}}>Agregar Escenario a: {modules[editingModuleIdx].title}</h4>
+                  <input type="text" placeholder="Etiqueta escenario (ej: Escenario 06)" value={formData.scenarioTag} onChange={(e)=>setFormData({...formData,scenarioTag:e.target.value})} style={{width:'100%',padding:'0.85rem',marginBottom:'0.65rem',fontSize:'0.88rem',borderRadius:10,background:'#f6fff6',border:'1px solid rgba(11,86,64,0.16)',color:'#0D0D14',boxSizing:'border-box'}}/>
+                  <input type="text" placeholder="Título del escenario" value={formData.scenarioTitle} onChange={(e)=>setFormData({...formData,scenarioTitle:e.target.value})} style={{width:'100%',padding:'0.85rem',marginBottom:'0.65rem',fontSize:'0.88rem',borderRadius:10,background:'#f6fff6',border:'1px solid rgba(11,86,64,0.16)',color:'#0D0D14',boxSizing:'border-box'}}/>
+                  <textarea placeholder="Descripción" value={formData.scenarioBody} onChange={(e)=>setFormData({...formData,scenarioBody:e.target.value})} style={{width:'100%',padding:'0.85rem',marginBottom:'0.65rem',fontSize:'0.88rem',borderRadius:10,background:'#f6fff6',border:'1px solid rgba(11,86,64,0.16)',color:'#0D0D14',boxSizing:'border-box',minHeight:'90px',fontFamily:'inherit',resize:'vertical'}}/>
+                  <textarea placeholder="Contexto" value={formData.scenarioContext} onChange={(e)=>setFormData({...formData,scenarioContext:e.target.value})} style={{width:'100%',padding:'0.85rem',marginBottom:'0.85rem',fontSize:'0.88rem',borderRadius:10,background:'#f6fff6',border:'1px solid rgba(11,86,64,0.16)',color:'#0D0D14',boxSizing:'border-box',minHeight:'90px',fontFamily:'inherit',resize:'vertical'}}/>
+                  <label style={{display:'flex',alignItems:'center',gap:'0.45rem',marginBottom:'1rem',fontSize:'0.85rem',color:'#0D0D14'}}>
+                    <input type="checkbox" checked={formData.scenarioShowInGame} onChange={(e)=>setFormData({...formData,scenarioShowInGame:e.target.checked})} style={{width:16,height:16,margin:0}}/>
                     Incluir este escenario en juegos
                   </label>
-                  <h5 style={{color:'#4A6AB8',fontSize:'0.75rem',marginBottom:'0.4rem',marginTop:0}}>4 Opciones</h5>
-                  <div style={{maxHeight:'12rem',overflowY:'auto',marginBottom:'0.6rem',paddingRight:'0.4rem'}}>
+                  <h5 style={{color:'#0b5640',fontSize:'0.85rem',marginBottom:'0.6rem',marginTop:0}}>4 Opciones</h5>
+                  <div style={{maxHeight:'12rem',overflowY:'auto',marginBottom:'0.8rem',paddingRight:'0.4rem'}}>
                     {[0,1,2,3].map(i=>(
-                      <div key={i} style={{background:'rgba(20,20,30,0.5)',padding:'0.5rem',marginBottom:'0.4rem',borderRadius:2,border:'1px solid rgba(74,106,184,0.15)'}}>
-                        <label style={{display:'flex',alignItems:'center',gap:'0.4rem',marginBottom:'0.45rem',fontSize:'0.72rem',color:'#F5F0E8'}}>
-                          <input type="radio" name="correctAnswer" checked={formData.options[i].isCorrect} onChange={()=>setFormData({...formData,options:formData.options.map((o,idx)=>({...o,isCorrect:idx===i}))})} style={{width:14,height:14,margin:0}}/>
+                      <div key={i} style={{background:'#f6fff6',padding:'0.85rem',marginBottom:'0.55rem',borderRadius:10,border:'1px solid rgba(11,86,64,0.16)'}}>
+                        <label style={{display:'flex',alignItems:'center',gap:'0.5rem',marginBottom:'0.55rem',fontSize:'0.85rem',color:'#0D0D14'}}>
+                          <input type="radio" name="correctAnswer" checked={formData.options[i].isCorrect} onChange={()=>setFormData({...formData,options:formData.options.map((o,idx)=>({...o,isCorrect:idx===i}))})} style={{width:16,height:16,margin:0}}/>
                           Marcar como respuesta correcta
                         </label>
-                        <textarea placeholder="Opción" value={formData.options[i].text} onChange={(e)=>setFormData({...formData,options:formData.options.map((o,idx)=>idx===i?{...o,text:e.target.value}:o)})} style={{width:'100%',padding:'0.3rem',marginBottom:'0.3rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(74,106,184,0.2)',color:'#F5F0E8',boxSizing:'border-box',minHeight:'1.8rem',fontFamily:'inherit',resize:'none'}}/>
-                        <textarea placeholder="Retroalimentación" value={formData.options[i].feedback} onChange={(e)=>setFormData({...formData,options:formData.options.map((o,idx)=>idx===i?{...o,feedback:e.target.value}:o)})} style={{width:'100%',padding:'0.3rem',marginBottom:'0.3rem',fontSize:'0.65rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(74,106,184,0.2)',color:'#F5F0E8',boxSizing:'border-box',minHeight:'1.5rem',fontFamily:'inherit',resize:'none'}}/>
+                        <textarea placeholder="Opción" value={formData.options[i].text} onChange={(e)=>setFormData({...formData,options:formData.options.map((o,idx)=>idx===i?{...o,text:e.target.value}:o)})} style={{width:'100%',padding:'0.75rem',marginBottom:'0.5rem',fontSize:'0.88rem',borderRadius:10,background:'#ffffff',border:'1px solid rgba(11,86,64,0.16)',color:'#0D0D14',boxSizing:'border-box',minHeight:'48px',fontFamily:'inherit',resize:'none'}}/>
+                        <textarea placeholder="Retroalimentación" value={formData.options[i].feedback} onChange={(e)=>setFormData({...formData,options:formData.options.map((o,idx)=>idx===i?{...o,feedback:e.target.value}:o)})} style={{width:'100%',padding:'0.75rem',marginBottom:'0',fontSize:'0.82rem',borderRadius:10,background:'#ffffff',border:'1px solid rgba(11,86,64,0.16)',color:'#0D0D14',boxSizing:'border-box',minHeight:'48px',fontFamily:'inherit',resize:'none'}}/>
                       </div>
                     ))}
                   </div>
 
-                  <div style={{marginBottom:'0.8rem',padding:'0.75rem',background:'rgba(255,255,255,0.03)',border:'1px solid rgba(74,106,184,0.2)',borderRadius:4}}>
-                    <h5 style={{color:'#4A6AB8',fontSize:'0.75rem',margin:'0 0 0.5rem'}}>Juegos disponibles para agregar</h5>
+                  <div style={{marginBottom:'0.8rem',padding:'0.9rem',background:'#f6fff6',border:'1px solid rgba(11,86,64,0.16)',borderRadius:10}}>
+                    <h5 style={{color:'#0b5640',fontSize:'0.85rem',margin:'0 0 0.5rem'}}>Juegos disponibles para agregar</h5>
                     {availableScenarios.filter(s => s.sourceModuleIdx !== editingModuleIdx).length === 0 ? (
-                      <div style={{color:'rgba(245,240,232,0.6)',fontSize:'0.72rem'}}>No hay juegos disponibles fuera de este módulo.</div>
+                      <div style={{color:'#0D0D14',fontSize:'0.82rem'}}>No hay juegos disponibles fuera de este módulo.</div>
                     ) : (
                       availableScenarios.filter(s => s.sourceModuleIdx !== editingModuleIdx).map((item) => (
-                        <div key={`${item.sourceModuleIdx}-${item.sourceScenarioIdx}`} style={{display:'flex',justifyContent:'space-between',alignItems:'center',gap:'0.6rem',marginBottom:'0.45rem',padding:'0.45rem',borderRadius:3,background:'rgba(10,18,28,0.4)',border:'1px solid rgba(255,255,255,0.08)'}}>
+                        <div key={`${item.sourceModuleIdx}-${item.sourceScenarioIdx}`} style={{display:'flex',justifyContent:'space-between',alignItems:'center',gap:'0.6rem',marginBottom:'0.55rem',padding:'0.75rem',borderRadius:10,background:'#ffffff',border:'1px solid rgba(11,86,64,0.12)'}}>
                           <div>
-                            <div style={{fontSize:'0.72rem',color:'#F5F0E8'}}>🕹️ {item.tag || 'Juego'}: {item.title}</div>
-                            <div style={{fontSize:'0.63rem',color:'rgba(245,240,232,0.55)'}}>Desde módulo "{item.sourceModuleTitle}"</div>
+                            <div style={{fontSize:'0.82rem',color:'#0D0D14'}}>🕹️ {item.tag || 'Juego'}: {item.title}</div>
+                            <div style={{fontSize:'0.75rem',color:'#7A7060'}}>Desde módulo "{item.sourceModuleTitle}"</div>
                           </div>
-                          <button onClick={() => addExistingScenarioToModule(editingModuleIdx, item.sourceModuleIdx, item.sourceScenarioIdx)} style={{background:'#4A6AB8',color:'#F5F0E8',border:'none',padding:'0.35rem 0.6rem',fontSize:'0.7rem',borderRadius:2,cursor:'pointer'}}>Agregar</button>
+                          <button onClick={() => addExistingScenarioToModule(editingModuleIdx, item.sourceModuleIdx, item.sourceScenarioIdx)} style={{background:'#3af9a2',color:'#0D0D14',border:'none',padding:'0.55rem 0.8rem',fontSize:'0.82rem',borderRadius:10,cursor:'pointer'}}>Agregar</button>
                         </div>
                       ))
                     )}
                   </div>
 
-                  <div style={{display:'flex',gap:'0.4rem'}}>
-                    <button onClick={()=>addScenarioToModule(editingModuleIdx)} style={{flex:1,background:'#4A6AB8',color:'#F5F0E8',padding:'0.4rem',fontSize:'0.7rem',borderRadius:2,border:'none',cursor:'pointer',fontWeight:600}}>Agregar Escenario</button>
-                    <button onClick={()=>{setEditingModuleIdx(null);resetForm();}} style={{flex:1,background:'transparent',border:'1px solid rgba(74,106,184,0.5)',color:'rgba(74,106,184,0.8)',padding:'0.4rem',fontSize:'0.7rem',borderRadius:2,cursor:'pointer'}}>Cancelar</button>
+                  <div style={{display:'flex',gap:'0.55rem',flexWrap:'wrap'}}>
+                    <button onClick={()=>addScenarioToModule(editingModuleIdx)} style={{flex:1,background:'#3af9a2',color:'#0D0D14',padding:'0.75rem',fontSize:'0.88rem',borderRadius:10,border:'none',cursor:'pointer',fontWeight:700}}>Agregar Escenario</button>
+                    <button onClick={()=>{setEditingModuleIdx(null);resetForm();}} style={{flex:1,background:'transparent',border:'1px solid rgba(11,86,64,0.16)',color:'#0b5640',padding:'0.75rem',fontSize:'0.88rem',borderRadius:10,cursor:'pointer'}}>Cancelar</button>
                   </div>
                 </div>
               )}
