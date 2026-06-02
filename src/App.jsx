@@ -18,8 +18,8 @@ async function saveCertificate(data) {
 
 // ─── DATA ───
 const CHARACTERS = [
-  { id: 'char1', name: 'Femenino', skin: '#F0C27F', hair: '#1A0A00', outfit: '#1A3A5C', hairstyle: 'long', expression: 'happy', avatar: '/images/mujer.png' },
-  { id: 'char2', name: 'Masculino', skin: '#D4956A', hair: '#3B1F00', outfit: '#2E5F8A', hairstyle: 'short', expression: 'serious', avatar: '/images/hombre.png' },
+  { id: 'char1', name: 'Femenino', skin: '#000000', hair: '#000000', outfit: '#1A3A5C', hairstyle: 'long', expression: 'happy', avatar: '/images/mujer.png' },
+  { id: 'char2', name: 'Masculino', skin: '#000000', hair: '#000000', outfit: '#2E5F8A', hairstyle: 'short', expression: 'serious', avatar: '/images/hombre.png' },
 ];
 
 // Función para cargar módulos desde localStorage
@@ -182,19 +182,19 @@ function Certificate({ name, jobTitle, company }) {
   const dateStr = `${d.getDate()} de ${MONTHS[d.getMonth()]} de ${d.getFullYear()}`;
 
   return (
-    <div id="cert-render" style={{ background:'#F4F6E7', border:'2px solid #7BAE49', padding:'2.5rem 2.5rem 2rem', position:'relative', maxWidth:580, margin:'0 auto', fontFamily:'Georgia,serif', color:'#0D2C1B' }}>
+    <div id="cert-render" style={{ background:'#ffffff', border:'2px solid rgba(11,86,64,0.18)', padding:'2.5rem 2.5rem 2rem', position:'relative', maxWidth:580, margin:'0 auto', fontFamily:'Poppins, sans-serif', color:'#0D2C1B' }}>
       {[['tl','2px 0 0 2px'],['tr','2px 2px 0 0'],['bl','0 0 2px 2px'],['br','0 2px 2px 0']].map(([k,bw])=>(
         <div key={k} style={{ position:'absolute', width:20, height:20, top:k.includes('t')?8:'auto', bottom:k.includes('b')?8:'auto', left:k.includes('l')?8:'auto', right:k.includes('r')?8:'auto', borderColor:'#0D2C1B', borderStyle:'solid', borderWidth:bw }} />
       ))}
       <div style={{ textAlign:'center' }}>
-        <div style={{ fontSize:'0.62rem', letterSpacing:4, textTransform:'uppercase', color:'#7BAE49', marginBottom:'0.7rem' }}>Certificado de Aprendizaje · ETHOSFERA</div>
+        <div style={{ fontSize:'0.62rem', letterSpacing:4, textTransform:'uppercase', color:'#0b5640', marginBottom:'0.7rem' }}>Certificado de Aprendizaje · ETHOSFERA</div>
         <div style={{ fontSize:'0.82rem', color:'#0D2C1B', marginBottom:'0.4rem' }}>Se certifica que</div>
-        <div style={{ fontFamily:'Georgia,serif', fontSize:'2rem', color:'#0D2C1B', fontWeight:900, marginBottom:'0.2rem' }}>{name||'Participante'}</div>
+        <div style={{ fontSize:'2rem', color:'#0D2C1B', fontWeight:900, marginBottom:'0.2rem' }}>{name||'Participante'}</div>
         {jobTitle && <div style={{ fontSize:'0.9rem', color:'#1A4C24', fontWeight:600, marginBottom:'0.15rem' }}>{jobTitle}</div>}
         {company && <div style={{ fontSize:'0.82rem', color:'#7A7A7A', marginBottom:'0.3rem' }}>{company}</div>}
-        <div style={{ width:40, height:1, background:'#7BAE49', margin:'0.8rem auto' }}/>
+        <div style={{ width:40, height:1, background:'#3af9a2', margin:'0.8rem auto' }}/>
         <div style={{ fontSize:'0.82rem', color:'#0D2C1B', lineHeight:1.6, maxWidth:360, margin:'0 auto 0.8rem' }}>Ha completado exitosamente el módulo de capacitación ETHOSFERA, demostrando compromiso con la ética y el liderazgo público.</div>
-        <div style={{ width:40, height:1, background:'#7BAE49', margin:'0.8rem auto' }}/>
+        <div style={{ width:40, height:1, background:'#3af9a2', margin:'0.8rem auto' }}/>
         <div style={{ fontSize:'1rem', color:'#0D2C1B', fontWeight:700, marginBottom:'0.6rem' }}>Herramienta que forma líderes</div>
         <div style={{ fontSize:'0.68rem', letterSpacing:2, color:'#7A7A7A' }}>{dateStr}</div>
       </div>
