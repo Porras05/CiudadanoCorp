@@ -627,21 +627,28 @@ export default function ETHOSFERA() {
   })));
 
   return (
-    <div style={{fontFamily:"'DM Sans',system-ui,sans-serif",width:'100%',minHeight:'100vh',background:'#0D0D14'}}>
-      <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+    <div style={{fontFamily:"'Poppins',sans-serif",width:'100%',minHeight:'100vh',background:'#ffffff'}}>
+      <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
       <style>{`
         *{box-sizing:border-box;margin:0;padding:0}
-        html,body,#root{width:100%;min-height:100vh;overflow-x:hidden;background:#042712;color:#F4F6E7;font-family:'DM Sans',system-ui,sans-serif}
+        html,body,#root{width:100%;min-height:100vh;overflow-x:hidden;background:#ffffff;color:#000000;font-family:'Poppins',sans-serif}
+        body{background:#ffffff;color:#000000;}
+        button,input,textarea,select{font-family:'Poppins',sans-serif;color:#000000}
+        h1,h2,h3,h4,h5,h6{color:#000000;font-family:'Poppins',sans-serif}
         @keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
         @keyframes slideUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-        .opt-card:hover:not(:disabled){border-color:#0D2B1B!important;background:#E8E4D8!important;transform:translateX(3px)}
+        .opt-card:hover:not(:disabled){border-color:#0b5640!important;background:#e8f8f2!important;transform:translateX(3px)}
         .selection-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem}
         .info-grid{display:grid;grid-template-columns:220px 1fr;gap:2rem}
         .game-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:0}
         .module-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px}
-        .character-card{background:rgba(244,246,231,0.12);border:2px solid rgba(123,174,73,0.25);border-radius:12px;transition:all 0.3s ease}
-        .button-primary{background:#7BAE49;color:#F4F6E7}
-        .button-secondary{background:transparent;color:rgba(244,246,231,0.9);border:1px solid rgba(244,246,231,0.24)}
+        .character-card{background:#ffffff;border:2px solid rgba(11,86,64,0.15);border-radius:12px;transition:all 0.3s ease}
+        .button-primary{background:#3af9a2;color:#0b5640}
+        .button-secondary{background:transparent;color:#0b5640;border:1px solid rgba(11,86,64,0.12)}
+        .menu-bar{display:flex;justify-content:center;gap:0.65rem;padding:1rem 1.5rem;background:#ffffff;border-bottom:1px solid rgba(11,86,64,0.12);position:sticky;top:0;z-index:20}
+        .menu-bar button{border-radius:4px;padding:0.55rem 0.9rem;cursor:pointer;font-size:0.82rem;border:1px solid rgba(11,86,64,0.18);background:transparent;color:#0b5640}
+        .menu-bar button.active{background:#3af9a2;color:#ffffff;border-color:#0b5640}
+        .menu-bar button.inactive{background:transparent;color:#0b5640}
         @media (max-width:860px){
           .info-grid,.game-grid{grid-template-columns:1fr}
           .info-grid > div,.game-grid > div{width:100%}
@@ -653,10 +660,10 @@ export default function ETHOSFERA() {
         }
       `}</style>
 
-      <div style={{display:'flex',justifyContent:'center',gap:'0.65rem',padding:'1rem 1.5rem',background:'#0D0D14',borderBottom:'1px solid rgba(245,240,232,0.08)',position:'sticky',top:0,zIndex:20}}>
-        <button onClick={()=>setScreen('title')} style={{background:screen==='title'?'#7BAE49':'transparent',color:screen==='title'?'#0D0D14':'#F4F6E7',border:'1px solid rgba(245,240,232,0.18)',borderRadius:2,padding:'0.55rem 0.9rem',cursor:'pointer',fontSize:'0.82rem'}}>Inicio</button>
-        <button onClick={()=>setScreen('modules')} style={{background:screen==='modules'?'#7BAE49':'transparent',color:screen==='modules'?'#0D0D14':'#F4F6E7',border:'1px solid rgba(245,240,232,0.18)',borderRadius:2,padding:'0.55rem 0.9rem',cursor:'pointer',fontSize:'0.82rem'}}>Módulos</button>
-        <button onClick={()=>setScreen('questions')} style={{background:screen==='questions'?'#7BAE49':'transparent',color:screen==='questions'?'#0D0D14':'#F4F6E7',border:'1px solid rgba(245,240,232,0.18)',borderRadius:2,padding:'0.55rem 0.9rem',cursor:'pointer',fontSize:'0.82rem'}}>Preguntas</button>
+      <div className="menu-bar">
+        <button onClick={()=>setScreen('title')} className={screen==='title'?'active':'inactive'}>Inicio</button>
+        <button onClick={()=>setScreen('modules')} className={screen==='modules'?'active':'inactive'}>Módulos</button>
+        <button onClick={()=>setScreen('questions')} className={screen==='questions'?'active':'inactive'}>Preguntas</button>
       </div>
 
       {/* ── TITLE ── */}
