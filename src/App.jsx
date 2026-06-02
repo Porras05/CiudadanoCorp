@@ -39,31 +39,31 @@ function loadModulesFromStorage() {
 function getDefaultModules() {
   return [
     {id:0,icon:'📋',title:'Decreto 815 - Función Pública',tag:'Ética y Transparencia',desc:'Principios y valores en la administración pública.',showInGame:true,scenarios:[
-    {tag:'Escenario 01',title:'La solicitud informal',body:'Un ciudadano acude a ti informalmente solicitando una gestión que debe hacer a través de canales formales. Dice que no entiende los procedimientos y que su necesidad es urgente.',context:'El procedimiento formal tarda 5 días hábiles. El ciudadano está frustrado. Saltarte los canales sería más rápido pero violaría el Decreto 815.',options:[
+    {tag:'Escenario 01',title:'La solicitud informal',body:'Un ciudadano acude a ti informalmente solicitando una gestión que debe hacer a través de canales formales. Dice que no entiende los procedimientos y que su necesidad es urgente.',context:'El procedimiento formal tarda 5 días hábiles. El ciudadano está frustrado. Saltarte los canales sería más rápido pero violaría el Decreto 815.',showInGame:true,options:[
       {text:'Le explicas claramente el procedimiento formal y lo acompañas en el proceso.',isCorrect:true,feedback:'El ciudadano aprende el camino correcto y se fortalece la transparencia en el trámite.'},
       {text:'Lo atiendes informalmente para agilizar. Al fin el resultado es lo que importa.',isCorrect:false,feedback:'Puede resolver el caso rápido, pero crea un precedente de arbitrariedad.'},
       {text:'Creas un documento simple que le orienta sobre cómo hacer el trámite, disponible para otros.',isCorrect:false,feedback:'Ayuda de manera indirecta, pero no aborda el caso urgente con el ciudadano presente.'},
       {text:'Revisas si el procedimiento formal puede optimizarse para reducir tiempos.',isCorrect:false,feedback:'Es una buena propuesta de mejora, pero no soluciona la urgencia inmediata.'},
     ]},
-    {tag:'Escenario 02',title:'El favor al compañero',body:'Un colega de otra dependencia te pide que apruebes un documento sin que cumpla todos los requisitos. Dice que confía en ti y que lo necesita urgentemente.',context:'Se conocen desde hace años. El documento tiene la mayoría de requisitos. Una aprobación informal sería rápida.',options:[
+    {tag:'Escenario 02',title:'El favor al compañero',body:'Un colega de otra dependencia te pide que apruebes un documento sin que cumpla todos los requisitos. Dice que confía en ti y que lo necesita urgentemente.',context:'Se conocen desde hace años. El documento tiene la mayoría de requisitos. Una aprobación informal sería rápida.',showInGame:true,options:[
       {text:'Le explicas qué requisitos faltan y lo ayudas a completarlos rápidamente.',isCorrect:true,feedback:'Ayudas a tu colega sin comprometer la integridad del proceso.'},
       {text:'Lo apruebas como favor personal. La relación con tus colegas también importa.',isCorrect:false,feedback:'Resuelves el favor inmediato, pero pones en riesgo la integridad del procedimiento.'},
       {text:'Le dices que no puedes y lo reportas al protocolo formal.',isCorrect:false,feedback:'Mantienes el proceso, pero no ofreces apoyo para corregir el problema.'},
       {text:'Propones un protocolo de revisión rápida para casos excepcionales.',isCorrect:false,feedback:'Es una buena idea a futuro, pero no atiende la necesidad inmediata del documento.'},
     ]},
-    {tag:'Escenario 03',title:'La información incómoda',body:'Descubres que un superior ha manejado datos de manera que beneficia un proyecto favorito, aunque técnicamente no es incorrecto. Pero la presentación oculta información relevante.',context:'El superior tiene autoridad sobre ti. Señalarlo podría verse como deslealtad. Pero la decisión podría ser equivocada.',options:[
+    {tag:'Escenario 03',title:'La información incómoda',body:'Descubres que un superior ha manejado datos de manera que beneficia un proyecto favorito, aunque técnicamente no es incorrecto. Pero la presentación oculta información relevante.',context:'El superior tiene autoridad sobre ti. Señalarlo podría verse como deslealtad. Pero la decisión podría ser equivocada.',showInGame:true,options:[
       {text:'Le planteas la inquietud en privado, con datos y respeto.',isCorrect:true,feedback:'Abordas la situación con responsabilidad y cuidas la transparencia sin confrontación innecesaria.'},
       {text:'No dices nada. No es tu responsabilidad cuestionar a tu superior.',isCorrect:false,feedback:'Evitas conflicto inmediato, pero permites que la falta de transparencia continúe.'},
       {text:'Consultas confidencialmente con un colega de confianza para validar tu preocupación.',isCorrect:false,feedback:'Buscas apoyo, pero retrasas la resolución directa del problema.'},
       {text:'Registras la información completa en el expediente del proyecto.',isCorrect:false,feedback:'Documentas el caso, pero no abordas el problema de transparencia de forma activa.'},
     ]},
-    {tag:'Escenario 04',title:'El conflicto de intereses oculto',body:'Participas en una decisión sobre un contrato. Descubres que una empresa contratista tiene relación con la familia de un decisor clave. No lo ha declarado.',context:'Declararlo podría ser incómodo para varios. Pero el Decreto 815 exige transparencia en conflictos de interés.',options:[
+    {tag:'Escenario 04',title:'El conflicto de intereses oculto',body:'Participas en una decisión sobre un contrato. Descubres que una empresa contratista tiene relación con la familia de un decisor clave. No lo ha declarado.',context:'Declararlo podría ser incómodo para varios. Pero el Decreto 815 exige transparencia en conflictos de interés.',showInGame:true,options:[
       {text:'Planteas la necesidad de que se declaren conflictos según el Decreto.',isCorrect:true,feedback:'Cumples con la norma y proteges la transparencia del proceso.'},
       {text:'No lo mencionas. Probablemente la relación no afecta la decisión.',isCorrect:false,feedback:'Ignoras un posible conflicto y pones en riesgo la legitimidad de la decisión.'},
       {text:'Hablas en privado con el decisor sobre la importancia de la declaración.',isCorrect:false,feedback:'Buscas una solución discreta, pero la situación requiere un registro formal.'},
       {text:'Documenta tu observación y la registra en el acta de la reunión.',isCorrect:false,feedback:'Tomas nota, pero no garantizas que se gestione el conflicto según la norma.'},
     ]},
-    {tag:'Escenario 05',title:'El recurso limitado y la equidad',body:'Tienes presupuesto para una iniciativa de capacitación. Dos equipos compiten por él. Uno está mejor conectado políticamente; el otro tiene más necesidad real.',context:'El equipo conectado espera que lo favorezcas. El que tiene más necesidad es más discreto pero será más impactado.',options:[
+    {tag:'Escenario 05',title:'El recurso limitado y la equidad',body:'Tienes presupuesto para una iniciativa de capacitación. Dos equipos compiten por él. Uno está mejor conectado políticamente; el otro tiene más necesidad real.',context:'El equipo conectado espera que lo favorezcas. El que tiene más necesidad es más discreto pero será más impactado.',showInGame:true,options:[
       {text:'Propones un criterio transparente de asignación de recursos que todos puedan ver.',isCorrect:true,feedback:'Fomenta equidad y transparencia en la decisión, lo cual fortalece la confianza institucional.'},
       {text:'Le das el recurso al que tiene más necesidad, aunque sea menos cómodo políticamente.',isCorrect:false,feedback:'Apoyas una causa justa, pero sin un criterio público es difícil sostener la decisión.'},
       {text:'Le das el recurso al mejor conectado. Así evitas conflictos políticos.',isCorrect:false,feedback:'Evitas tensión política, pero perpetúas desigualdad y favoritismo.'},
@@ -238,6 +238,7 @@ export default function ETHOSFERA() {
     moduleTag: '',
     moduleDesc: '',
     showInGame: true,
+    scenarioShowInGame: true,
     scenarioTag: '',
     scenarioTitle: '',
     scenarioBody: '',
@@ -360,6 +361,7 @@ export default function ETHOSFERA() {
       moduleTag: module.tag,
       moduleDesc: module.desc,
       showInGame: module.showInGame ?? true,
+      scenarioShowInGame: true,
       scenarioTag: '',
       scenarioTitle: '',
       scenarioBody: '',
@@ -419,6 +421,7 @@ export default function ETHOSFERA() {
         title: formData.scenarioTitle,
         body: formData.scenarioBody,
         context: formData.scenarioContext,
+        showInGame: formData.scenarioShowInGame,
         options: formData.options.filter(opt => opt.text.trim())
       }]
     };
@@ -449,6 +452,7 @@ export default function ETHOSFERA() {
       title: formData.scenarioTitle,
       body: formData.scenarioBody,
       context: formData.scenarioContext,
+      showInGame: formData.scenarioShowInGame,
       options: formData.options.filter(opt => opt.text.trim())
     };
 
@@ -476,6 +480,7 @@ export default function ETHOSFERA() {
       moduleTag: '',
       moduleDesc: '',
       showInGame: true,
+      scenarioShowInGame: true,
       scenarioTag: '',
       scenarioTitle: '',
       scenarioBody: '',
@@ -509,8 +514,19 @@ export default function ETHOSFERA() {
     }
   };
 
+  const toggleScenarioVisibility = (moduleIdx, scenarioIdx) => {
+    const updated = [...modules];
+    updated[moduleIdx].scenarios[scenarioIdx].showInGame = !updated[moduleIdx].scenarios[scenarioIdx].showInGame;
+    updateModules(updated);
+  };
+
   const startModule = (idx) => {
-    const opts = shuffle(modules[idx].scenarios[0].options);
+    const visibleScenarios = modules[idx].scenarios.filter(sc => sc.showInGame !== false);
+    if (visibleScenarios.length === 0) {
+      alert('Este módulo no tiene escenarios activos para el juego. Habilita al menos uno.');
+      return;
+    }
+    const opts = shuffle(visibleScenarios[0].options);
     setGs(g=>({...g,currentModule:idx,currentScenario:0,answered:false,selectedOpt:null,shuffledOpts:opts}));
     setScreen('game');
   };
@@ -527,9 +543,10 @@ export default function ETHOSFERA() {
 
   const nextScenario = () => {
     const mod = modules[gs.currentModule];
+    const visibleScenarios = mod.scenarios.filter(sc => sc.showInGame !== false);
     const next = gs.currentScenario + 1;
-    if (next < mod.scenarios.length) {
-      const opts = shuffle(mod.scenarios[next].options);
+    if (next < visibleScenarios.length) {
+      const opts = shuffle(visibleScenarios[next].options);
       setGs(g=>({...g,currentScenario:next,answered:false,selectedOpt:null,shuffledOpts:opts}));
     } else {
       const mi = gs.currentModule;
@@ -580,7 +597,8 @@ export default function ETHOSFERA() {
 
   const allDone = modules.filter(m=>m.showInGame).every(m=>gs.completedModules.includes(m.id));
   const currentMod = gs.currentModule!==null ? modules[gs.currentModule] : null;
-  const currentSc = currentMod ? currentMod.scenarios[gs.currentScenario] : null;
+  const currentScenarios = currentMod ? currentMod.scenarios.filter(sc => sc.showInGame !== false) : [];
+  const currentSc = currentScenarios[gs.currentScenario] || null;
 
   return (
     <div style={{fontFamily:"'DM Sans',system-ui,sans-serif",width:'100%',minHeight:'100vh',background:'#0D0D14'}}>
@@ -618,7 +636,7 @@ export default function ETHOSFERA() {
       {/* ── TITLE ── */}
       {screen==='title'&&(
         <div style={{minHeight:'100vh',background:'#0D0D14',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',padding:'2rem',textAlign:'center',animation:'fadeIn 0.5s ease'}}>
-          <div style={{fontSize:'0.68rem',letterSpacing:4,textTransform:'uppercase',color:'#C9A84C',marginBottom:'1rem',fontWeight:500}}>Capacitación en Ética Pública</div>
+          <div style={{fontSize:'0.68rem',letterSpacing:4,textTransform:'uppercase',color:'#C9A84C',marginBottom:'1rem',fontWeight:500}}>Herramienta de Capacitación</div>
           <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:'clamp(3rem,8vw,5.5rem)',color:'#F5F0E8',lineHeight:0.95,fontWeight:900,margin:'0 0 0.5rem'}}>ETHOSFERA</h1>
           <p style={{fontSize:'0.9rem',color:'#C9A84C',fontWeight:600,marginBottom:'2rem',letterSpacing:1}}>Herramienta que forma líderes</p>
           <div style={{width:50,height:2,background:'#C9A84C',margin:'0 auto 1.2rem'}}/>
@@ -644,7 +662,6 @@ export default function ETHOSFERA() {
                   </div>
                   <div style={{textAlign:'center'}}>
                     <div style={{fontSize:'1.1rem',fontWeight:700,color:'#F4F6E7'}}>{char.name}</div>
-                    <div style={{fontSize:'0.85rem',color:'#C9A84C',marginTop:'0.4rem'}}>{char.outfit === '#2E5F8A' ? 'Masculino' : 'Femenino'}</div>
                   </div>
                 </div>
               ))}
@@ -840,14 +857,14 @@ export default function ETHOSFERA() {
           <div style={{background:'#0D0D14',padding:'0.7rem 1.4rem',display:'flex',alignItems:'center',justifyContent:'space-between',flexShrink:0,gap:'0.5rem'}}>
             <div style={{fontFamily:"'Playfair Display',serif",color:'#F5F0E8',fontSize:'0.9rem',fontWeight:700}}>{currentMod.icon} {currentMod.title}</div>
             <div style={{display:'flex',gap:'0.38rem',alignItems:'center'}}>
-              {currentMod.scenarios.map((_,i)=><div key={i} style={{width:7,height:7,borderRadius:'50%',background:i<gs.currentScenario?'#C9A84C':i===gs.currentScenario?'#F5F0E8':'rgba(245,240,232,0.18)',transform:i===gs.currentScenario?'scale(1.35)':'scale(1)'}}/>)}
+              {currentScenarios.map((_,i)=><div key={i} style={{width:7,height:7,borderRadius:'50%',background:i<gs.currentScenario?'#C9A84C':i===gs.currentScenario?'#F5F0E8':'rgba(245,240,232,0.18)',transform:i===gs.currentScenario?'scale(1.35)':'scale(1)'}}/>)}
             </div>
             <button onClick={()=>setScreen('modules')} style={{background:'none',border:'1px solid rgba(245,240,232,0.18)',color:'rgba(245,240,232,0.55)',padding:'0.28rem 0.75rem',fontSize:'0.75rem',cursor:'pointer',borderRadius:1,fontFamily:'inherit'}}>← Salir</button>
           </div>
           <div style={{flex:1,display:'grid',gridTemplateColumns:'1fr 1.15fr',overflow:'hidden'}}>
             <div style={{background:'#0D0D14',padding:'1.8rem',display:'flex',flexDirection:'column',gap:'1.3rem',overflowY:'auto'}}>
               <div style={{animation:'fadeIn 0.5s ease'}}>
-                <div style={{fontSize:'0.63rem',letterSpacing:'3px',textTransform:'uppercase',color:'#C9A84C',fontWeight:600}}>{currentSc.tag} · {gs.currentScenario+1}/{currentMod.scenarios.length}</div>
+                <div style={{fontSize:'0.63rem',letterSpacing:'3px',textTransform:'uppercase',color:'#C9A84C',fontWeight:600}}>{currentSc.tag} · {gs.currentScenario+1}/{currentScenarios.length}</div>
                 <div style={{fontFamily:"'Playfair Display',serif",fontSize:'1.25rem',color:'#F5F0E8',fontWeight:700,lineHeight:1.3,marginTop:'0.3rem'}}>{currentSc.title}</div>
               </div>
               <p style={{fontSize:'0.85rem',color:'rgba(245,240,232,0.68)',lineHeight:1.75}}>{currentSc.body}</p>
@@ -874,7 +891,7 @@ export default function ETHOSFERA() {
                   <div style={{fontSize:'0.62rem',letterSpacing:'2px',textTransform:'uppercase',fontWeight:700,marginBottom:'0.35rem',color:'#1A3A5C'}}>{gs.selectedOpt.isCorrect ? 'Respuesta correcta' : 'Respuesta incorrecta'}</div>
                   <div style={{fontSize:'0.83rem',color:'#0D0D14',lineHeight:1.55}}>{gs.selectedOpt.feedback}</div>
                   <button onClick={nextScenario} style={{background:'#0D0D14',color:'#F5F0E8',padding:'0.72rem 1.7rem',borderRadius:2,fontWeight:600,fontSize:'0.85rem',border:'none',cursor:'pointer',marginTop:'0.8rem'}}>
-                    {gs.currentScenario>=currentMod.scenarios.length-1?'Ver resultados →':'Siguiente →'}
+                    {gs.currentScenario>=currentScenarios.length-1?'Ver resultados →':'Siguiente →'}
                   </button>
                 </div>
               )}
@@ -972,8 +989,11 @@ export default function ETHOSFERA() {
                   <input type="text" placeholder="Etiqueta escenario (ej: Escenario 01)" value={formData.scenarioTag} onChange={(e)=>setFormData({...formData,scenarioTag:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.4rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box'}}/>
                   <input type="text" placeholder="Título del escenario" value={formData.scenarioTitle} onChange={(e)=>setFormData({...formData,scenarioTitle:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.4rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box'}}/>
                   <textarea placeholder="Descripción del escenario" value={formData.scenarioBody} onChange={(e)=>setFormData({...formData,scenarioBody:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.4rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box',minHeight:'2.5rem',fontFamily:'inherit',resize:'vertical'}}/>
-                  <textarea placeholder="Contexto" value={formData.scenarioContext} onChange={(e)=>setFormData({...formData,scenarioContext:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.6rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box',minHeight:'2rem',fontFamily:'inherit',resize:'vertical'}}/>
-                  
+                  <textarea placeholder="Contexto" value={formData.scenarioContext} onChange={(e)=>setFormData({...formData,scenarioContext:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.4rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box',minHeight:'2rem',fontFamily:'inherit',resize:'vertical'}}/>
+                  <label style={{display:'flex',alignItems:'center',gap:'0.45rem',marginBottom:'0.8rem',fontSize:'0.75rem',color:'#F4F6E7'}}>
+                    <input type="checkbox" checked={formData.scenarioShowInGame} onChange={(e)=>setFormData({...formData,scenarioShowInGame:e.target.checked})} style={{width:14,height:14,margin:0}}/>
+                    Incluir este escenario en juegos
+                  </label>
                   <h5 style={{color:'#C9A84C',fontSize:'0.75rem',marginBottom:'0.4rem',marginTop:0}}>4 Opciones de Respuesta</h5>
                   <div style={{maxHeight:'15rem',overflowY:'auto',marginBottom:'0.6rem',paddingRight:'0.4rem'}}>
                     {[0,1,2,3].map(i=>(
@@ -1020,6 +1040,10 @@ export default function ETHOSFERA() {
                         <div key={sidx} style={{background:'rgba(0,0,0,0.3)',padding:'0.4rem',borderRadius:2,marginBottom:'0.3rem',fontSize:'0.7rem'}}>
                           <div style={{color:'#F5F0E8'}}>📝 {esc.tag}: {esc.title}</div>
                           <div style={{color:'rgba(245,240,232,0.5)',fontSize:'0.65rem',marginTop:'0.15rem'}}>{esc.options.length} opciones</div>
+                          <div style={{display:'flex',alignItems:'center',gap:'0.5rem',marginTop:'0.25rem',flexWrap:'wrap'}}>
+                            <span style={{fontSize:'0.65rem',color:esc.showInGame?'#C9A84C':'#A9B9A7'}}>{esc.showInGame ? 'Visible en juego' : 'Oculto en juego'}</span>
+                            <button onClick={()=>toggleScenarioVisibility(midx,sidx)} style={{background:'transparent',border:'1px solid rgba(255,255,255,0.14)',color:'#F5F0E8',fontSize:'0.65rem',cursor:'pointer',padding:'0.2rem 0.35rem',borderRadius:2}}>Toggle</button>
+                          </div>
                           <button onClick={()=>deleteScenario(midx,sidx)} style={{background:'transparent',border:'none',color:'#ff8888',fontSize:'0.65rem',cursor:'pointer',marginTop:'0.3rem',padding:0}}>Eliminar escenario</button>
                         </div>
                       ))}
@@ -1035,8 +1059,11 @@ export default function ETHOSFERA() {
                   <input type="text" placeholder="Etiqueta escenario (ej: Escenario 06)" value={formData.scenarioTag} onChange={(e)=>setFormData({...formData,scenarioTag:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.4rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(74,106,184,0.2)',color:'#F5F0E8',boxSizing:'border-box'}}/>
                   <input type="text" placeholder="Título del escenario" value={formData.scenarioTitle} onChange={(e)=>setFormData({...formData,scenarioTitle:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.4rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(74,106,184,0.2)',color:'#F5F0E8',boxSizing:'border-box'}}/>
                   <textarea placeholder="Descripción" value={formData.scenarioBody} onChange={(e)=>setFormData({...formData,scenarioBody:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.4rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(74,106,184,0.2)',color:'#F5F0E8',boxSizing:'border-box',minHeight:'2.5rem',fontFamily:'inherit',resize:'vertical'}}/>
-                  <textarea placeholder="Contexto" value={formData.scenarioContext} onChange={(e)=>setFormData({...formData,scenarioContext:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.6rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(74,106,184,0.2)',color:'#F5F0E8',boxSizing:'border-box',minHeight:'2rem',fontFamily:'inherit',resize:'vertical'}}/>
-                  
+                  <textarea placeholder="Contexto" value={formData.scenarioContext} onChange={(e)=>setFormData({...formData,scenarioContext:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.4rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(74,106,184,0.2)',color:'#F5F0E8',boxSizing:'border-box',minHeight:'2rem',fontFamily:'inherit',resize:'vertical'}}/>
+                  <label style={{display:'flex',alignItems:'center',gap:'0.45rem',marginBottom:'0.8rem',fontSize:'0.75rem',color:'#F5F0E8'}}>
+                    <input type="checkbox" checked={formData.scenarioShowInGame} onChange={(e)=>setFormData({...formData,scenarioShowInGame:e.target.checked})} style={{width:14,height:14,margin:0}}/>
+                    Incluir este escenario en juegos
+                  </label>
                   <h5 style={{color:'#4A6AB8',fontSize:'0.75rem',marginBottom:'0.4rem',marginTop:0}}>4 Opciones</h5>
                   <div style={{maxHeight:'12rem',overflowY:'auto',marginBottom:'0.6rem',paddingRight:'0.4rem'}}>
                     {[0,1,2,3].map(i=>(
