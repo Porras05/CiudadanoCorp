@@ -38,36 +38,36 @@ function loadModulesFromStorage() {
 
 function getDefaultModules() {
   return [
-    {id:0,icon:'📋',title:'Decreto 815 - Función Pública',tag:'Ética y Transparencia',desc:'Principios y valores en la administración pública.',scenarios:[
-    {tag:'DILEMA 01',title:'La solicitud informal',body:'Un ciudadano acude a ti informalmente solicitando una gestión que debe hacer a través de canales formales. Dice que no entiende los procedimientos y que su necesidad es urgente.',context:'El procedimiento formal tarda 5 días hábiles. El ciudadano está frustrado. Saltarte los canales sería más rápido pero violaría el Decreto 815.',options:[
-      {text:'Lo atiendes informalmente para agilizar. Al fin el resultado es lo que importa.',profile:'pragmatic',outcome:'El ciudadano queda satisfecho. Sin embargo, estableces un precedente de arbitrariedad.',consequence:'+Satisfacción inmediata · −Transparencia'},
-      {text:'Le explicas claramente el procedimiento formal y lo acompañas en el proceso.',profile:'idealist',outcome:'El ciudadano entiende y sigue los canales. Aprende cómo funciona la administración.',consequence:'+Cumplimiento · +Educación al ciudadano'},
-      {text:'Creas un documento simple que le orienta sobre cómo hacer el trámite, disponible para otros.',profile:'relational',outcome:'Ayudas sin saltarte normas. Otros ciudadanos se benefician de la guía.',consequence:'+Solución inclusiva · Tiempo invertido'},
-      {text:'Revisas si el procedimiento formal puede optimizarse para reducir tiempos.',profile:'systemic',outcome:'Documenta mejoras. El proceso es más ágil para todos los ciudadanos futuros.',consequence:'+Mejora sistémica · −Velocidad inmediata'},
+    {id:0,icon:'📋',title:'Decreto 815 - Función Pública',tag:'Ética y Transparencia',desc:'Principios y valores en la administración pública.',showInGame:true,scenarios:[
+    {tag:'Escenario 01',title:'La solicitud informal',body:'Un ciudadano acude a ti informalmente solicitando una gestión que debe hacer a través de canales formales. Dice que no entiende los procedimientos y que su necesidad es urgente.',context:'El procedimiento formal tarda 5 días hábiles. El ciudadano está frustrado. Saltarte los canales sería más rápido pero violaría el Decreto 815.',options:[
+      {text:'Le explicas claramente el procedimiento formal y lo acompañas en el proceso.',isCorrect:true,feedback:'El ciudadano aprende el camino correcto y se fortalece la transparencia en el trámite.'},
+      {text:'Lo atiendes informalmente para agilizar. Al fin el resultado es lo que importa.',isCorrect:false,feedback:'Puede resolver el caso rápido, pero crea un precedente de arbitrariedad.'},
+      {text:'Creas un documento simple que le orienta sobre cómo hacer el trámite, disponible para otros.',isCorrect:false,feedback:'Ayuda de manera indirecta, pero no aborda el caso urgente con el ciudadano presente.'},
+      {text:'Revisas si el procedimiento formal puede optimizarse para reducir tiempos.',isCorrect:false,feedback:'Es una buena propuesta de mejora, pero no soluciona la urgencia inmediata.'},
     ]},
-    {tag:'DILEMA 02',title:'El favor al compañero',body:'Un colega de otra dependencia te pide que apruebes un documento sin que cumpla todos los requisitos. Dice que confía en ti y que lo necesita urgentemente.',context:'Se conocen desde hace años. El documento tiene la mayoría de requisitos. Una aprobación informal sería rápida.',options:[
-      {text:'Lo apruebas como favor personal. La relación con tus colegas también importa.',profile:'pragmatic',outcome:'Tu colega queda en deuda. Pero creas un precedente de flexibilidad.',consequence:'+Relación · −Integridad del proceso'},
-      {text:'Le dices que no puedes y lo reportas al protocolo formal.',profile:'idealist',outcome:'Tu colega se molesta. Pero el proceso se mantiene íntegro.',consequence:'+Ética · −Relación laboral'},
-      {text:'Le explicas qué requisitos faltan y lo ayudas a completarlos rápidamente.',profile:'relational',outcome:'Tu colega agradece la ayuda. El documento se aprueba correctamente.',consequence:'+Colaboración · Compromiso mutuo'},
-      {text:'Propones un protocolo de revisión rápida para casos excepcionales.',profile:'systemic',outcome:'Se crea un sistema que beneficia a todos sin comprometer la integridad.',consequence:'+Procedimiento mejorado · −Resolución rápida'},
+    {tag:'Escenario 02',title:'El favor al compañero',body:'Un colega de otra dependencia te pide que apruebes un documento sin que cumpla todos los requisitos. Dice que confía en ti y que lo necesita urgentemente.',context:'Se conocen desde hace años. El documento tiene la mayoría de requisitos. Una aprobación informal sería rápida.',options:[
+      {text:'Le explicas qué requisitos faltan y lo ayudas a completarlos rápidamente.',isCorrect:true,feedback:'Ayudas a tu colega sin comprometer la integridad del proceso.'},
+      {text:'Lo apruebas como favor personal. La relación con tus colegas también importa.',isCorrect:false,feedback:'Resuelves el favor inmediato, pero pones en riesgo la integridad del procedimiento.'},
+      {text:'Le dices que no puedes y lo reportas al protocolo formal.',isCorrect:false,feedback:'Mantienes el proceso, pero no ofreces apoyo para corregir el problema.'},
+      {text:'Propones un protocolo de revisión rápida para casos excepcionales.',isCorrect:false,feedback:'Es una buena idea a futuro, pero no atiende la necesidad inmediata del documento.'},
     ]},
-    {tag:'DILEMA 03',title:'La información incómoda',body:'Descubres que un superior ha manejado datos de manera que beneficia un proyecto favorito, aunque técnicamente no es incorrecto. Pero la presentación oculta información relevante.',context:'El superior tiene autoridad sobre ti. Señalarlo podría verse como deslealtad. Pero la decisión podría ser equivocada.',options:[
-      {text:'No dices nada. No es tu responsabilidad cuestionar a tu superior.',profile:'pragmatic',outcome:'La situación continúa. Pero evitas conflicto.',consequence:'+Estabilidad laboral · −Integridad informacional'},
-      {text:'Le planteas la inquietud en privado, con datos y respeto.',profile:'idealist',outcome:'Hay tensión pero se hace corrección. La decisión mejora.',consequence:'+Verdad institucional · Tensión temporal'},
-      {text:'Consultas confidencialmente con un colega de confianza para validar tu preocupación.',profile:'relational',outcome:'Confirmas que tu inquietud es válida. Abordar el tema es más seguro.',consequence:'+Validación · Complejidad del proceso'},
-      {text:'Registras la información completa en el expediente del proyecto.',profile:'systemic',outcome:'Queda documentado. Si hay auditoría, los datos completos están disponibles.',consequence:'+Trazabilidad · Sin acción inmediata'},
+    {tag:'Escenario 03',title:'La información incómoda',body:'Descubres que un superior ha manejado datos de manera que beneficia un proyecto favorito, aunque técnicamente no es incorrecto. Pero la presentación oculta información relevante.',context:'El superior tiene autoridad sobre ti. Señalarlo podría verse como deslealtad. Pero la decisión podría ser equivocada.',options:[
+      {text:'Le planteas la inquietud en privado, con datos y respeto.',isCorrect:true,feedback:'Abordas la situación con responsabilidad y cuidas la transparencia sin confrontación innecesaria.'},
+      {text:'No dices nada. No es tu responsabilidad cuestionar a tu superior.',isCorrect:false,feedback:'Evitas conflicto inmediato, pero permites que la falta de transparencia continúe.'},
+      {text:'Consultas confidencialmente con un colega de confianza para validar tu preocupación.',isCorrect:false,feedback:'Buscas apoyo, pero retrasas la resolución directa del problema.'},
+      {text:'Registras la información completa en el expediente del proyecto.',isCorrect:false,feedback:'Documentas el caso, pero no abordas el problema de transparencia de forma activa.'},
     ]},
-    {tag:'DILEMA 04',title:'El conflicto de intereses oculto',body:'Participas en una decisión sobre un contrato. Descubres que una empresa contratista tiene relación con la familia de un decisor clave. No lo ha declarado.',context:'Declararlo podría ser incómodo para varios. Pero el Decreto 815 exige transparencia en conflictos de interés.',options:[
-      {text:'No lo mencionas. Probablemente la relación no afecta la decisión.',profile:'pragmatic',outcome:'El proceso continúa. Pero el conflicto queda latente.',consequence:'+Ausencia de confrontación · Riesgo reputacional'},
-      {text:'Planteas la necesidad de que se declaren conflictos según el Decreto.',profile:'idealist',outcome:'Hay incomodidad. Se hace declaración. La decisión se toma transparentemente.',consequence:'+Cumplimiento normativo · Tensión visible'},
-      {text:'Hablas en privado con el decisor sobre la importancia de la declaración.',profile:'relational',outcome:'El decisor agradece la oportunidad de aclarar. Hace la declaración discretamente.',consequence:'+Relación preservada · Cumplimiento'},
-      {text:'Documenta tu observación y la registra en el acta de la reunión.',profile:'systemic',outcome:'Queda constancia. El conflicto es público y se maneja según protocolo.',consequence:'+Transparencia · −Incomodidad directa'},
+    {tag:'Escenario 04',title:'El conflicto de intereses oculto',body:'Participas en una decisión sobre un contrato. Descubres que una empresa contratista tiene relación con la familia de un decisor clave. No lo ha declarado.',context:'Declararlo podría ser incómodo para varios. Pero el Decreto 815 exige transparencia en conflictos de interés.',options:[
+      {text:'Planteas la necesidad de que se declaren conflictos según el Decreto.',isCorrect:true,feedback:'Cumples con la norma y proteges la transparencia del proceso.'},
+      {text:'No lo mencionas. Probablemente la relación no afecta la decisión.',isCorrect:false,feedback:'Ignoras un posible conflicto y pones en riesgo la legitimidad de la decisión.'},
+      {text:'Hablas en privado con el decisor sobre la importancia de la declaración.',isCorrect:false,feedback:'Buscas una solución discreta, pero la situación requiere un registro formal.'},
+      {text:'Documenta tu observación y la registra en el acta de la reunión.',isCorrect:false,feedback:'Tomas nota, pero no garantizas que se gestione el conflicto según la norma.'},
     ]},
-    {tag:'DILEMA 05',title:'El recurso limitado y la equidad',body:'Tienes presupuesto para una iniciativa de capacitación. Dos equipos compiten por él. Uno está mejor conectado políticamente; el otro tiene más necesidad real.',context:'El equipo conectado espera que lo favorezcas. El que tiene más necesidad es más discreto pero será más impactado.',options:[
-      {text:'Le das el recurso al mejor conectado. Así evitas conflictos políticos.',profile:'pragmatic',outcome:'El equipo conectado está satisfecho. Pero la desigualdad se perpetúa.',consequence:'+Estabilidad política · −Equidad'},
-      {text:'Se lo das al que tiene más necesidad, aunque sea menos cómodo políticamente.',profile:'idealist',outcome:'Hay molestia del equipo conectado. Pero el impacto es mayor donde se necesita.',consequence:'+Equidad · Tensión política'},
-      {text:'Hablas con ambos para entender mejor sus necesidades y posibles alianzas.',profile:'relational',outcome:'Descubres que podrían co-crear una solución conjunta con el presupuesto.',consequence:'+Colaboración · Solución expandida'},
-      {text:'Propones un criterio transparente de asignación de recursos que todos puedan ver.',profile:'systemic',outcome:'La decisión se toma con transparencia. Establece precedente para futuras asignaciones.',consequence:'+Transparencia sistémica · Debate inicial'},
+    {tag:'Escenario 05',title:'El recurso limitado y la equidad',body:'Tienes presupuesto para una iniciativa de capacitación. Dos equipos compiten por él. Uno está mejor conectado políticamente; el otro tiene más necesidad real.',context:'El equipo conectado espera que lo favorezcas. El que tiene más necesidad es más discreto pero será más impactado.',options:[
+      {text:'Propones un criterio transparente de asignación de recursos que todos puedan ver.',isCorrect:true,feedback:'Fomenta equidad y transparencia en la decisión, lo cual fortalece la confianza institucional.'},
+      {text:'Le das el recurso al que tiene más necesidad, aunque sea menos cómodo políticamente.',isCorrect:false,feedback:'Apoyas una causa justa, pero sin un criterio público es difícil sostener la decisión.'},
+      {text:'Le das el recurso al mejor conectado. Así evitas conflictos políticos.',isCorrect:false,feedback:'Evitas tensión política, pero perpetúas desigualdad y favoritismo.'},
+      {text:'Hablas con ambos para entender mejor sus necesidades y posibles alianzas.',isCorrect:false,feedback:'Buscas diálogo, pero no estableces un criterio claro ni transparente.'},
     ]},
   ]},
   ];
@@ -104,13 +104,6 @@ function saveQuestionsToStorage(questions) {
     return false;
   }
 }
-
-const PROFILES = {
-  pragmatic: { name: 'Pragmático', desc: 'Decisiones centradas en resultados y consecución de objetivos.', color: '#C9A84C' },
-  idealist: { name: 'Idealista', desc: 'Apuestas por la ética y el cumplimiento normativo por encima de todo.', color: '#4A6AB8' },
-  relational: { name: 'Relacional', desc: 'Busca consenso y apoyo entre las personas involucradas.', color: '#C57D3A' },
-  systemic: { name: 'Sistémico', desc: 'Piensa en soluciones de largo plazo y mejora de procesos.', color: '#6F4C9B' },
-};
 
 // ─── HELPERS ───
 function shade(hex, pct) {
@@ -220,8 +213,7 @@ export default function ETHOSFERA() {
     answered: false,
     selectedOpt: null,
     shuffledOpts: [],
-    moduleProfiles: {},
-    totalProfiles: {pragmatic:0,idealist:0,relational:0,systemic:0}
+    score: 0,
   });
   const [adminMode, setAdminMode] = useState(false);
   const [adminAuth, setAdminAuth] = useState('');
@@ -237,7 +229,7 @@ export default function ETHOSFERA() {
   const [questions, setQuestions] = useState(() => loadQuestionsFromStorage());
   const [authAccess, setAuthAccess] = useState(false);
   const [authInput, setAuthInput] = useState('');
-  const [questionForm, setQuestionForm] = useState({ moduleRef:'', text:'' });
+  const [questionForm, setQuestionForm] = useState({ moduleId:'', text:'', correctAnswer:'', incorrectAnswers:['','',''], feedback:'' });
   const [editingQuestionId, setEditingQuestionId] = useState(null);
   const [editingModuleFormIdx, setEditingModuleFormIdx] = useState(null);
   const [formData, setFormData] = useState({
@@ -245,15 +237,16 @@ export default function ETHOSFERA() {
     moduleTitle: '',
     moduleTag: '',
     moduleDesc: '',
+    showInGame: true,
     scenarioTag: '',
     scenarioTitle: '',
     scenarioBody: '',
     scenarioContext: '',
     options: [
-      {text:'',profile:'pragmatic',outcome:'',consequence:''},
-      {text:'',profile:'idealist',outcome:'',consequence:''},
-      {text:'',profile:'relational',outcome:'',consequence:''},
-      {text:'',profile:'systemic',outcome:'',consequence:''},
+      {text:'',isCorrect:true,feedback:''},
+      {text:'',isCorrect:false,feedback:''},
+      {text:'',isCorrect:false,feedback:''},
+      {text:'',isCorrect:false,feedback:''},
     ]
   });
 
@@ -275,21 +268,40 @@ export default function ETHOSFERA() {
   };
 
   const resetQuestionForm = () => {
-    setQuestionForm({ moduleRef:'', text:'' });
+    setQuestionForm({ moduleId:'', text:'', correctAnswer:'', incorrectAnswers:['','',''], feedback:'' });
     setEditingQuestionId(null);
   };
 
   const submitQuestion = () => {
+    if (!questionForm.moduleId && modules.length > 0) {
+      alert('Selecciona el módulo al que pertenece la pregunta');
+      return;
+    }
     if (!questionForm.text.trim()) {
       alert('Escribe la pregunta antes de enviar');
       return;
     }
+    if (!questionForm.correctAnswer.trim()) {
+      alert('Define la respuesta correcta');
+      return;
+    }
+    if (!questionForm.incorrectAnswers.some(ans => ans.trim())) {
+      alert('Agrega al menos una respuesta incorrecta');
+      return;
+    }
+
+    const module = modules.find(m => m.id === Number(questionForm.moduleId));
+    const moduleRef = module ? module.title : 'General';
 
     if (editingQuestionId !== null) {
       const updated = questions.map(q => q.id === editingQuestionId ? {
         ...q,
-        moduleRef: questionForm.moduleRef.trim() || 'General',
+        moduleId: questionForm.moduleId ? Number(questionForm.moduleId) : null,
+        moduleRef,
         text: questionForm.text.trim(),
+        correctAnswer: questionForm.correctAnswer.trim(),
+        incorrectAnswers: questionForm.incorrectAnswers.map(ans => ans.trim()).filter(Boolean),
+        feedback: questionForm.feedback.trim(),
         updatedAt: new Date().toLocaleString('es-ES')
       } : q);
       setQuestions(updated);
@@ -301,8 +313,12 @@ export default function ETHOSFERA() {
 
     const newEntry = {
       id: Date.now(),
-      moduleRef: questionForm.moduleRef.trim() || 'General',
+      moduleId: questionForm.moduleId ? Number(questionForm.moduleId) : null,
+      moduleRef,
       text: questionForm.text.trim(),
+      correctAnswer: questionForm.correctAnswer.trim(),
+      incorrectAnswers: questionForm.incorrectAnswers.map(ans => ans.trim()).filter(Boolean),
+      feedback: questionForm.feedback.trim(),
       createdAt: new Date().toLocaleString('es-ES')
     };
     const updated = [...questions, newEntry];
@@ -314,7 +330,17 @@ export default function ETHOSFERA() {
 
   const editQuestion = (question) => {
     setEditingQuestionId(question.id);
-    setQuestionForm({ moduleRef: question.moduleRef, text: question.text });
+    setQuestionForm({
+      moduleId: question.moduleId || '',
+      text: question.text,
+      correctAnswer: question.correctAnswer || '',
+      incorrectAnswers: [
+        ...(question.incorrectAnswers || []),
+        '',
+        '',
+      ].slice(0,3),
+      feedback: question.feedback || ''
+    });
   };
 
   const deleteQuestion = (id) => {
@@ -333,15 +359,16 @@ export default function ETHOSFERA() {
       moduleTitle: module.title,
       moduleTag: module.tag,
       moduleDesc: module.desc,
+      showInGame: module.showInGame ?? true,
       scenarioTag: '',
       scenarioTitle: '',
       scenarioBody: '',
       scenarioContext: '',
       options: [
-        {text:'',profile:'pragmatic',outcome:'',consequence:''},
-        {text:'',profile:'idealist',outcome:'',consequence:''},
-        {text:'',profile:'relational',outcome:'',consequence:''},
-        {text:'',profile:'systemic',outcome:'',consequence:''},
+        {text:'',isCorrect:true,feedback:''},
+        {text:'',isCorrect:false,feedback:''},
+        {text:'',isCorrect:false,feedback:''},
+        {text:'',isCorrect:false,feedback:''},
       ]
     });
   };
@@ -359,6 +386,7 @@ export default function ETHOSFERA() {
       title: formData.moduleTitle,
       tag: formData.moduleTag,
       desc: formData.moduleDesc,
+      showInGame: formData.showInGame,
     };
     updateModules(updated);
     setEditingModuleFormIdx(null);
@@ -385,6 +413,7 @@ export default function ETHOSFERA() {
       title: formData.moduleTitle,
       tag: formData.moduleTag,
       desc: formData.moduleDesc,
+      showInGame: formData.showInGame,
       scenarios: [{
         tag: formData.scenarioTag,
         title: formData.scenarioTitle,
@@ -396,6 +425,10 @@ export default function ETHOSFERA() {
 
     if (newModule.scenarios[0].options.length < 2) {
       alert('Cada escenario debe tener al menos 2 opciones');
+      return;
+    }
+    if (!newModule.scenarios[0].options.some(opt => opt.isCorrect)) {
+      alert('Marca una opción como correcta');
       return;
     }
 
@@ -423,6 +456,10 @@ export default function ETHOSFERA() {
       alert('Cada escenario debe tener al menos 2 opciones');
       return;
     }
+    if (!newScenario.options.some(opt => opt.isCorrect)) {
+      alert('Marca una opción como correcta');
+      return;
+    }
 
     const updated = [...modules];
     updated[moduleIdx].scenarios.push(newScenario);
@@ -438,15 +475,16 @@ export default function ETHOSFERA() {
       moduleTitle: '',
       moduleTag: '',
       moduleDesc: '',
+      showInGame: true,
       scenarioTag: '',
       scenarioTitle: '',
       scenarioBody: '',
       scenarioContext: '',
       options: [
-        {text:'',profile:'pragmatic',outcome:'',consequence:''},
-        {text:'',profile:'idealist',outcome:'',consequence:''},
-        {text:'',profile:'relational',outcome:'',consequence:''},
-        {text:'',profile:'systemic',outcome:'',consequence:''},
+        {text:'',isCorrect:true,feedback:''},
+        {text:'',isCorrect:false,feedback:''},
+        {text:'',isCorrect:false,feedback:''},
+        {text:'',isCorrect:false,feedback:''},
       ]
     });
     setShowModuleForm(false);
@@ -479,25 +517,12 @@ export default function ETHOSFERA() {
 
   const selectOpt = (opt) => {
     if (gs.answered) return;
-    setGs(g => {
-      const profile = opt.profile;
-      return {
-        ...g,
-        answered: true,
-        selectedOpt: opt,
-        totalProfiles: {
-          ...g.totalProfiles,
-          [profile]: (g.totalProfiles?.[profile] || 0) + 1,
-        },
-        moduleProfiles: {
-          ...g.moduleProfiles,
-          [g.currentModule]: {
-            ...g.moduleProfiles?.[g.currentModule],
-            [profile]: (g.moduleProfiles?.[g.currentModule]?.[profile] || 0) + 1,
-          },
-        },
-      };
-    });
+    setGs(g => ({
+      ...g,
+      answered: true,
+      selectedOpt: opt,
+      score: g.score + (opt.isCorrect ? 1 : 0),
+    }));
   };
 
   const nextScenario = () => {
@@ -553,8 +578,7 @@ export default function ETHOSFERA() {
     setPdfLoading(false);
   };
 
-  const allDone = gs.completedModules.length===modules.length;
-  const globalProfile = domProfile(gs.totalProfiles);
+  const allDone = modules.filter(m=>m.showInGame).every(m=>gs.completedModules.includes(m.id));
   const currentMod = gs.currentModule!==null ? modules[gs.currentModule] : null;
   const currentSc = currentMod ? currentMod.scenarios[gs.currentScenario] : null;
 
@@ -598,7 +622,7 @@ export default function ETHOSFERA() {
           <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:'clamp(3rem,8vw,5.5rem)',color:'#F5F0E8',lineHeight:0.95,fontWeight:900,margin:'0 0 0.5rem'}}>ETHOSFERA</h1>
           <p style={{fontSize:'0.9rem',color:'#C9A84C',fontWeight:600,marginBottom:'2rem',letterSpacing:1}}>Herramienta que forma líderes</p>
           <div style={{width:50,height:2,background:'#C9A84C',margin:'0 auto 1.2rem'}}/>
-          <p style={{fontSize:'0.9rem',color:'rgba(245,240,232,0.6)',lineHeight:1.7,maxWidth:450,marginBottom:'2rem'}}>Dilemas éticos reales en el contexto del Decreto 815. Desarrolla tu perfil de liderazgo a través de decisiones reflexivas.</p>
+          <p style={{fontSize:'0.9rem',color:'rgba(245,240,232,0.6)',lineHeight:1.7,maxWidth:450,marginBottom:'2rem'}}>Casos éticos reales en el contexto del Decreto 815. Desarrolla tu criterio de liderazgo a través de decisiones reflexivas.</p>
           <button onClick={()=>setScreen('character-select')} style={{background:'#C9A84C',color:'#0D0D14',padding:'0.85rem 2.2rem',borderRadius:2,fontWeight:600,fontSize:'0.92rem',border:'none',cursor:'pointer',letterSpacing:0.5}}>Comenzar →</button>
           
           {/* Botón secreto para modo admin */}
@@ -664,10 +688,11 @@ export default function ETHOSFERA() {
             <p style={{color:'#7A7060',fontSize:'0.85rem',marginTop:'0.3rem'}}>Completa el módulo para generar tu certificado</p>
           </div>
           <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(240px,1fr))',gap:1,width:'100%',maxWidth:860,border:'1px solid #D4CCB8'}}>
-            {modules.map((mod,i)=>{
-              const done=gs.completedModules.includes(i);
+            {modules.filter(mod=>mod.showInGame).map((mod,i)=>{
+              const done=gs.completedModules.includes(mod.id);
+              const realIndex = modules.findIndex(m=>m.id===mod.id);
               return (
-                <div key={mod.id} onClick={()=>startModule(i)} style={{background:done?'#EDE8DC':'#FDFCF8',padding:'1.4rem',cursor:'pointer',position:'relative',borderBottom:'1px solid #D4CCB8',transition:'all 0.2s',display:'flex',flexDirection:'column'}}>
+                <div key={mod.id} onClick={()=>startModule(realIndex)} style={{background:done?'#EDE8DC':'#FDFCF8',padding:'1.4rem',cursor:'pointer',position:'relative',borderBottom:'1px solid #D4CCB8',transition:'all 0.2s',display:'flex',flexDirection:'column'}}>
                   <span style={{fontSize:'1.6rem',marginBottom:'0.7rem',display:'block'}}>{mod.icon}</span>
                   <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:'1rem',color:'#0D0D14',fontWeight:700,marginBottom:'0.3rem'}}>{mod.title}</h3>
                   <p style={{fontSize:'0.78rem',color:'#7A7060',lineHeight:1.5,flexGrow:1}}>{mod.desc}</p>
@@ -701,8 +726,18 @@ export default function ETHOSFERA() {
               <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'1.2rem'}}>
                 <div style={{background:'rgba(255,255,255,0.04)',border:'1px solid rgba(123,174,73,0.25)',borderRadius:10,padding:'1.4rem'}}>
                   <div style={{fontSize:'0.85rem',fontWeight:700,color:'#7BAE49',marginBottom:'1rem'}}>Registrar nueva pregunta</div>
-                  <input placeholder="Módulo o referencia" value={questionForm.moduleRef} onChange={e=>setQuestionForm(f=>({...f,moduleRef:e.target.value}))} style={{width:'100%',padding:'0.85rem 1rem',borderRadius:4,border:'1px solid rgba(255,255,255,0.12)',background:'rgba(245,240,232,0.06)',color:'#F4F6E7',marginBottom:'1rem',fontSize:'0.9rem'}}/>
-                  <textarea placeholder="Escribe tu pregunta aquí" value={questionForm.text} onChange={e=>setQuestionForm(f=>({...f,text:e.target.value}))} style={{width:'100%',minHeight:'160px',padding:'1rem',borderRadius:4,border:'1px solid rgba(255,255,255,0.12)',background:'rgba(245,240,232,0.06)',color:'#F4F6E7',fontSize:'0.9rem',resize:'vertical',marginBottom:'1rem'}}/>
+                  <select value={questionForm.moduleId} onChange={e=>setQuestionForm(f=>({...f,moduleId:e.target.value}))} style={{width:'100%',padding:'0.85rem 1rem',borderRadius:4,border:'1px solid rgba(255,255,255,0.12)',background:'rgba(245,240,232,0.06)',color:'#F4F6E7',marginBottom:'1rem',fontSize:'0.9rem'}}>
+                    <option value="">Selecciona un módulo</option>
+                    {modules.map(mod=>(
+                      <option key={mod.id} value={mod.id}>{mod.title}</option>
+                    ))}
+                  </select>
+                  <textarea placeholder="Escribe tu pregunta aquí" value={questionForm.text} onChange={e=>setQuestionForm(f=>({...f,text:e.target.value}))} style={{width:'100%',minHeight:'120px',padding:'1rem',borderRadius:4,border:'1px solid rgba(255,255,255,0.12)',background:'rgba(245,240,232,0.06)',color:'#F4F6E7',fontSize:'0.9rem',resize:'vertical',marginBottom:'1rem'}}/>
+                  <input placeholder="Respuesta correcta" value={questionForm.correctAnswer} onChange={e=>setQuestionForm(f=>({...f,correctAnswer:e.target.value}))} style={{width:'100%',padding:'0.85rem 1rem',borderRadius:4,border:'1px solid rgba(255,255,255,0.12)',background:'rgba(245,240,232,0.06)',color:'#F4F6E7',marginBottom:'1rem',fontSize:'0.9rem'}}/>
+                  {[0,1,2].map((idx)=>(
+                    <input key={idx} placeholder={`Respuesta incorrecta ${idx+1}`} value={questionForm.incorrectAnswers[idx]} onChange={e=>setQuestionForm(f=>({...f,incorrectAnswers:f.incorrectAnswers.map((val,i)=>i===idx?e.target.value:val)}))} style={{width:'100%',padding:'0.85rem 1rem',borderRadius:4,border:'1px solid rgba(255,255,255,0.12)',background:'rgba(245,240,232,0.06)',color:'#F4F6E7',marginBottom:'1rem',fontSize:'0.9rem'}}/>
+                  ))}
+                  <textarea placeholder="Retroalimentación para esta pregunta" value={questionForm.feedback} onChange={e=>setQuestionForm(f=>({...f,feedback:e.target.value}))} style={{width:'100%',minHeight:'100px',padding:'1rem',borderRadius:4,border:'1px solid rgba(255,255,255,0.12)',background:'rgba(245,240,232,0.06)',color:'#F4F6E7',fontSize:'0.9rem',resize:'vertical',marginBottom:'1rem'}}/>
                   <div style={{display:'flex',gap:'0.75rem',flexWrap:'wrap'}}>
                     <button onClick={submitQuestion} style={{flex:1,background:'#7BAE49',color:'#0D0D14',padding:'0.95rem 1rem',borderRadius:4,border:'none',cursor:'pointer',fontWeight:700}}>{editingQuestionId!==null?'Guardar cambios':'Enviar pregunta'}</button>
                     {editingQuestionId!==null&&(
@@ -724,8 +759,15 @@ export default function ETHOSFERA() {
                             <button onClick={()=>deleteQuestion(question.id)} style={{background:'transparent',border:'1px solid rgba(255,100,100,0.4)',color:'#ff8b8b',padding:'0.25rem 0.6rem',fontSize:'0.72rem',borderRadius:3,cursor:'pointer'}}>Eliminar</button>
                           </div>
                         </div>
-                        <div style={{fontSize:'0.92rem',color:'#E5E9F0',lineHeight:1.5}}>{question.text}</div>
-                        <div style={{fontSize:'0.72rem',color:'#A9B9A7',marginTop:'0.55rem'}}>{question.createdAt}{question.updatedAt?` · editada ${question.updatedAt}`:''}</div>
+                        <div style={{fontSize:'0.92rem',color:'#E5E9F0',lineHeight:1.5,marginBottom:'0.65rem'}}>{question.text}</div>
+                        <div style={{display:'grid',gap:'0.35rem',marginBottom:'0.65rem'}}>
+                          <div style={{fontSize:'0.78rem',color:'#C9A84C'}}>Correcta: {question.correctAnswer}</div>
+                          {question.incorrectAnswers.map((wrong, idx)=>(
+                            <div key={idx} style={{fontSize:'0.76rem',color:'#B9C1B4'}}>Incorrecta {idx+1}: {wrong}</div>
+                          ))}
+                        </div>
+                        <div style={{fontSize:'0.8rem',color:'#A9B9A7',marginBottom:'0.55rem'}}>Retroalimentación: {question.feedback || 'Sin retroalimentación'}</div>
+                        <div style={{fontSize:'0.72rem',color:'#A9B9A7'}}>{question.createdAt}{question.updatedAt?` · editada ${question.updatedAt}`:''}</div>
                       </div>
                     ))
                   )}
@@ -764,6 +806,7 @@ export default function ETHOSFERA() {
                         <div>
                           <div style={{fontSize:'1rem',fontWeight:700,color:'#F4F6E7'}}>{mod.icon} {mod.title}</div>
                           <div style={{fontSize:'0.78rem',color:'#B9C6B2',marginTop:'0.25rem'}}>{mod.tag}</div>
+                          <div style={{fontSize:'0.72rem',color:mod.showInGame ? '#C9A84C' : '#A9B9A7',marginTop:'0.25rem'}}>{mod.showInGame ? 'Visible en juegos' : 'Oculto en juegos'}</div>
                         </div>
                         <div style={{display:'flex',gap:'0.4rem',flexWrap:'wrap'}}>
                           <button onClick={()=>editModuleMeta(midx)} style={{background:'transparent',border:'1px solid rgba(255,255,255,0.14)',color:'#F4F6E7',padding:'0.4rem 0.65rem',fontSize:'0.72rem',borderRadius:3,cursor:'pointer'}}>Editar</button>
@@ -819,7 +862,7 @@ export default function ETHOSFERA() {
               </div>
             </div>
             <div style={{background:'#F5F0E8',padding:'1.8rem',display:'flex',flexDirection:'column',gap:'0.8rem',overflowY:'auto'}}>
-              <div style={{fontSize:'0.62rem',letterSpacing:'3px',textTransform:'uppercase',color:'#7A7060',fontWeight:600,marginBottom:'0.2rem'}}>¿Cómo respondes a este dilema?</div>
+              <div style={{fontSize:'0.62rem',letterSpacing:'3px',textTransform:'uppercase',color:'#7A7060',fontWeight:600,marginBottom:'0.2rem'}}>Selecciona la respuesta correcta</div>
               {gs.shuffledOpts.map((opt,i)=>(
                 <button key={i} disabled={gs.answered} onClick={()=>selectOpt(opt)} className="opt-card" style={{background:gs.answered&&gs.selectedOpt===opt?'#EDE8DC':'#FDFCF8',border:`1.5px solid ${gs.answered&&gs.selectedOpt===opt?'#0D0D14':'#D4CCB8'}`,borderRadius:2,padding:'0.82rem 1rem',cursor:gs.answered?'default':'pointer',fontFamily:'inherit',fontSize:'0.84rem',color:'#0D0D14',textAlign:'left',lineHeight:1.45,display:'flex',gap:'0.7rem',alignItems:'flex-start',width:'100%',opacity:gs.answered&&gs.selectedOpt!==opt?0.35:1,transition:'all 0.18s',boxShadow:gs.answered&&gs.selectedOpt===opt?'0 0 0 2px #0D0D14':'none'}}>
                   <span style={{width:22,height:22,borderRadius:1,background:gs.answered&&gs.selectedOpt===opt?'#0D0D14':'#EDE8DC',color:gs.answered&&gs.selectedOpt===opt?'#F5F0E8':'#7A7060',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'0.7rem',fontWeight:700,flexShrink:0,border:'1px solid #D4CCB8'}}>{['A','B','C','D'][i]}</span>
@@ -828,11 +871,10 @@ export default function ETHOSFERA() {
               ))}
               {gs.answered&&gs.selectedOpt&&(
                 <div style={{borderRadius:2,padding:'0.9rem 1.1rem',animation:'slideUp 0.35s ease',background:'#EDE8DC',borderLeft:'3px solid #C9A84C'}}>
-                  <div style={{fontSize:'0.62rem',letterSpacing:'2px',textTransform:'uppercase',fontWeight:700,marginBottom:'0.35rem',color:'#1A3A5C'}}>Perfil: {PROFILES[gs.selectedOpt.profile]?.name}</div>
-                  <div style={{fontSize:'0.83rem',color:'#0D0D14',lineHeight:1.55}}>{gs.selectedOpt.outcome}</div>
-                  <div style={{marginTop:'0.5rem',fontSize:'0.77rem',color:'#7A7060',fontStyle:'italic'}}>{gs.selectedOpt.consequence}</div>
+                  <div style={{fontSize:'0.62rem',letterSpacing:'2px',textTransform:'uppercase',fontWeight:700,marginBottom:'0.35rem',color:'#1A3A5C'}}>{gs.selectedOpt.isCorrect ? 'Respuesta correcta' : 'Respuesta incorrecta'}</div>
+                  <div style={{fontSize:'0.83rem',color:'#0D0D14',lineHeight:1.55}}>{gs.selectedOpt.feedback}</div>
                   <button onClick={nextScenario} style={{background:'#0D0D14',color:'#F5F0E8',padding:'0.72rem 1.7rem',borderRadius:2,fontWeight:600,fontSize:'0.85rem',border:'none',cursor:'pointer',marginTop:'0.8rem'}}>
-                    {gs.currentScenario>=currentMod.scenarios.length-1?'Ver resultados →':'Siguiente dilema →'}
+                    {gs.currentScenario>=currentMod.scenarios.length-1?'Ver resultados →':'Siguiente →'}
                   </button>
                 </div>
               )}
@@ -843,25 +885,17 @@ export default function ETHOSFERA() {
 
       {/* ── RESULT ── */}
       {screen==='result'&&(()=>{
-        const mi=gs.currentModule, mp=gs.moduleProfiles[mi]||{}, dom=domProfile(mp), prof=PROFILES[dom];
-        const total=Math.max(1,Object.values(mp).reduce((a,b)=>a+b,0));
+        const total = currentMod ? currentMod.scenarios.length : 0;
+        const correct = gs.score;
         return (
           <div style={{minHeight:'100vh',background:'#0D0D14',padding:'2rem',display:'flex',alignItems:'center',justifyContent:'center'}}>
             <div style={{maxWidth:540,width:'100%',textAlign:'center',animation:'fadeIn 0.5s ease'}}>
-              <div style={{fontSize:'0.65rem',letterSpacing:'4px',textTransform:'uppercase',color:'#C9A84C',marginBottom:'0.8rem',fontWeight:600}}>Resultado del Módulo</div>
-              <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:'2.2rem',color:'#F5F0E8',fontWeight:900,marginBottom:'0.4rem'}}>{prof.name}</h2>
-              <p style={{fontSize:'0.85rem',color:'rgba(245,240,232,0.55)',lineHeight:1.65,marginBottom:'1.5rem'}}>{prof.desc}</p>
+              <div style={{fontSize:'0.65rem',letterSpacing:'4px',textTransform:'uppercase',color:'#C9A84C',marginBottom:'0.8rem',fontWeight:600}}>Resultado del módulo</div>
+              <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:'2.2rem',color:'#F5F0E8',fontWeight:900,marginBottom:'0.4rem'}}>{currentMod?.title || 'Módulo completado'}</h2>
+              <p style={{fontSize:'0.85rem',color:'rgba(245,240,232,0.55)',lineHeight:1.65,marginBottom:'1.5rem'}}>Respondiste {correct} de {total} preguntas correctamente en este módulo.</p>
               <div style={{background:'rgba(245,240,232,0.04)',border:'1px solid rgba(201,168,76,0.18)',borderRadius:2,padding:'1.3rem',marginBottom:'1.5rem',textAlign:'left'}}>
-                <div style={{fontSize:'0.63rem',letterSpacing:'3px',textTransform:'uppercase',color:'#C9A84C',marginBottom:'0.9rem',fontWeight:600}}>Tu distribución</div>
-                {Object.entries(PROFILES).map(([k,p])=>(
-                  <div key={k} style={{display:'flex',alignItems:'center',gap:'0.7rem',marginBottom:'0.6rem'}}>
-                    <span style={{fontSize:'0.75rem',color:'rgba(245,240,232,0.65)',width:115,flexShrink:0}}>{p.name}</span>
-                    <div style={{flex:1,height:4,background:'rgba(245,240,232,0.08)',borderRadius:2,overflow:'hidden'}}>
-                      <div style={{height:'100%',width:`${(mp[k]||0)/total*100}%`,background:p.color,borderRadius:2,transition:'width 0.8s ease'}}/>
-                    </div>
-                    <span style={{fontSize:'0.72rem',color:'#C9A84C',width:18,textAlign:'right'}}>{mp[k]||0}</span>
-                  </div>
-                ))}
+                <div style={{fontSize:'0.75rem',letterSpacing:'2px',textTransform:'uppercase',color:'#C9A84C',marginBottom:'0.8rem',fontWeight:600}}>Comentarios</div>
+                <p style={{margin:0,color:'#F5F0E8',lineHeight:1.7}}>{currentMod?.desc || 'Has completado el módulo y puedes continuar con el siguiente.'}</p>
               </div>
               <div style={{display:'flex',gap:'0.8rem',justifyContent:'center',flexWrap:'wrap'}}>
                 <button onClick={()=>setScreen('modules')} style={{background:'transparent',color:'rgba(245,240,232,0.45)',padding:'0.72rem 1.5rem',borderRadius:2,fontSize:'0.82rem',border:'1px solid rgba(245,240,232,0.14)',cursor:'pointer',fontFamily:'inherit'}}>← Volver a Módulos</button>
@@ -889,7 +923,7 @@ export default function ETHOSFERA() {
               <button onClick={downloadPDF} disabled={pdfLoading} style={{background:'#0D0D14',color:'#F5F0E8',padding:'0.78rem 1.9rem',borderRadius:2,fontWeight:600,fontSize:'0.88rem',border:'none',cursor:pdfLoading?'wait':'pointer',opacity:pdfLoading?0.7:1,display:'inline-flex',alignItems:'center',gap:'0.5rem'}}>
                 {pdfLoading?'⏳ Generando PDF...':'⬇ Descargar Certificado PDF'}
               </button>
-              <button onClick={()=>{setScreen('title');setGs({completedModules:[],moduleProfiles:{},totalProfiles:{pragmatic:0,idealist:0,relational:0,systemic:0},currentModule:null,currentScenario:0,answered:false,selectedOpt:null,shuffledOpts:[]});setDbSaved(false);setDbStatus('idle');}} style={{background:'transparent',color:'#7A7060',padding:'0.72rem 1.5rem',borderRadius:2,fontSize:'0.85rem',border:'1px solid #D4CCB8',cursor:'pointer',fontFamily:'inherit'}}>Nuevo intento</button>
+              <button onClick={()=>{setScreen('title');setGs({completedModules:[],currentModule:null,currentScenario:0,answered:false,selectedOpt:null,shuffledOpts:[],score:0});setDbSaved(false);setDbStatus('idle');}} style={{background:'transparent',color:'#7A7060',padding:'0.72rem 1.5rem',borderRadius:2,fontSize:'0.85rem',border:'1px solid #D4CCB8',cursor:'pointer',fontFamily:'inherit'}}>Nuevo intento</button>
             </div>
           </div>
         </div>
@@ -917,9 +951,9 @@ export default function ETHOSFERA() {
 
               {/* ESTADÍSTICAS */}
               <div style={{background:'rgba(201,168,76,0.1)',padding:'0.7rem',borderRadius:2,marginBottom:'1rem',fontSize:'0.75rem',color:'#F5F0E8'}}>
-                <p style={{margin:'0.2rem 0'}}>📊 Módulos activos: <strong>{modules.length}</strong></p>
-                <p style={{margin:'0.2rem 0'}}>🎯 Total escenarios: <strong>{modules.reduce((a,m)=>a+m.scenarios.length,0)}</strong></p>
-                <p style={{margin:'0.2rem 0'}}>💾 Almacenamiento: <strong>localStorage</strong></p>
+                <p style={{margin:'0.2rem 0'}}>Módulos activos: <strong>{modules.length}</strong></p>
+                <p style={{margin:'0.2rem 0'}}>Total escenarios: <strong>{modules.reduce((a,m)=>a+m.scenarios.length,0)}</strong></p>
+                <p style={{margin:'0.2rem 0'}}>lmacenamiento: <strong>localStorage</strong></p>
               </div>
 
               {/* FORMULARIO - NUEVO MÓDULO */}
@@ -929,27 +963,27 @@ export default function ETHOSFERA() {
                   <input type="text" placeholder="Emoji del módulo (ej: 📋)" maxLength="2" value={formData.moduleIcon} onChange={(e)=>setFormData({...formData,moduleIcon:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.5rem',fontSize:'0.75rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box'}}/>
                   <input type="text" placeholder="Título del módulo" value={formData.moduleTitle} onChange={(e)=>setFormData({...formData,moduleTitle:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.5rem',fontSize:'0.75rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box'}}/>
                   <input type="text" placeholder="Etiqueta (ej: Ética y Transparencia)" value={formData.moduleTag} onChange={(e)=>setFormData({...formData,moduleTag:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.5rem',fontSize:'0.75rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box'}}/>
-                  <textarea placeholder="Descripción del módulo" value={formData.moduleDesc} onChange={(e)=>setFormData({...formData,moduleDesc:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.8rem',fontSize:'0.75rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box',minHeight:'3rem',fontFamily:'inherit',resize:'vertical'}}/>
-                  
+                  <textarea placeholder="Descripción del módulo" value={formData.moduleDesc} onChange={(e)=>setFormData({...formData,moduleDesc:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.5rem',fontSize:'0.75rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box',minHeight:'3rem',fontFamily:'inherit',resize:'vertical'}}/>
+                  <label style={{display:'flex',alignItems:'center',gap:'0.45rem',marginBottom:'0.8rem',fontSize:'0.75rem',color:'#F4F6E7'}}>
+                    <input type="checkbox" checked={formData.showInGame} onChange={(e)=>setFormData({...formData,showInGame:e.target.checked})} style={{width:14,height:14,margin:0}}/>
+                    Incluir módulo en juegos
+                  </label>
                   <h5 style={{color:'#C9A84C',fontSize:'0.75rem',marginBottom:'0.5rem',marginTop:0}}>Primer Escenario (Obligatorio)</h5>
-                  <input type="text" placeholder="Etiqueta escenario (ej: DILEMA 01)" value={formData.scenarioTag} onChange={(e)=>setFormData({...formData,scenarioTag:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.4rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box'}}/>
-                  <input type="text" placeholder="Título del escenario/dilema" value={formData.scenarioTitle} onChange={(e)=>setFormData({...formData,scenarioTitle:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.4rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box'}}/>
-                  <textarea placeholder="Descripción del dilema" value={formData.scenarioBody} onChange={(e)=>setFormData({...formData,scenarioBody:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.4rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box',minHeight:'2.5rem',fontFamily:'inherit',resize:'vertical'}}/>
+                  <input type="text" placeholder="Etiqueta escenario (ej: Escenario 01)" value={formData.scenarioTag} onChange={(e)=>setFormData({...formData,scenarioTag:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.4rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box'}}/>
+                  <input type="text" placeholder="Título del escenario" value={formData.scenarioTitle} onChange={(e)=>setFormData({...formData,scenarioTitle:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.4rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box'}}/>
+                  <textarea placeholder="Descripción del escenario" value={formData.scenarioBody} onChange={(e)=>setFormData({...formData,scenarioBody:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.4rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box',minHeight:'2.5rem',fontFamily:'inherit',resize:'vertical'}}/>
                   <textarea placeholder="Contexto" value={formData.scenarioContext} onChange={(e)=>setFormData({...formData,scenarioContext:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.6rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box',minHeight:'2rem',fontFamily:'inherit',resize:'vertical'}}/>
                   
                   <h5 style={{color:'#C9A84C',fontSize:'0.75rem',marginBottom:'0.4rem',marginTop:0}}>4 Opciones de Respuesta</h5>
                   <div style={{maxHeight:'15rem',overflowY:'auto',marginBottom:'0.6rem',paddingRight:'0.4rem'}}>
                     {[0,1,2,3].map(i=>(
                       <div key={i} style={{background:'rgba(20,20,30,0.5)',padding:'0.5rem',marginBottom:'0.4rem',borderRadius:2,border:'1px solid rgba(201,168,76,0.15)'}}>
-                        <select value={formData.options[i].profile} onChange={(e)=>setFormData({...formData,options:formData.options.map((o,idx)=>idx===i?{...o,profile:e.target.value}:o)})} style={{width:'100%',padding:'0.25rem',marginBottom:'0.3rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8'}}>
-                          <option value="pragmatic">Pragmático</option>
-                          <option value="idealist">Idealista</option>
-                          <option value="relational">Relacional</option>
-                          <option value="systemic">Sistémico</option>
-                        </select>
+                        <label style={{display:'flex',alignItems:'center',gap:'0.4rem',marginBottom:'0.45rem',fontSize:'0.72rem',color:'#F5F0E8'}}>
+                          <input type="radio" name="correctAnswer" checked={formData.options[i].isCorrect} onChange={()=>setFormData({...formData,options:formData.options.map((o,idx)=>({...o,isCorrect:idx===i}))})} style={{width:14,height:14,margin:0}}/>
+                          Marcar como respuesta correcta
+                        </label>
                         <textarea placeholder="Opción de respuesta" value={formData.options[i].text} onChange={(e)=>setFormData({...formData,options:formData.options.map((o,idx)=>idx===i?{...o,text:e.target.value}:o)})} style={{width:'100%',padding:'0.3rem',marginBottom:'0.3rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box',minHeight:'1.8rem',fontFamily:'inherit',resize:'none'}}/>
-                        <textarea placeholder="Resultado/explicación" value={formData.options[i].outcome} onChange={(e)=>setFormData({...formData,options:formData.options.map((o,idx)=>idx===i?{...o,outcome:e.target.value}:o)})} style={{width:'100%',padding:'0.3rem',marginBottom:'0.3rem',fontSize:'0.65rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box',minHeight:'1.5rem',fontFamily:'inherit',resize:'none'}}/>
-                        <input type="text" placeholder="Consecuencias (ej: +Ética · -Eficiencia)" value={formData.options[i].consequence} onChange={(e)=>setFormData({...formData,options:formData.options.map((o,idx)=>idx===i?{...o,consequence:e.target.value}:o)})} style={{width:'100%',padding:'0.3rem',fontSize:'0.65rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box',fontFamily:'inherit'}}/>
+                        <textarea placeholder="Retroalimentación" value={formData.options[i].feedback} onChange={(e)=>setFormData({...formData,options:formData.options.map((o,idx)=>idx===i?{...o,feedback:e.target.value}:o)})} style={{width:'100%',padding:'0.3rem',marginBottom:'0.3rem',fontSize:'0.65rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(201,168,76,0.2)',color:'#F5F0E8',boxSizing:'border-box',minHeight:'1.5rem',fontFamily:'inherit',resize:'none'}}/>
                       </div>
                     ))}
                   </div>
@@ -998,8 +1032,8 @@ export default function ETHOSFERA() {
               {editingModuleIdx!==null&&(
                 <div style={{background:'rgba(74,106,184,0.1)',border:'1px solid rgba(74,106,184,0.3)',borderRadius:4,padding:'0.8rem'}}>
                   <h4 style={{color:'#4A6AB8',fontSize:'0.8rem',marginTop:0,marginBottom:'0.6rem'}}>Agregar Escenario a: {modules[editingModuleIdx].title}</h4>
-                  <input type="text" placeholder="Etiqueta escenario (ej: DILEMA 06)" value={formData.scenarioTag} onChange={(e)=>setFormData({...formData,scenarioTag:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.4rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(74,106,184,0.2)',color:'#F5F0E8',boxSizing:'border-box'}}/>
-                  <input type="text" placeholder="Título del dilema" value={formData.scenarioTitle} onChange={(e)=>setFormData({...formData,scenarioTitle:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.4rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(74,106,184,0.2)',color:'#F5F0E8',boxSizing:'border-box'}}/>
+                  <input type="text" placeholder="Etiqueta escenario (ej: Escenario 06)" value={formData.scenarioTag} onChange={(e)=>setFormData({...formData,scenarioTag:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.4rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(74,106,184,0.2)',color:'#F5F0E8',boxSizing:'border-box'}}/>
+                  <input type="text" placeholder="Título del escenario" value={formData.scenarioTitle} onChange={(e)=>setFormData({...formData,scenarioTitle:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.4rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(74,106,184,0.2)',color:'#F5F0E8',boxSizing:'border-box'}}/>
                   <textarea placeholder="Descripción" value={formData.scenarioBody} onChange={(e)=>setFormData({...formData,scenarioBody:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.4rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(74,106,184,0.2)',color:'#F5F0E8',boxSizing:'border-box',minHeight:'2.5rem',fontFamily:'inherit',resize:'vertical'}}/>
                   <textarea placeholder="Contexto" value={formData.scenarioContext} onChange={(e)=>setFormData({...formData,scenarioContext:e.target.value})} style={{width:'100%',padding:'0.35rem',marginBottom:'0.6rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(74,106,184,0.2)',color:'#F5F0E8',boxSizing:'border-box',minHeight:'2rem',fontFamily:'inherit',resize:'vertical'}}/>
                   
@@ -1007,15 +1041,12 @@ export default function ETHOSFERA() {
                   <div style={{maxHeight:'12rem',overflowY:'auto',marginBottom:'0.6rem',paddingRight:'0.4rem'}}>
                     {[0,1,2,3].map(i=>(
                       <div key={i} style={{background:'rgba(20,20,30,0.5)',padding:'0.5rem',marginBottom:'0.4rem',borderRadius:2,border:'1px solid rgba(74,106,184,0.15)'}}>
-                        <select value={formData.options[i].profile} onChange={(e)=>setFormData({...formData,options:formData.options.map((o,idx)=>idx===i?{...o,profile:e.target.value}:o)})} style={{width:'100%',padding:'0.25rem',marginBottom:'0.3rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(74,106,184,0.2)',color:'#F5F0E8'}}>
-                          <option value="pragmatic">Pragmático</option>
-                          <option value="idealist">Idealista</option>
-                          <option value="relational">Relacional</option>
-                          <option value="systemic">Sistémico</option>
-                        </select>
+                        <label style={{display:'flex',alignItems:'center',gap:'0.4rem',marginBottom:'0.45rem',fontSize:'0.72rem',color:'#F5F0E8'}}>
+                          <input type="radio" name="correctAnswer" checked={formData.options[i].isCorrect} onChange={()=>setFormData({...formData,options:formData.options.map((o,idx)=>({...o,isCorrect:idx===i}))})} style={{width:14,height:14,margin:0}}/>
+                          Marcar como respuesta correcta
+                        </label>
                         <textarea placeholder="Opción" value={formData.options[i].text} onChange={(e)=>setFormData({...formData,options:formData.options.map((o,idx)=>idx===i?{...o,text:e.target.value}:o)})} style={{width:'100%',padding:'0.3rem',marginBottom:'0.3rem',fontSize:'0.7rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(74,106,184,0.2)',color:'#F5F0E8',boxSizing:'border-box',minHeight:'1.8rem',fontFamily:'inherit',resize:'none'}}/>
-                        <textarea placeholder="Resultado" value={formData.options[i].outcome} onChange={(e)=>setFormData({...formData,options:formData.options.map((o,idx)=>idx===i?{...o,outcome:e.target.value}:o)})} style={{width:'100%',padding:'0.3rem',marginBottom:'0.3rem',fontSize:'0.65rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(74,106,184,0.2)',color:'#F5F0E8',boxSizing:'border-box',minHeight:'1.5rem',fontFamily:'inherit',resize:'none'}}/>
-                        <input type="text" placeholder="Consecuencias" value={formData.options[i].consequence} onChange={(e)=>setFormData({...formData,options:formData.options.map((o,idx)=>idx===i?{...o,consequence:e.target.value}:o)})} style={{width:'100%',padding:'0.3rem',fontSize:'0.65rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(74,106,184,0.2)',color:'#F5F0E8',boxSizing:'border-box',fontFamily:'inherit'}}/>
+                        <textarea placeholder="Retroalimentación" value={formData.options[i].feedback} onChange={(e)=>setFormData({...formData,options:formData.options.map((o,idx)=>idx===i?{...o,feedback:e.target.value}:o)})} style={{width:'100%',padding:'0.3rem',marginBottom:'0.3rem',fontSize:'0.65rem',borderRadius:2,background:'rgba(245,240,232,0.08)',border:'1px solid rgba(74,106,184,0.2)',color:'#F5F0E8',boxSizing:'border-box',minHeight:'1.5rem',fontFamily:'inherit',resize:'none'}}/>
                       </div>
                     ))}
                   </div>
