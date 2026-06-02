@@ -634,7 +634,7 @@ export default function ETHOSFERA() {
         html,body,#root{width:100%;min-height:100vh;overflow-x:hidden;background:#ffffff;color:#000000;font-family:'Poppins',sans-serif}
         body{background:#ffffff;color:#000000;}
         button,input,textarea,select{font-family:'Poppins',sans-serif;color:#000000}
-        h1,h2,h3,h4,h5,h6{color:#000000;font-family:'Poppins',sans-serif}
+        h1,h2,h3,h4,h5,h6{color:#000000;font-family:'Poppins',sans-serif!important}
         @keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
         @keyframes slideUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
         .opt-card:hover:not(:disabled){border-color:#0b5640!important;background:#e8f8f2!important;transform:translateX(3px)}
@@ -668,13 +668,13 @@ export default function ETHOSFERA() {
 
       {/* ── TITLE ── */}
       {screen==='title'&&(
-        <div style={{minHeight:'100vh',background:'#0D0D14',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',padding:'2rem',textAlign:'center',animation:'fadeIn 0.5s ease'}}>
-          <div style={{fontSize:'0.68rem',letterSpacing:4,textTransform:'uppercase',color:'#C9A84C',marginBottom:'1rem',fontWeight:500}}>Herramienta de Capacitación</div>
-          <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:'clamp(3rem,8vw,5.5rem)',color:'#F5F0E8',lineHeight:0.95,fontWeight:900,margin:'0 0 0.5rem'}}>ETHOSFERA</h1>
-          <p style={{fontSize:'0.9rem',color:'#C9A84C',fontWeight:600,marginBottom:'2rem',letterSpacing:1}}>Herramienta que forma líderes</p>
-          <div style={{width:50,height:2,background:'#C9A84C',margin:'0 auto 1.2rem'}}/>
-          <p style={{fontSize:'0.9rem',color:'rgba(245,240,232,0.6)',lineHeight:1.7,maxWidth:450,marginBottom:'2rem'}}>Casos éticos reales en el contexto del Decreto 815. Desarrolla tu criterio de liderazgo a través de decisiones reflexivas.</p>
-          <button onClick={()=>setScreen('character-select')} style={{background:'#C9A84C',color:'#0D0D14',padding:'0.85rem 2.2rem',borderRadius:2,fontWeight:600,fontSize:'0.92rem',border:'none',cursor:'pointer',letterSpacing:0.5}}>Comenzar →</button>
+        <div style={{minHeight:'100vh',background:'#ffffff',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',padding:'2rem',textAlign:'center',animation:'fadeIn 0.5s ease'}}>
+          <div style={{fontSize:'0.68rem',letterSpacing:4,textTransform:'uppercase',color:'#0b5640',marginBottom:'1rem',fontWeight:500}}>Herramienta de Capacitación</div>
+          <h1 style={{fontSize:'clamp(3rem,8vw,5.5rem)',color:'#000000',lineHeight:0.95,fontWeight:900,margin:'0 0 0.5rem'}}>ETHOSFERA</h1>
+          <p style={{fontSize:'0.9rem',color:'#018d38',fontWeight:600,marginBottom:'2rem',letterSpacing:1}}>Herramienta que forma líderes</p>
+          <div style={{width:50,height:2,background:'#3af9a2',margin:'0 auto 1.2rem'}}/>
+          <p style={{fontSize:'0.9rem',color:'#000000',lineHeight:1.7,maxWidth:450,marginBottom:'2rem'}}>Casos éticos reales en el contexto del Decreto 815. Desarrolla tu criterio de liderazgo a través de decisiones reflexivas.</p>
+          <button onClick={()=>setScreen('character-select')} style={{background:'#3af9a2',color:'#0b5640',padding:'0.85rem 2.2rem',borderRadius:2,fontWeight:600,fontSize:'0.92rem',border:'none',cursor:'pointer',letterSpacing:0.5}}>Comenzar →</button>
           
           {/* Botón secreto para modo admin */}
           <button onClick={()=>setAdminMode(!adminMode)} style={{position:'fixed',bottom:'1rem',right:'1rem',background:'transparent',border:'1px solid rgba(201,168,76,0.2)',color:'rgba(201,168,76,0.3)',padding:'0.3rem 0.6rem',borderRadius:2,fontSize:'0.65rem',cursor:'pointer',fontFamily:'monospace',opacity:0.3,transition:'opacity 0.3s'}} onMouseEnter={(e)=>e.target.style.opacity='1'} onMouseLeave={(e)=>e.target.style.opacity='0.3'}>admin</button>
@@ -683,10 +683,10 @@ export default function ETHOSFERA() {
 
       {/* ── CHARACTER SELECT ── */}
       {screen==='character-select'&&(
-        <div style={{minHeight:'100vh',background:'#042712',padding:'2rem',display:'flex',alignItems:'center',justifyContent:'center',overflowY:'auto'}}>
+        <div style={{minHeight:'100vh',background:'#ffffff',padding:'2rem',display:'flex',alignItems:'center',justifyContent:'center',overflowY:'auto'}}>
           <div style={{maxWidth:900,width:'100%',textAlign:'center'}}>
-            <div style={{fontSize:'0.65rem',letterSpacing:3,textTransform:'uppercase',color:'#7BAE49',marginBottom:'1rem',fontWeight:600}}>Elige tu personaje</div>
-            <h2 className="hero-title" style={{fontFamily:"'Playfair Display',serif",fontSize:'2rem',color:'#F4F6E7',fontWeight:700,marginBottom:'2rem'}}>¿Con cuál deseas participar?</h2>
+            <div style={{fontSize:'0.65rem',letterSpacing:3,textTransform:'uppercase',color:'#0b5640',marginBottom:'1rem',fontWeight:600}}>Elige tu personaje</div>
+            <h2 className="hero-title" style={{fontSize:'2rem',color:'#0b5640',fontWeight:700,marginBottom:'2rem'}}>¿Con cuál deseas participar?</h2>
             <div className="selection-grid" style={{marginBottom:'2rem'}}>
               {CHARACTERS.map(char=>(
                 <div key={char.id} onClick={()=>{setPc({...char, fullName:'', jobTitle:'', company:''});setScreen('info');}} className="character-card" style={{padding:'2rem',cursor:'pointer',display:'flex',flexDirection:'column',alignItems:'center',gap:'1rem'}}>
@@ -694,7 +694,7 @@ export default function ETHOSFERA() {
                     <img src={char.avatar} alt={char.name} style={{width:'100%',height:'100%',objectFit:'cover'}} />
                   </div>
                   <div style={{textAlign:'center'}}>
-                    <div style={{fontSize:'1.1rem',fontWeight:700,color:'#F4F6E7'}}>{char.name}</div>
+                    <div style={{fontSize:'1.1rem',fontWeight:700,color:'#000000'}}>{char.name}</div>
                   </div>
                 </div>
               ))}
@@ -705,25 +705,25 @@ export default function ETHOSFERA() {
 
       {/* ── INFO ── */}
       {screen==='info'&&pc&&(
-        <div style={{minHeight:'100vh',background:'#0D0D14',padding:'2rem',display:'flex',alignItems:'center',justifyContent:'center',overflowY:'auto'}}>
+        <div style={{minHeight:'100vh',background:'#ffffff',padding:'2rem',display:'flex',alignItems:'center',justifyContent:'center',overflowY:'auto'}}>
           <div style={{display:'grid',gridTemplateColumns:'220px 1fr',gap:'3rem',maxWidth:780,width:'100%',alignItems:'start'}}>
             <div style={{display:'flex',flexDirection:'column',alignItems:'center',gap:'0.5rem',position:'sticky',top:'2rem'}}>
-              <div style={{width:180,height:220,background:'linear-gradient(170deg,#0D1522,#101A0F,#1A1209)',border:'1px solid rgba(201,168,76,0.35)',borderRadius:10,display:'flex',alignItems:'center',justifyContent:'center',paddingBottom:0,overflow:'hidden',boxShadow:'0 16px 48px rgba(0,0,0,0.65)'}}>
+              <div style={{width:180,height:220,background:'#f6fcf8',border:'1px solid rgba(11,86,64,0.15)',borderRadius:10,display:'flex',alignItems:'center',justifyContent:'center',paddingBottom:0,overflow:'hidden',boxShadow:'0 8px 24px rgba(0,0,0,0.08)'}}>
                 <img src={pc.avatar} alt={pc.name} style={{width:'100%',height:'100%',objectFit:'cover'}} />
               </div>
-              <div style={{color:'#C9A84C',fontSize:'0.78rem',fontWeight:500,letterSpacing:1}}>{pc.name}</div>
+              <div style={{color:'#0b5640',fontSize:'0.78rem',fontWeight:500,letterSpacing:1}}>{pc.name}</div>
             </div>
             <div>
-              <div style={{fontSize:'0.65rem',letterSpacing:3,textTransform:'uppercase',color:'#C9A84C',marginBottom:'1.5rem',fontWeight:600}}>Información de participante</div>
+              <div style={{fontSize:'0.65rem',letterSpacing:3,textTransform:'uppercase',color:'#0b5640',marginBottom:'1.5rem',fontWeight:600}}>Información de participante</div>
               {[['Nombre Completo','fullName','Tu nombre y apellidos'],['Cargo','jobTitle','Tu cargo u posición'],['Organización (opcional)','company','Tu empresa u organización']].map(([label,field,ph])=>(
                 <div key={field} style={{marginBottom:'1.3rem'}}>
-                  <h3 style={{fontFamily:"'Playfair Display',serif",color:'#F5F0E8',fontSize:'0.95rem',fontWeight:700,marginBottom:'0.6rem'}}>{label}</h3>
-                  <input placeholder={ph} value={pc[field]||''} onChange={e=>setPc(p=>({...p,[field]:e.target.value}))} style={{background:'rgba(245,240,232,0.07)',border:'1px solid rgba(201,168,76,0.22)',borderRadius:2,padding:'0.6rem 0.9rem',color:'#F5F0E8',fontFamily:'inherit',fontSize:'0.88rem',width:'100%',outline:'none'}}/>
+                  <h3 style={{color:'#0b5640',fontSize:'0.95rem',fontWeight:700,marginBottom:'0.6rem'}}>{label}</h3>
+                  <input placeholder={ph} value={pc[field]||''} onChange={e=>setPc(p=>({...p,[field]:e.target.value}))} style={{background:'#ffffff',border:'1px solid rgba(11,86,64,0.15)',borderRadius:2,padding:'0.6rem 0.9rem',color:'#000000',fontFamily:'inherit',fontSize:'0.88rem',width:'100%',outline:'none'}}/>
                 </div>
               ))}
               <div style={{display:'flex',gap:'0.8rem',flexWrap:'wrap',marginTop:'2rem'}}>
                 <button onClick={()=>{if(!pc.fullName||!pc.fullName.trim()){alert('Por favor completa al menos tu nombre.');return;}setScreen('modules');}} style={{background:'#C9A84C',color:'#0D0D14',padding:'0.78rem 1.9rem',borderRadius:2,fontWeight:600,fontSize:'0.88rem',border:'none',cursor:'pointer'}}>Continuar →</button>
-                <button onClick={()=>setScreen('character-select')} style={{background:'transparent',border:'1px solid rgba(245,240,232,0.14)',color:'rgba(245,240,232,0.45)',padding:'0.72rem 1.5rem',borderRadius:2,fontSize:'0.82rem',cursor:'pointer',fontFamily:'inherit'}}>← Cambiar personaje</button>
+                <button onClick={()=>setScreen('character-select')} style={{background:'transparent',border:'1px solid rgba(11,86,64,0.15)',color:'#0b5640',padding:'0.72rem 1.5rem',borderRadius:2,fontSize:'0.82rem',cursor:'pointer',fontFamily:'inherit'}}>← Cambiar personaje</button>
               </div>
             </div>
           </div>
