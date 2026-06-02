@@ -473,6 +473,20 @@ export default function ETHOSFERA() {
     alert('Escenario agregado exitosamente');
   };
 
+  const addExistingScenarioToModule = (targetModuleIdx, sourceModuleIdx, scenarioIdx) => {
+    if (targetModuleIdx === sourceModuleIdx) return;
+    const sourceScenario = modules[sourceModuleIdx].scenarios[scenarioIdx];
+    const updated = [...modules];
+    const targetModule = updated[targetModuleIdx];
+    if (targetModule.scenarios.some(s => s.tag === sourceScenario.tag && s.title === sourceScenario.title)) {
+      alert('Este juego ya existe en el módulo seleccionado');
+      return;
+    }
+    targetModule.scenarios = [...targetModule.scenarios, { ...sourceScenario }];
+    updateModules(updated);
+    alert(`Juego "${sourceScenario.tag || sourceScenario.title}" agregado al módulo "${targetModule.title}"`);
+  };
+
   const resetForm = () => {
     setFormData({
       moduleIcon: '📋',
@@ -517,6 +531,12 @@ export default function ETHOSFERA() {
   const toggleScenarioVisibility = (moduleIdx, scenarioIdx) => {
     const updated = [...modules];
     updated[moduleIdx].scenarios[scenarioIdx].showInGame = !updated[moduleIdx].scenarios[scenarioIdx].showInGame;
+    updateModules(updated);
+  };
+
+  const toggleModuleVisibility = (moduleIdx) => {
+    const updated = [...modules];
+    updated[moduleIdx].showInGame = !updated[moduleIdx].showInGame;
     updateModules(updated);
   };
 
@@ -599,6 +619,12 @@ export default function ETHOSFERA() {
   const currentMod = gs.currentModule!==null ? modules[gs.currentModule] : null;
   const currentScenarios = currentMod ? currentMod.scenarios.filter(sc => sc.showInGame !== false) : [];
   const currentSc = currentScenarios[gs.currentScenario] || null;
+  const availableScenarios = modules.flatMap((mod, midx) => mod.scenarios.map((sc, sidx) => ({
+    ...sc,
+    sourceModuleIdx: midx,
+    sourceModuleTitle: mod.title,
+    sourceScenarioIdx: sidx
+  })));
 
   return (
     <div style={{fontFamily:"'DM Sans',system-ui,sans-serif",width:'100%',minHeight:'100vh',background:'#0D0D14'}}>
@@ -826,6 +852,7 @@ export default function ETHOSFERA() {
                           <div style={{fontSize:'0.72rem',color:mod.showInGame ? '#C9A84C' : '#A9B9A7',marginTop:'0.25rem'}}>{mod.showInGame ? 'Visible en juegos' : 'Oculto en juegos'}</div>
                         </div>
                         <div style={{display:'flex',gap:'0.4rem',flexWrap:'wrap'}}>
+                          <button onClick={()=>toggleModuleVisibility(midx)} style={{background:'transparent',border:'1px solid rgba(255,255,255,0.14)',color:'#F4F6E7',padding:'0.4rem 0.65rem',fontSize:'0.72rem',borderRadius:3,cursor:'pointer'}}>{mod.showInGame ? 'Ocultar en juego' : 'Mostrar en juego'}</button>
                           <button onClick={()=>editModuleMeta(midx)} style={{background:'transparent',border:'1px solid rgba(255,255,255,0.14)',color:'#F4F6E7',padding:'0.4rem 0.65rem',fontSize:'0.72rem',borderRadius:3,cursor:'pointer'}}>Editar</button>
                           <button onClick={()=>{setEditingModuleIdx(midx);setShowModuleForm(false);}} style={{background:'transparent',border:'1px solid rgba(255,255,255,0.14)',color:'#F4F6E7',padding:'0.4rem 0.65rem',fontSize:'0.72rem',borderRadius:3,cursor:'pointer'}}>+ Escenario</button>
                           <button onClick={()=>deleteModule(midx)} style={{background:'transparent',border:'1px solid rgba(255,100,100,0.4)',color:'#ff8b8b',padding:'0.4rem 0.65rem',fontSize:'0.72rem',borderRadius:3,cursor:'pointer'}}>Eliminar</button>
@@ -1077,7 +1104,24 @@ export default function ETHOSFERA() {
                       </div>
                     ))}
                   </div>
-                  
+
+                  <div style={{marginBottom:'0.8rem',padding:'0.75rem',background:'rgba(255,255,255,0.03)',border:'1px solid rgba(74,106,184,0.2)',borderRadius:4}}>
+                    <h5 style={{color:'#4A6AB8',fontSize:'0.75rem',margin:'0 0 0.5rem'}}>Juegos disponibles para agregar</h5>
+                    {availableScenarios.filter(s => s.sourceModuleIdx !== editingModuleIdx).length === 0 ? (
+                      <div style={{color:'rgba(245,240,232,0.6)',fontSize:'0.72rem'}}>No hay juegos disponibles fuera de este módulo.</div>
+                    ) : (
+                      availableScenarios.filter(s => s.sourceModuleIdx !== editingModuleIdx).map((item) => (
+                        <div key={`${item.sourceModuleIdx}-${item.sourceScenarioIdx}`} style={{display:'flex',justifyContent:'space-between',alignItems:'center',gap:'0.6rem',marginBottom:'0.45rem',padding:'0.45rem',borderRadius:3,background:'rgba(10,18,28,0.4)',border:'1px solid rgba(255,255,255,0.08)'}}>
+                          <div>
+                            <div style={{fontSize:'0.72rem',color:'#F5F0E8'}}>🕹️ {item.tag || 'Juego'}: {item.title}</div>
+                            <div style={{fontSize:'0.63rem',color:'rgba(245,240,232,0.55)'}}>Desde módulo "{item.sourceModuleTitle}"</div>
+                          </div>
+                          <button onClick={() => addExistingScenarioToModule(editingModuleIdx, item.sourceModuleIdx, item.sourceScenarioIdx)} style={{background:'#4A6AB8',color:'#F5F0E8',border:'none',padding:'0.35rem 0.6rem',fontSize:'0.7rem',borderRadius:2,cursor:'pointer'}}>Agregar</button>
+                        </div>
+                      ))
+                    )}
+                  </div>
+
                   <div style={{display:'flex',gap:'0.4rem'}}>
                     <button onClick={()=>addScenarioToModule(editingModuleIdx)} style={{flex:1,background:'#4A6AB8',color:'#F5F0E8',padding:'0.4rem',fontSize:'0.7rem',borderRadius:2,border:'none',cursor:'pointer',fontWeight:600}}>Agregar Escenario</button>
                     <button onClick={()=>{setEditingModuleIdx(null);resetForm();}} style={{flex:1,background:'transparent',border:'1px solid rgba(74,106,184,0.5)',color:'rgba(74,106,184,0.8)',padding:'0.4rem',fontSize:'0.7rem',borderRadius:2,cursor:'pointer'}}>Cancelar</button>
