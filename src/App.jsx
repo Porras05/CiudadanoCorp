@@ -670,7 +670,7 @@ export default function ETHOSFERA() {
       {screen==='title'&&(
         <div style={{minHeight:'100vh',background:'#ffffff',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',padding:'2rem',textAlign:'center',animation:'fadeIn 0.5s ease'}}>
           <div style={{fontSize:'0.68rem',letterSpacing:4,textTransform:'uppercase',color:'#0b5640',marginBottom:'1rem',fontWeight:500}}>Herramienta de Capacitación</div>
-          <h1 style={{fontSize:'clamp(3rem,8vw,5.5rem)',color:'#000000',lineHeight:0.95,fontWeight:900,margin:'0 0 0.5rem'}}>ETHOSFERA</h1>
+          <h1 style={{fontSize:'clamp(3rem,8vw,5.5rem)',color:'#0b5640',lineHeight:0.95,fontWeight:900,margin:'0 0 0.5rem'}}>ETHOSFERA</h1>
           <p style={{fontSize:'0.9rem',color:'#018d38',fontWeight:600,marginBottom:'2rem',letterSpacing:1}}>Herramienta que forma líderes</p>
           <div style={{width:50,height:2,background:'#3af9a2',margin:'0 auto 1.2rem'}}/>
           <p style={{fontSize:'0.9rem',color:'#000000',lineHeight:1.7,maxWidth:450,marginBottom:'2rem'}}>Casos éticos reales en el contexto del Decreto 815. Desarrolla tu criterio de liderazgo a través de decisiones reflexivas.</p>
